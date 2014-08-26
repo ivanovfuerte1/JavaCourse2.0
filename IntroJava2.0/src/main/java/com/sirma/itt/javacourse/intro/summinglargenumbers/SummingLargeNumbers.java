@@ -9,6 +9,7 @@ package com.sirma.itt.javacourse.intro.summinglargenumbers;
 public class SummingLargeNumbers {
 
 	/**
+	 * 
 	 * Sums two large numbers given as strings.
 	 * 
 	 * @param firstLargeNumber
@@ -17,13 +18,17 @@ public class SummingLargeNumbers {
 	 *            the second number from the input
 	 * @return the sum of the large numbers
 	 */
-	public String sumLargeNumbers(String firstLargeNumber, String secondLargeNumber) {
+	public String sumLargeNumbers(final String firstLargeNumber, String secondLargeNumber) {
+		// XXX: comments!
 		String output = "";
+		// XXX: Comment! Why are you doing this?
 		if (firstLargeNumber.length() < secondLargeNumber.length()) {
 			return sumLargeNumbers(secondLargeNumber, firstLargeNumber);
 		} else {
+			// XXX: Why reverse the inputs? And if not using same variables why not define as final?
 			String reverseFirstNumber = new StringBuffer(firstLargeNumber).reverse().toString();
 			String reverseSecondNumber = new StringBuffer(secondLargeNumber).reverse().toString();
+			
 			int transfer = 0;
 			char[] digitsFirstNumber = reverseFirstNumber.toCharArray();
 			char[] digitsSecondNumber = reverseSecondNumber.toCharArray();
@@ -53,6 +58,16 @@ public class SummingLargeNumbers {
 			output = new StringBuffer(output).reverse().toString();
 			return output;
 		}
+	}
+	
+	public static void main(String[] args) {
+		SummingLargeNumbers summingLargeNumbers = new SummingLargeNumbers();
+		
+		System.out.println(summingLargeNumbers.sumLargeNumbers("9999", "9"));
+		
+		System.out.println(summingLargeNumbers.sumLargeNumbers("9999", "1"));
+		
+		System.out.println(summingLargeNumbers.sumLargeNumbers("00000", "1"));
 	}
 
 }

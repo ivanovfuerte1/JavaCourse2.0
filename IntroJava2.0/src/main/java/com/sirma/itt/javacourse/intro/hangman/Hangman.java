@@ -20,6 +20,8 @@ public class Hangman {
 	/**
 	 * Assigns data to the default object.
 	 * 
+	 * XXX: why is this named reader2?
+	 * 
 	 * @param reader2
 	 *            the reader for this answer
 	 * @param correctAnswer
@@ -57,6 +59,7 @@ public class Hangman {
 		int numberUsedLetters = 0;
 		Scanner scanner = null;
 		String[] usedLetters = new String[50];
+		// XXX: constant
 		while (numberCorrectGuesses < wordToGuess.length() && numberWrongGuesses < 6) {
 			System.out.println("Guess a letter: ");
 			scanner = new Scanner(System.in);
@@ -125,6 +128,8 @@ public class Hangman {
 	}
 
 	/**
+	 * XXX: main! Move to another class.
+	 * 
 	 * Plays with a word from the console input.
 	 * 
 	 * @param args
@@ -132,6 +137,7 @@ public class Hangman {
 	 */
 	public static void main(String[] args) {
 		new Hangman(new ConsoleDataReader(), wordToGuess).play();
+		// Hangman hangman = new Hangman(new ConsoleDataReader(), "alabala");
 	}
 
 	/**
