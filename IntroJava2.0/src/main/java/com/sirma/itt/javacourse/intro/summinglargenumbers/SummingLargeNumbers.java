@@ -9,7 +9,6 @@ package com.sirma.itt.javacourse.intro.summinglargenumbers;
 public class SummingLargeNumbers {
 
 	/**
-	 * 
 	 * Sums two large numbers given as strings.
 	 * 
 	 * @param firstLargeNumber
@@ -18,56 +17,44 @@ public class SummingLargeNumbers {
 	 *            the second number from the input
 	 * @return the sum of the large numbers
 	 */
-	public String sumLargeNumbers(final String firstLargeNumber, String secondLargeNumber) {
-		// XXX: comments!
+	public String sumLargeNumbers(final String firstLargeNumber, final String secondLargeNumber) {
+		// A string is initialized as an empty string in order to concatenate the consecutive digits
+		// to it.
 		String output = "";
-		// XXX: Comment! Why are you doing this?
+		// The algorithm that follows this verification works only for smaller or equal in length
+		// second large number. For this reason the possibility of having second integer with bigger
+		// length is processed by recursively calling the method for summing large numbers with
+		// swapped the values.
 		if (firstLargeNumber.length() < secondLargeNumber.length()) {
 			return sumLargeNumbers(secondLargeNumber, firstLargeNumber);
 		} else {
-			// XXX: Why reverse the inputs? And if not using same variables why not define as final?
-			String reverseFirstNumber = new StringBuffer(firstLargeNumber).reverse().toString();
-			String reverseSecondNumber = new StringBuffer(secondLargeNumber).reverse().toString();
-			
 			int transfer = 0;
-			char[] digitsFirstNumber = reverseFirstNumber.toCharArray();
-			char[] digitsSecondNumber = reverseSecondNumber.toCharArray();
+			char[] digitsFirstNumber = firstLargeNumber.toCharArray();
+			char[] digitsSecondNumber = secondLargeNumber.toCharArray();
 			int currentDigitFirstNumber;
 			int currentDigitSecondNumber;
 			int tempSum;
 
-			for (int i = 0; i < digitsSecondNumber.length; i++) {
-				currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i]);
+			for (int i = digitsSecondNumber.length - 1; i >= 0; i--) {
+				currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i
+						+ digitsFirstNumber.length - digitsSecondNumber.length]);
 				currentDigitSecondNumber = Character.getNumericValue(digitsSecondNumber[i]);
 				tempSum = currentDigitFirstNumber + currentDigitSecondNumber + transfer;
-				output += tempSum % 10;
+				output = tempSum % 10 + output;
 				transfer = tempSum / 10;
 			}
 			if (secondLargeNumber.length() < firstLargeNumber.length()) {
-				for (int i = digitsSecondNumber.length; i < digitsFirstNumber.length; i++) {
+				for (int i = digitsFirstNumber.length - digitsSecondNumber.length; i > 0; i--) {
 					currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i]);
 					tempSum = currentDigitFirstNumber + transfer;
-					output += tempSum % 10;
+					output = tempSum % 10 + output;
 					transfer = tempSum / 10;
 				}
-			} else {
-				if (transfer > 0) {
-					output += transfer;
-				}
 			}
-			output = new StringBuffer(output).reverse().toString();
+			if (transfer > 0) {
+				output = transfer + output;
+			}
 			return output;
 		}
 	}
-	
-	public static void main(String[] args) {
-		SummingLargeNumbers summingLargeNumbers = new SummingLargeNumbers();
-		
-		System.out.println(summingLargeNumbers.sumLargeNumbers("9999", "9"));
-		
-		System.out.println(summingLargeNumbers.sumLargeNumbers("9999", "1"));
-		
-		System.out.println(summingLargeNumbers.sumLargeNumbers("00000", "1"));
-	}
-
 }

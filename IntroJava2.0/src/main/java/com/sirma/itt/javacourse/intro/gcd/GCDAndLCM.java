@@ -1,7 +1,5 @@
 package com.sirma.itt.javacourse.intro.gcd;
 
-// In the task has been used the hint given in the condition. Otherwise there are better solutions
-// of the problem.
 /**
  * The GCDAndLCM class contains methods for finding the greatest common divisor and the least common
  * multiple.

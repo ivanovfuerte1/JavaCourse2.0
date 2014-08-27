@@ -8,11 +8,29 @@ package com.sirma.itt.javacourse.intro.randomstrings;
  * @version 2.0
  */
 public class RandomStrings {
+	/**
+	 * The constant value of this field represents the first uppercase.
+	 */
 	private static final char FIRST_UPPERCASE = 'A';
+	/**
+	 * The constant value of this field represents the first lowercase.
+	 */
 	private static final char FIRST_LOWERCASE = 'a';
+	/**
+	 * The total number of characters permitted.
+	 */
 	private static final char TOTAL_NUMBER_CHARACTERS = 62;
+	/**
+	 * The total number of letters permitted.
+	 */
 	private static final char TOTAL_NUMBER_LETTERS = 52;
+	/**
+	 * The number of letters in each case.
+	 */
 	private static final char NUMBER_LETTERS_PER_CASE = 26;
+	/**
+	 * The constant value of this field represents the first digit - zero.
+	 */
 	private static final char FIRST_DIGIT = 48;
 
 	/**
@@ -23,17 +41,17 @@ public class RandomStrings {
 	 * cyclically to empty or already generated part of the string until it reaches the given
 	 * length.
 	 * 
-	 * @param length
+	 * @param lengthOfString
 	 *            the length of the string
 	 * @return the generated string
 	 */
-	public String generateString(int length) {
+	public String generateString(int lengthOfString) {
 		int baseLetterEachCase;
 		char currentCharacter;
 		int randomIndex;
 		String output = "";
 
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < lengthOfString; i++) {
 			randomIndex = (int) (Math.random() * TOTAL_NUMBER_CHARACTERS);
 			if (randomIndex < TOTAL_NUMBER_LETTERS) {
 				baseLetterEachCase = (randomIndex < NUMBER_LETTERS_PER_CASE) ? FIRST_UPPERCASE

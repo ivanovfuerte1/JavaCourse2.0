@@ -28,10 +28,9 @@ public class HangmanTest {
 	@Test
 	public void testPlayWithWrongData() {
 		Hangman hangman = new Hangman(new TestDataReader("Answer"), correctAnswer);
-		int i;
 		int wrongAnswers = 0;
 		boolean result = true;
-		for (i = 1; i < letterToSearch.length && i < (correctAnswer.length() + 5); i++) {
+		for (int i = 1; i < letterToSearch.length && i < (correctAnswer.length() + 5); i++) {
 			if (!hangman.letterSearcher(correctAnswer, letterToSearch[i])) {
 				wrongAnswers++;
 			}

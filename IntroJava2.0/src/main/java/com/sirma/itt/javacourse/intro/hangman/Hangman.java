@@ -11,24 +11,31 @@ import java.util.Scanner;
  * @version 2.0
  */
 public class Hangman {
-	private DataReader reader2;
+	/**
+	 * The constant value of this field represents the maximum of wrong letter choices permitted. If
+	 * the player exceeds this maximum he or she loses the game.
+	 */
+	private static final int MAXIMUM_WRONG_CHOICES = 5;
+	private DataReader reader;
 	private String correctAnswer;
-	private static String wordToGuess = "car";
+	private static String wordToGuess = "java";
+	private static Character[] userInterface = new Character[] { 'j', 'a', 'v', 'a' };
+	private static Character[] wordToDisplay = new Character[] { '_', '_', '_', '_' };
 	private int numberCorrectGuesses;
 	private int numberWrongGuesses;
+	private int numberUsedLetters = 0;
+	private String[] usedLetters = new String[50];
 
 	/**
 	 * Assigns data to the default object.
 	 * 
-	 * XXX: why is this named reader2?
-	 * 
-	 * @param reader2
+	 * @param reader
 	 *            the reader for this answer
 	 * @param correctAnswer
 	 *            a correct answer
 	 */
-	public Hangman(DataReader reader2, String correctAnswer) {
-		this.reader2 = reader2;
+	public Hangman(DataReader reader, String correctAnswer) {
+		this.reader = reader;
 		this.correctAnswer = correctAnswer;
 	}
 
@@ -38,7 +45,7 @@ public class Hangman {
 	 * @return true in case the answer is correct and false otherwise
 	 */
 	public boolean play() {
-		String data = reader2.readString();
+		String data = reader.readString();
 		if (correctAnswer.equals(data)) {
 			System.out.println("Your guess is correct!");
 			return true;
@@ -56,43 +63,40 @@ public class Hangman {
 	 */
 	public boolean wordChecker(String wordToGuess) {
 		String letter;
-		int numberUsedLetters = 0;
 		Scanner scanner = null;
-		String[] usedLetters = new String[50];
-		// XXX: constant
-		while (numberCorrectGuesses < wordToGuess.length() && numberWrongGuesses < 6) {
+
+		while (numberCorrectGuesses < wordToGuess.length()
+				&& numberWrongGuesses <= MAXIMUM_WRONG_CHOICES) {
 			System.out.println("Guess a letter: ");
+			for (int i = 0; i < wordToDisplay.length; i++) {
+				System.out.print(" " + wordToDisplay[i] + " ");
+			}
+			System.out.println();
 			scanner = new Scanner(System.in);
 			letter = scanner.nextLine();
-			String pattern = "[^a-z]{1}";
-			if (letter.matches(pattern)) {
+			if (correctAnswer.equals(letter)) {
+				System.out.println("Your guess is correct!");
 				scanner.close();
+				return true;
+			}
+			String pattern = "[^a-z]{1}";
+			if (letter.matches(pattern) || letter.length() != 1) {
 				System.out.println("The character you entered is not in valid format!");
-				return false;
+				continue;
 			}
-			for (int i = 0; i < numberUsedLetters; i++) {
-				if (letter.equalsIgnoreCase(usedLetters[numberUsedLetters - 1])) {
-					System.out
-							.println("You're repeating letters. You're trying to cheat. You lost! ");
-					scanner.close();
-					return false;
-				}
-			}
-			usedLetters[numberUsedLetters] = letter;
-			numberUsedLetters++;
 			letterSearcher(wordToGuess, letter);
 		}
+		for (int i = 0; i < wordToDisplay.length; i++) {
+			System.out.print(" " + wordToDisplay[i] + " ");
+		}
+		System.out.println();
 		if (numberCorrectGuesses == wordToGuess.length()) {
 			System.out.println("You won! :)");
 			return true;
-		} else if (wordToGuess.length() == 0) {
-			System.out.println("Enter some word!");
 		} else {
 			System.out.println("You lost! :(");
 			return false;
 		}
-		scanner.close();
-		return false;
 	}
 
 	/**
@@ -106,6 +110,15 @@ public class Hangman {
 	 */
 
 	public boolean letterSearcher(String line, String letterToCheck) {
+		for (int k = 0; k < numberUsedLetters; k++) {
+			if (letterToCheck.equalsIgnoreCase(usedLetters[k])) {
+				System.out.println("You're repeating letters.");
+				return false;
+			}
+		}
+		usedLetters[numberUsedLetters] = letterToCheck;
+		numberUsedLetters++;
+
 		int counter = 0;
 		int i = 0;
 		int j = 0;
@@ -113,7 +126,11 @@ public class Hangman {
 			i = line.indexOf(letterToCheck, j);
 			if (i >= 0) {
 				counter++;
-				System.out.println("The letter is at " + i + " position.");
+				for (int m = 0; m < userInterface.length; m++) {
+					if (letterToCheck.charAt(0) != userInterface[m]) {
+						wordToDisplay[i] = userInterface[i];
+					}
+				}
 			} else if (counter == 0) {
 				System.out.println("Wrong Guess! :( ");
 				numberWrongGuesses++;
@@ -125,19 +142,6 @@ public class Hangman {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * XXX: main! Move to another class.
-	 * 
-	 * Plays with a word from the console input.
-	 * 
-	 * @param args
-	 *            default arguments
-	 */
-	public static void main(String[] args) {
-		new Hangman(new ConsoleDataReader(), wordToGuess).play();
-		// Hangman hangman = new Hangman(new ConsoleDataReader(), "alabala");
 	}
 
 	/**

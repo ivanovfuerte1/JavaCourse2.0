@@ -10,7 +10,6 @@ import org.junit.Test;
  * @author Svetlosar Kovatchev
  * @version 2.0
  */
-
 public class ArrayMedianTest {
 
 	/**

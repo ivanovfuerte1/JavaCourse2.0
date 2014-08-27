@@ -16,36 +16,31 @@ public class ArrayMedian {
 	 * @return the median of the array
 	 */
 	public int findArraysMedian(int[] array) {
-		// XXX: algorithm can be optimized.
 		if (array.length < 1) {
 			throw new IllegalArgumentException("The array has no elements");
 		}
-		// XXX: Variable names leftPart what?
-		int leftPart;
-		int rightPart;
+		int sumLeftPartElements = 0;
+		int sumRightPartElements;
 		int difference;
 		int minDifference = Integer.MAX_VALUE;
-		// XXX: variable name, do you really return the median element?
-		int medianElement = 0;
+		int indexMedidianElement = 0;
 		int sum = 0;
 
 		for (int i = 0; i < array.length; i++) {
 			sum += array[i];
 		}
+		sumRightPartElements = sum;
 		for (int i = 0; i < array.length; i++) {
-			leftPart = 0;
-			rightPart = 0;
-			for (int j = 0; j < i; j++) {
-				leftPart += array[j];
-			}
-			rightPart = sum - leftPart - array[i];
-			difference = Math.abs(leftPart - rightPart);
+			sumLeftPartElements = (i != 0) ? (sumLeftPartElements + array[i - 1]) : 0;
+			sumRightPartElements -= array[i];
+			sumRightPartElements = sum - sumLeftPartElements - array[i];
+			difference = Math.abs(sumLeftPartElements - sumRightPartElements);
 			if (difference < minDifference) {
 				minDifference = difference;
-				medianElement = i + 1;
+				indexMedidianElement = i + 1;
 			}
 		}
-		return medianElement;
+		return indexMedidianElement;
 	}
 
 }

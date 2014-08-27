@@ -1,6 +1,6 @@
 package com.sirma.itt.javacourse.intro.quicksort;
 
-import com.sirma.itt.javacourse.intro.arraymedian.ArrayMedian;
+import java.util.Arrays;
 
 /**
  * The class QuickSort contains methods for sorting an array by quicksort.
@@ -8,13 +8,13 @@ import com.sirma.itt.javacourse.intro.arraymedian.ArrayMedian;
  * @author Svetlosar Kovatchev
  * @version 2.0
  */
-public class QuickSort extends ArrayMedian {
+public class QuickSort {
 	private int[] numbers;
 	private int number;
 
 	/**
-	 * Checks for empty array and copies the values of the array into the
-	 * default object in order to sort them.
+	 * Checks for empty array and copies the values of the array into the default object in order to
+	 * sort them.
 	 * 
 	 * @param values
 	 *            the array of values for sorting
@@ -29,27 +29,22 @@ public class QuickSort extends ArrayMedian {
 	}
 
 	/**
-	 * Sorts the array by quicksort. It uses the algorithm divide and conquer. A
-	 * pivot is being selected to divide the array into two parts. The first one
-	 * contains values smaller than the pivot and the other - the rest. The
-	 * division is recursive.
+	 * Sorts the array by quicksort. It uses the algorithm divide and conquer. A pivot is being
+	 * selected to divide the array into two parts. The first one contains values smaller than the
+	 * pivot and the other - the rest. The division is recursive.
 	 * 
 	 * @param left
-	 *            the leftmost element of the array presented as a horizontal
-	 *            set of values
+	 *            the leftmost element of the array presented as a horizontal set of values
 	 * @param right
-	 *            the rightmost element of the array presented as a horizontal
-	 *            set of values
+	 *            the rightmost element of the array presented as a horizontal set of values
 	 */
 	private void quicksort(int left, int right) {
 		int i = left;
 		int j = right;
-		// XXX: Why choose this pivot?
-		// The pivot is chosen to be the median amongst the first, middle and
-		// last element
-		int[] arrayToChosePivot = new int[] { numbers[left],
-				numbers[left + (right - left) / 2], numbers[right] };
-		int pivot = arrayToChosePivot[findArraysMedian(arrayToChosePivot) - 1];
+		int[] arrayToChosePivot = new int[] { numbers[left], numbers[left + (right - left) / 2],
+				numbers[right] };
+		Arrays.sort(arrayToChosePivot);
+		int pivot = arrayToChosePivot[1];
 		while (i <= j) {
 			while (numbers[i] < pivot) {
 				i++;
@@ -58,8 +53,10 @@ public class QuickSort extends ArrayMedian {
 				j--;
 			}
 			if (i <= j) {
-				// 
-				exchange(i, j);
+				// Swaps the values when they are not in the correct place. It means values smaller
+				// than the pivot should stay on its left and greater values on its right in an
+				// array presented as a horizontal set of values.
+				swapElements(i, j);
 				i++;
 				j--;
 			}
@@ -73,24 +70,16 @@ public class QuickSort extends ArrayMedian {
 	}
 
 	/**
-	 * XXX: you use swap as comment but "exchange" as method name, why not
-	 * change it to swapElements or swap? 
+	 * Swaps two values of an array.
 	 * 
-	 * Swaps the values when they are not in
-	 * the correct place. It means values smaller than the pivot should stay on
-	 * its left and greater values on its right in an array presented as a
-	 * horizontal set of values.
-	 * 
-	 * @param i
-	 * 			  XXX: comments?
-	 *            a value greater than the pivot (before swapping)
-	 * @param j
-	 *            XXX: comments?
-	 *            a value smaller than the pivot (before swapping)
+	 * @param firstValue
+	 *            the first value (before swapping)
+	 * @param secondValue
+	 *            the second value (before swapping)
 	 */
-	private void exchange(int i, int j) {
-		int temp = numbers[i];
-		numbers[i] = numbers[j];
-		numbers[j] = temp;
+	private void swapElements(int firstValue, int secondValue) {
+		int temp = numbers[firstValue];
+		numbers[firstValue] = numbers[secondValue];
+		numbers[secondValue] = temp;
 	}
 }
