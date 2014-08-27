@@ -45,7 +45,7 @@ public class SummingLargeNumbers {
 			}
 			if (secondLargeNumber.length() < firstLargeNumber.length()) {
 				for (int i = digitsFirstNumber.length - digitsSecondNumber.length; i > 0; i--) {
-					currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i]);
+					currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i - 1]);
 					tempSum = currentDigitFirstNumber + transfer;
 					output = tempSum % 10 + output;
 					transfer = tempSum / 10;
