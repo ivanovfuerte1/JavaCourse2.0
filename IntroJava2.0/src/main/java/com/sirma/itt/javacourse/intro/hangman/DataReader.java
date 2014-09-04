@@ -5,7 +5,7 @@ package com.sirma.itt.javacourse.intro.hangman;
  * in order to have input from different sources.
  * 
  * @author Svetlosar Kovatchev
- * @version 2.0
+ * @version 3.0
  */
 public interface DataReader {
 
@@ -14,5 +14,5 @@ public interface DataReader {
 	 * 
 	 * @return the string from the input
 	 */
-	String readString();
+	String readUserInput();
 }

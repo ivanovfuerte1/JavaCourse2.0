@@ -19,28 +19,29 @@ public class ArrayMedian {
 		if (array.length < 1) {
 			throw new IllegalArgumentException("The array has no elements");
 		}
-		int sumLeftPartElements = 0;
-		int sumRightPartElements;
+		int leftSum = 0;
+		int rightSum;
 		int difference;
-		int minDifference = Integer.MAX_VALUE;
+		int minDifference;
 		int indexMedidianElement = 0;
 		int sum = 0;
 
 		for (int i = 0; i < array.length; i++) {
 			sum += array[i];
 		}
-		sumRightPartElements = sum;
-		for (int i = 0; i < array.length; i++) {
-			sumLeftPartElements = (i != 0) ? (sumLeftPartElements + array[i - 1]) : 0;
-			sumRightPartElements -= array[i];
-			sumRightPartElements = sum - sumLeftPartElements - array[i];
-			difference = Math.abs(sumLeftPartElements - sumRightPartElements);
+		rightSum = sum;
+		minDifference = Math.abs(sum - array[0]);
+		rightSum -= array[0];
+		for (int i = 1; i < array.length; i++) {
+			leftSum = leftSum + array[i - 1];
+			rightSum -= array[i];
+			difference = Math.abs(leftSum - rightSum);
 			if (difference < minDifference) {
 				minDifference = difference;
-				indexMedidianElement = i + 1;
+				indexMedidianElement = i;
 			}
 		}
-		return indexMedidianElement;
+		return ++indexMedidianElement;
 	}
 
 }

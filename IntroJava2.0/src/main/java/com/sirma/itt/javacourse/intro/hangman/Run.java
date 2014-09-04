@@ -4,7 +4,7 @@ package com.sirma.itt.javacourse.intro.hangman;
  * The class Run contains method for playing the game Hangman from the console.
  * 
  * @author Svetlosar Kovatchev
- * @version 2.0
+ * @version 3.0
  */
 public final class Run {
 	/**
@@ -20,7 +20,8 @@ public final class Run {
 	 * @param args
 	 *            default arguments
 	 */
-	public static void main(String[] args) {
-		new Hangman(new ConsoleDataReader(), "java").play();
+	public static void main(String... args) {
+		Hangman hangman = new Hangman(new ConsoleDataReader(), "deer");
+		hangman.play();
 	}
 }
