@@ -3,6 +3,8 @@ package com.sirma.itt.javacourse.objects.hierarchyfigures;
 /**
  * The class Curve contains methods for drawing, moving, resizing and erasing ellipses.
  * 
+ * XXX: wtf?
+ * 
  * @author Svetlosar Kovatchev
  * @version 1.0
  */

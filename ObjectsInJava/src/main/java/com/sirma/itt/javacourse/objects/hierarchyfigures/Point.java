@@ -1,6 +1,8 @@
 package com.sirma.itt.javacourse.objects.hierarchyfigures;
 
 /**
+ * XXX: Is this an interface?
+ * 
  * The interface Point gives the basic fields and methods for the rest of classes.
  * 
  * @author Svetlosar Kovatchev
@@ -13,19 +15,20 @@ public class Point extends Figure {
 	/**
 	 * Moves the object to the destination by the coordinates of its center or beginning point.
 	 */
+	// XXX: why no access modifier?
 	void moveTo() {
 	}
 
 	/**
 	 * Erases the object.
 	 */
+	// XXX: why no access modifier?
 	void erase() {
 	}
 
 	@Override
 	void draw() {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**

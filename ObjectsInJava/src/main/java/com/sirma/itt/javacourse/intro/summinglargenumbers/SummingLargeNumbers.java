@@ -20,6 +20,7 @@ public class SummingLargeNumbers {
 	public String sumLargeNumbers(final String firstLargeNumber, final String secondLargeNumber) {
 		// A string is initialized as an empty string in order to concatenate the consecutive digits
 		// to it.
+		// XXX: Why do you use String what else can you use that can be more effective? 
 		String output = "";
 		// The algorithm that follows this verification works only for smaller or equal in length
 		// second large number. For this reason the possibility of having second integer with bigger
@@ -56,5 +57,12 @@ public class SummingLargeNumbers {
 			}
 			return output;
 		}
+	}
+	
+	public static void main(String[] args) {
+		SummingLargeNumbers sum = new SummingLargeNumbers();
+		// XXX: trim leading zeros.
+		String result = sum.sumLargeNumbers("0000000000009", "9999");
+		System.out.println(result);
 	}
 }

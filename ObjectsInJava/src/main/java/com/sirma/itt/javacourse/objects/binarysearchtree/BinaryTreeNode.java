@@ -10,6 +10,7 @@ package com.sirma.itt.javacourse.objects.binarysearchtree;
 public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<BinaryTreeNode<T>> {
 	// Contains the value of the node
 	private T value;
+	// XXX: why keep parent?!
 	// Contains the parent of the node
 	private BinaryTreeNode<T> parent;
 	// Contains the left child of the node
@@ -40,6 +41,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<Binar
 		return this.value.hashCode();
 	}
 
+	// XXX: what does the unchecked warning mean?
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
