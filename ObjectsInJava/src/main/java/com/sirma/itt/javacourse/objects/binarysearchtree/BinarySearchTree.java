@@ -43,6 +43,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	/**
 	 * Inserts node in the binary search tree by given value.
 	 * 
+	 * XXX: remove 1 arg, no need for two.
+	 * 
 	 * @param value
 	 *            the new value.
 	 * @param parentNode
@@ -55,7 +57,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		if (node == null) {
 			node = new BinaryTreeNode<T>(value);
 			node.setParent(parentNode);
-
+			// XXX: remove?
 			if (parentNode != null) {
 			}
 		} else {
@@ -72,6 +74,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * XXX: add preOrder and postOrder
+	 * 
 	 * Searches for a value in a binary tree and returns a boolean result of the search.
 	 * 
 	 * @param root
@@ -102,14 +106,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * @param root
 	 *            - the binary tree to be traversed.
 	 */
-	private void inOrder(BinaryTreeNode<T> root) {
+	private void traverseInOrder(BinaryTreeNode<T> root) {
 		if (root == null) {
 			return;
 		}
-		inOrder(root.getLeftChild());
+		traverseInOrder(root.getLeftChild());
 		System.out.print(root.getValue() + " ");
 		stringCollection.add(root.getValue().toString());
-		inOrder(root.getRightChild());
+		traverseInOrder(root.getRightChild());
 	}
 
 	/**
@@ -139,7 +143,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * Traverses and prints the binary tree in in-order manner.
 	 */
 	public void printInOrder() {
-		inOrder(this.getRoot());
+		traverseInOrder(this.getRoot());
 		System.out.println();
 	}
 

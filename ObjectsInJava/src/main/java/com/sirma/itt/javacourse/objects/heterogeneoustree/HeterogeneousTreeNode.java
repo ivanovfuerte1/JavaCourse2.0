@@ -7,10 +7,11 @@ package com.sirma.itt.javacourse.objects.heterogeneoustree;
  * @version 1.0
  */
 public class HeterogeneousTreeNode
-/* <T extends Comparable<T>> implement Comparable<HeterogeneousTreeNode<T>> */
+/* XXX: do not leave commented code! <T extends Comparable<T>> implement Comparable<HeterogeneousTreeNode<T>> */
 {
 	// Contains the value of the node
 	private Object value;
+	// XXX: why keep parent?
 	// Contains the parent of the node
 	private HeterogeneousTreeNode parent;
 	// Contains the left child of the node

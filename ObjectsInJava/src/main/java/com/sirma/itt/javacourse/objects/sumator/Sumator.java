@@ -92,6 +92,7 @@ public class Sumator extends SummingLargeNumbers {
 	 * @param b
 	 *            the second big decimal
 	 * @return the resulting sum of both big decimals
+	 * 
 	 */
 	public BigDecimal sum(BigDecimal a, BigDecimal b) {
 		String firstBigDecimalString = a.toString();
