@@ -1,34 +1,29 @@
 package com.sirma.itt.javacourse.objects.hierarchyfigures;
 
 /**
- * XXX: Is this an interface?
- * 
- * The interface Point gives the basic fields and methods for the rest of classes.
+ * The class Point contains methods for drawing, moving and erasing circles.
  * 
  * @author Svetlosar Kovatchev
  * @version 1.0
  */
 public class Point extends Figure {
 	private int xCoordinate;
-	private int yCoordinate = 0;
+	private int yCoordinate;
 
 	/**
 	 * Moves the object to the destination by the coordinates of its center or beginning point.
 	 */
-	// XXX: why no access modifier?
-	void moveTo() {
+	protected void moveTo() {
 	}
 
 	/**
 	 * Erases the object.
 	 */
-	// XXX: why no access modifier?
-	void erase() {
+	protected void erase() {
 	}
 
 	@Override
-	void draw() {
-		// TODO Auto-generated method stub
+	protected void draw() {
 	}
 
 	/**

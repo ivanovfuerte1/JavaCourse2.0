@@ -8,23 +8,20 @@ package com.sirma.itt.javacourse.objects.hierarchyfigures;
  */
 public class Circle extends Point {
 	private Point center = null;
-	private int radius = 0;
+	private int majorAxis = 0;
 
 	@Override
-	public void moveTo() {
-		// TODO Auto-generated method stub
+	protected void moveTo() {
 
 	}
 
 	@Override
-	public void erase() {
-		// TODO Auto-generated method stub
+	protected void erase() {
 
 	}
 
 	@Override
-	void draw() {
-		// TODO Auto-generated method stub
+	protected void draw() {
 
 	}
 
@@ -53,7 +50,7 @@ public class Circle extends Point {
 	 * @return the radius of the circle
 	 */
 	public int getRadius() {
-		return radius;
+		return majorAxis;
 	}
 
 	/**
@@ -63,7 +60,7 @@ public class Circle extends Point {
 	 *            the radius of the circle
 	 */
 	public void setRadius(int radius) {
-		this.radius = radius;
+		this.majorAxis = radius;
 	}
 
 }

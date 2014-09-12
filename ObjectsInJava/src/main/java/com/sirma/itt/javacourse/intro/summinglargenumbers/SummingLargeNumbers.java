@@ -11,58 +11,51 @@ public class SummingLargeNumbers {
 	/**
 	 * Sums two large numbers given as strings.
 	 * 
-	 * @param firstLargeNumber
+	 * @param firstNumber
 	 *            the first number from the input
-	 * @param secondLargeNumber
+	 * @param secondNumber
 	 *            the second number from the input
 	 * @return the sum of the large numbers
 	 */
-	public String sumLargeNumbers(final String firstLargeNumber, final String secondLargeNumber) {
+	public String sumLargeNumbers(final String firstNumber, final String secondNumber) {
 		// A string is initialized as an empty string in order to concatenate the consecutive digits
 		// to it.
-		// XXX: Why do you use String what else can you use that can be more effective? 
-		String output = "";
+		StringBuilder output = new StringBuilder();
 		// The algorithm that follows this verification works only for smaller or equal in length
 		// second large number. For this reason the possibility of having second integer with bigger
 		// length is processed by recursively calling the method for summing large numbers with
 		// swapped the values.
-		if (firstLargeNumber.length() < secondLargeNumber.length()) {
-			return sumLargeNumbers(secondLargeNumber, firstLargeNumber);
+		if (firstNumber.length() < secondNumber.length()) {
+			return sumLargeNumbers(secondNumber, firstNumber);
 		} else {
 			int transfer = 0;
-			char[] digitsFirstNumber = firstLargeNumber.toCharArray();
-			char[] digitsSecondNumber = secondLargeNumber.toCharArray();
-			int currentDigitFirstNumber;
-			int currentDigitSecondNumber;
+			char[] digitsFirstNumber = firstNumber.toCharArray();
+			char[] digitsSecondNumber = secondNumber.toCharArray();
+			int digitFirstNumber;
+			int digitSecondNumber;
 			int tempSum;
 
 			for (int i = digitsSecondNumber.length - 1; i >= 0; i--) {
-				currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i
+				digitFirstNumber = Character.getNumericValue(digitsFirstNumber[i
 						+ digitsFirstNumber.length - digitsSecondNumber.length]);
-				currentDigitSecondNumber = Character.getNumericValue(digitsSecondNumber[i]);
-				tempSum = currentDigitFirstNumber + currentDigitSecondNumber + transfer;
-				output = tempSum % 10 + output;
+				digitSecondNumber = Character.getNumericValue(digitsSecondNumber[i]);
+				tempSum = digitFirstNumber + digitSecondNumber + transfer;
+				output.insert(0, tempSum % 10);
 				transfer = tempSum / 10;
 			}
-			if (secondLargeNumber.length() < firstLargeNumber.length()) {
+			if (secondNumber.length() < firstNumber.length()) {
 				for (int i = digitsFirstNumber.length - digitsSecondNumber.length; i > 0; i--) {
-					currentDigitFirstNumber = Character.getNumericValue(digitsFirstNumber[i - 1]);
-					tempSum = currentDigitFirstNumber + transfer;
-					output = tempSum % 10 + output;
+					digitFirstNumber = Character.getNumericValue(digitsFirstNumber[i - 1]);
+					tempSum = digitFirstNumber + transfer;
+					output.insert(0, tempSum % 10);
 					transfer = tempSum / 10;
 				}
 			}
 			if (transfer > 0) {
-				output = transfer + output;
+				output.insert(0, transfer);
 			}
-			return output;
+			return output.toString().replaceAll("^0+", "");
 		}
 	}
-	
-	public static void main(String[] args) {
-		SummingLargeNumbers sum = new SummingLargeNumbers();
-		// XXX: trim leading zeros.
-		String result = sum.sumLargeNumbers("0000000000009", "9999");
-		System.out.println(result);
-	}
+
 }

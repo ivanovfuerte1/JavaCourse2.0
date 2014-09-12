@@ -194,4 +194,16 @@ public class SumatorTest {
 		assertEquals(0, i);
 	}
 
+	/**
+	 * Tests the method sum with two integers in strings, one of them with leading zeros.
+	 */
+	@Test
+	public void test16() {
+		String a = "0000000000009";
+		String b = "9999";
+		String expectedResult = "10008";
+		String result = new Sumator().sum(a, b);
+		assertEquals(expectedResult, result);
+	}
+
 }
