@@ -10,10 +10,7 @@ import java.util.List;
  * @author Svetlosar Kovatchev
  * @version 1.0
  */
-public class HeterogeneousTree/* <T extends Comparable<T>> */{
-	/**
-	 * The root of the tree.
-	 */
+public class HeterogeneousTree {
 	private HeterogeneousTreeNode root;
 	private List<String> stringCollection = new ArrayList<String>();
 	private boolean found = false;
@@ -23,7 +20,6 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 	 */
 	public HeterogeneousTree() {
 		this.setRoot(null);
-		this.stringCollection.add("");
 	}
 
 	/**
@@ -36,7 +32,7 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 		if (value == null) {
 			throw new IllegalArgumentException();
 		}
-		this.setRoot(insert(value, null, getRoot()));
+		this.setRoot(insert(value, getRoot()));
 	}
 
 	/**
@@ -44,26 +40,20 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 	 * 
 	 * @param value
 	 *            the new value
-	 * @param parentNode
-	 *            the parent of the new node
-	 * @param node
+	 * @param primaryNode
 	 *            current node
 	 * @return the inserted node
 	 */
-	private HeterogeneousTreeNode insert(Object value, HeterogeneousTreeNode parentNode,
-			HeterogeneousTreeNode node) {
+	private HeterogeneousTreeNode insert(Object value, HeterogeneousTreeNode primaryNode) {
+		HeterogeneousTreeNode node = primaryNode;
 		if (node == null) {
 			node = new HeterogeneousTreeNode(value);
-			node.setParent(parentNode);
-
-			if (parentNode != null) {
-			}
 		} else {
 			int compareTo = value.toString().compareTo(node.getValue().toString());
 			if (compareTo < 0) {
-				node.setLeftChild(insert(value, node, node.getLeftChild()));
+				node.setLeftChild(insert(value, node.getLeftChild()));
 			} else if (compareTo > 0) {
-				node.setRightChild(insert(value, node, node.getRightChild()));
+				node.setRightChild(insert(value, node.getRightChild()));
 			} else {
 				System.out.println("The number " + value + " already exists.");
 			}
@@ -72,7 +62,7 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 	}
 
 	/**
-	 * Searches for a value in a heterogeneous tree in in-order manner.
+	 * Searches for a value in a heterogeneous tree in pre-order manner.
 	 * 
 	 * @param root
 	 *            the root of the heterogeneous tree to be traversed
@@ -80,7 +70,7 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 	 *            the value to search for
 	 * @return the boolean result of the search
 	 */
-	public boolean searchInOrder(HeterogeneousTreeNode root, Object value) {
+	public boolean searchPreOrder(HeterogeneousTreeNode root, Object value) {
 		if (root != null) {
 			if (value == root.getValue()) {
 				System.out.println("There is an element with the value " + root.getValue()
@@ -91,8 +81,8 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 		if (root == null) {
 			return found;
 		}
-		searchInOrder(root.getLeftChild(), value);
-		searchInOrder(root.getRightChild(), value);
+		searchPreOrder(root.getLeftChild(), value);
+		searchPreOrder(root.getRightChild(), value);
 		return found;
 	}
 
@@ -121,16 +111,12 @@ public class HeterogeneousTree/* <T extends Comparable<T>> */{
 	 */
 	public String[] inOrderToArray(HeterogeneousTreeNode root) {
 
-		String[] array1 = new String[stringCollection.size() - 1];
+		String[] array1 = new String[stringCollection.size()];
 
 		int i = 0;
 		for (String s : stringCollection) {
-			if (i == 0) {
-				i++;
-				continue;
-			}
-			array1[--i] = s;
-			i += 2;
+			array1[i] = s;
+			i++;
 		}
 		return array1;
 	}

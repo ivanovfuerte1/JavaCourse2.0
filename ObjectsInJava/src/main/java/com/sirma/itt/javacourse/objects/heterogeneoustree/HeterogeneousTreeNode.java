@@ -6,17 +6,9 @@ package com.sirma.itt.javacourse.objects.heterogeneoustree;
  * @author Svetlosar Kovatchev
  * @version 1.0
  */
-public class HeterogeneousTreeNode
-/* XXX: do not leave commented code! <T extends Comparable<T>> implement Comparable<HeterogeneousTreeNode<T>> */
-{
-	// Contains the value of the node
+public class HeterogeneousTreeNode {
 	private Object value;
-	// XXX: why keep parent?
-	// Contains the parent of the node
-	private HeterogeneousTreeNode parent;
-	// Contains the left child of the node
 	private HeterogeneousTreeNode leftChild;
-	// Contains the right child of the node
 	private HeterogeneousTreeNode rightChild;
 
 	/**
@@ -27,7 +19,6 @@ public class HeterogeneousTreeNode
 	 */
 	public HeterogeneousTreeNode(Object value) {
 		this.value = value;
-		this.parent = null;
 		this.leftChild = null;
 		this.rightChild = null;
 	}
@@ -45,7 +36,6 @@ public class HeterogeneousTreeNode
 	@Override
 	public boolean equals(Object obj) {
 		HeterogeneousTreeNode other = (HeterogeneousTreeNode) obj;
-		System.out.println(this.parent.toString());
 		return this.compareTo(other) == 0;
 	}
 
@@ -65,25 +55,6 @@ public class HeterogeneousTreeNode
 	 */
 	public Object getValue() {
 		return this.value;
-	}
-
-	/**
-	 * Gets the value of the node's parent.
-	 * 
-	 * @return the value of the node's parent.
-	 */
-	public HeterogeneousTreeNode getParent() {
-		return this.parent;
-	}
-
-	/**
-	 * Sets the parent.
-	 * 
-	 * @param value
-	 *            the new parent to be set
-	 */
-	public void setParent(HeterogeneousTreeNode value) {
-		this.parent = value;
 	}
 
 	/**

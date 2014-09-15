@@ -21,6 +21,7 @@ public class SummingLargeNumbers {
 		// A string is initialized as an empty string in order to concatenate the consecutive digits
 		// to it.
 		StringBuilder output = new StringBuilder();
+		final String zeroInString = "0";
 		// The algorithm that follows this verification works only for smaller or equal in length
 		// second large number. For this reason the possibility of having second integer with bigger
 		// length is processed by recursively calling the method for summing large numbers with
@@ -54,8 +55,11 @@ public class SummingLargeNumbers {
 			if (transfer > 0) {
 				output.insert(0, transfer);
 			}
-			return output.toString().replaceAll("^0+", "");
+			if (zeroInString.equals(output.toString())) {
+				return "0";
+			} else {
+				return output.toString().replaceAll("^0+", "");
+			}
 		}
 	}
-
 }

@@ -206,4 +206,16 @@ public class SumatorTest {
 		assertEquals(expectedResult, result);
 	}
 
+	/**
+	 * Tests the method sum with two zero integers in strings.
+	 */
+	@Test
+	public void test17() {
+		String a = "0";
+		String b = "0";
+		String expectedResult = "0";
+		String result = new Sumator().sum(a, b);
+		assertEquals(expectedResult, result);
+	}
+
 }

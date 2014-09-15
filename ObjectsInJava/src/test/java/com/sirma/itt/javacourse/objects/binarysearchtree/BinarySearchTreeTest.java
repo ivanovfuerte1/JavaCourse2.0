@@ -34,10 +34,10 @@ public class BinarySearchTreeTest {
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with correct value.
+	 * Tests the methods insert and preOrderToArray with sample values.
 	 */
 	@Test
-	public void testSearchInOrder1() {
+	public void testInsert2() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -47,15 +47,55 @@ public class BinarySearchTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 19);
+		newTree.printPreOrder();
+		String[] expectedResult = new String[] { "19", "11", "-7", "16", "13", "17", "35", "23" };
+		String[] result = newTree.preOrderToArray((BinaryTreeNode<Integer>) newTree.getRoot());
+		assertArrayEquals(expectedResult, result);
+	}
+
+	/**
+	 * Tests the methods insert and preOrderToArray with sample values.
+	 */
+	@Test
+	public void testInsert3() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		newTree.printPostOrder();
+		String[] expectedResult = new String[] { "-7", "13", "17", "16", "11", "23", "35", "19" };
+		String[] result = newTree.postOrderToArray((BinaryTreeNode<Integer>) newTree.getRoot());
+		assertArrayEquals(expectedResult, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder1() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 19);
 		assertEquals(true, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with incorrect value.
+	 * Tests the methods insert and searchPreOrder with incorrect value.
 	 */
 	@Test
-	public void testSearchInOrder2() {
+	public void testSearchPreOrder2() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -65,15 +105,15 @@ public class BinarySearchTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 55);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 55);
 		assertEquals(false, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with null value.
+	 * Tests the methods insert and searchPreOrder with null value.
 	 */
 	@Test
-	public void testSearchInOrder3() {
+	public void testSearchPreOrder3() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -83,15 +123,15 @@ public class BinarySearchTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), null);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), null);
 		assertEquals(false, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with zero value.
+	 * Tests the methods insert and searchPreOrder with zero value.
 	 */
 	@Test
-	public void testSearchInOrder4() {
+	public void testSearchPreOrder4() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -101,7 +141,151 @@ public class BinarySearchTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 0);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 0);
+		assertEquals(false, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder5() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 11);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder6() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 35);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder7() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), -7);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder8() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 16);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder9() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 23);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder10() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 13);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPreOrder with correct value.
+	 */
+	@Test
+	public void testSearchPreOrder11() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 17);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchInOrder with negative incorrect value.
+	 */
+	@Test
+	public void testSearchInOrder() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchInOrder(newTree.getRoot(), -22);
 		assertEquals(false, result);
 	}
 
@@ -109,7 +293,7 @@ public class BinarySearchTreeTest {
 	 * Tests the methods insert and searchInOrder with correct value.
 	 */
 	@Test
-	public void testSearchInOrder5() {
+	public void testSearchInOrder2() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -127,7 +311,25 @@ public class BinarySearchTreeTest {
 	 * Tests the methods insert and searchInOrder with correct value.
 	 */
 	@Test
-	public void testSearchInOrder6() {
+	public void testSearchInOrder3() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchInOrder(newTree.getRoot(), 19);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchInOrder with correct value.
+	 */
+	@Test
+	public void testSearchInOrder4() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -145,43 +347,7 @@ public class BinarySearchTreeTest {
 	 * Tests the methods insert and searchInOrder with correct value.
 	 */
 	@Test
-	public void testSearchInOrder7() {
-		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
-		newTree.insert(19);
-		newTree.insert(11);
-		newTree.insert(35);
-		newTree.insert(-7);
-		newTree.insert(16);
-		newTree.insert(23);
-		newTree.insert(13);
-		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), -7);
-		assertEquals(true, result);
-	}
-
-	/**
-	 * Tests the methods insert and searchInOrder with correct value.
-	 */
-	@Test
-	public void testSearchInOrder8() {
-		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
-		newTree.insert(19);
-		newTree.insert(11);
-		newTree.insert(35);
-		newTree.insert(-7);
-		newTree.insert(16);
-		newTree.insert(23);
-		newTree.insert(13);
-		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 16);
-		assertEquals(true, result);
-	}
-
-	/**
-	 * Tests the methods insert and searchInOrder with correct value.
-	 */
-	@Test
-	public void testSearchInOrder9() {
+	public void testSearchInOrder5() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -196,10 +362,10 @@ public class BinarySearchTreeTest {
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with correct value.
+	 * Tests the methods insert and searchPostOrder with negative incorrect value.
 	 */
 	@Test
-	public void testSearchInOrder10() {
+	public void testSearchPostOrder() {
 		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
 		newTree.insert(19);
 		newTree.insert(11);
@@ -209,44 +375,80 @@ public class BinarySearchTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 13);
-		assertEquals(true, result);
-	}
-
-	/**
-	 * Tests the methods insert and searchInOrder with correct value.
-	 */
-	@Test
-	public void testSearchInOrder11() {
-		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
-		newTree.insert(19);
-		newTree.insert(11);
-		newTree.insert(35);
-		newTree.insert(-7);
-		newTree.insert(16);
-		newTree.insert(23);
-		newTree.insert(13);
-		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 17);
-		assertEquals(true, result);
-	}
-
-	/**
-	 * Tests the methods insert and searchInOrder with negative incorrect value.
-	 */
-	@Test
-	public void testSearchInOrder12() {
-		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
-		newTree.insert(19);
-		newTree.insert(11);
-		newTree.insert(35);
-		newTree.insert(-7);
-		newTree.insert(16);
-		newTree.insert(23);
-		newTree.insert(13);
-		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), -22);
+		boolean result = newTree.searchPostOrder(newTree.getRoot(), -22);
 		assertEquals(false, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPostOrder with correct value.
+	 */
+	@Test
+	public void testSearchPostOrder2() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPostOrder(newTree.getRoot(), 11);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPostOrder with correct value.
+	 */
+	@Test
+	public void testSearchPostOrder3() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPostOrder(newTree.getRoot(), 19);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPostOrder with correct value.
+	 */
+	@Test
+	public void testSearchPostOrder4() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPostOrder(newTree.getRoot(), 35);
+		assertEquals(true, result);
+	}
+
+	/**
+	 * Tests the methods insert and searchPostOrder with correct value.
+	 */
+	@Test
+	public void testSearchPostOrder5() {
+		BinarySearchTree<Integer> newTree = new BinarySearchTree<Integer>();
+		newTree.insert(19);
+		newTree.insert(11);
+		newTree.insert(35);
+		newTree.insert(-7);
+		newTree.insert(16);
+		newTree.insert(23);
+		newTree.insert(13);
+		newTree.insert(17);
+		boolean result = newTree.searchPostOrder(newTree.getRoot(), 23);
+		assertEquals(true, result);
 	}
 
 }

@@ -10,7 +10,8 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * This class tests the methods insert and inOrderToArray of the class HeterogeneousTreeTest.
+ * This class tests the methods insert, inOrderToArray and searchPreOrder of the class
+ * HeterogeneousTreeTest.
  * 
  * @author Svetlosar Kovatchev
  * @version 1.0
@@ -52,7 +53,7 @@ public class HeterogeneousTreeTest {
 	}
 
 	/**
-	 * Tests the methods insert and inOrderToArray with sample values of different types.
+	 * Tests the methods insert and inOrderToArray with two sample values of different types.
 	 */
 	@Test
 	public void testInsert3() {
@@ -66,7 +67,7 @@ public class HeterogeneousTreeTest {
 	}
 
 	/**
-	 * Tests the methods insert and inOrderToArray with sample values of different types.
+	 * Tests the methods insert and inOrderToArray with several sample values of different types.
 	 * 
 	 * @throws ParseException
 	 *             if the date is not in valid format
@@ -89,7 +90,7 @@ public class HeterogeneousTreeTest {
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with correct value.
+	 * Tests the methods insert and searchPreOrder with correct value.
 	 */
 	@Test
 	public void testSearchInOrder1() {
@@ -102,12 +103,12 @@ public class HeterogeneousTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 19);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 19);
 		assertEquals(true, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with another correct value.
+	 * Tests the methods insert and searchPreOrder with another correct value.
 	 */
 	@Test
 	public void testSearchInOrder2() {
@@ -120,12 +121,12 @@ public class HeterogeneousTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), 17);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), 17);
 		assertEquals(true, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with null value.
+	 * Tests the methods insert and searchPreOrder with null value.
 	 */
 	@Test
 	public void testSearchInOrder3() {
@@ -138,12 +139,12 @@ public class HeterogeneousTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), null);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), null);
 		assertEquals(false, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with negative correct value.
+	 * Tests the methods insert and searchPreOrder with negative correct value.
 	 */
 	@Test
 	public void testSearchInOrder4() {
@@ -156,12 +157,12 @@ public class HeterogeneousTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), -7);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), -7);
 		assertEquals(true, result);
 	}
 
 	/**
-	 * Tests the methods insert and searchInOrder with negative incorrect value.
+	 * Tests the methods insert and searchPreOrder with negative incorrect value.
 	 */
 	@Test
 	public void testSearchInOrder5() {
@@ -174,7 +175,7 @@ public class HeterogeneousTreeTest {
 		newTree.insert(23);
 		newTree.insert(13);
 		newTree.insert(17);
-		boolean result = newTree.searchInOrder(newTree.getRoot(), -55);
+		boolean result = newTree.searchPreOrder(newTree.getRoot(), -55);
 		assertEquals(false, result);
 	}
 

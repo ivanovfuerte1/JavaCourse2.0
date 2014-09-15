@@ -8,14 +8,8 @@ package com.sirma.itt.javacourse.objects.binarysearchtree;
  * @version 1.0
  */
 public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<BinaryTreeNode<T>> {
-	// Contains the value of the node
 	private T value;
-	// XXX: why keep parent?!
-	// Contains the parent of the node
-	private BinaryTreeNode<T> parent;
-	// Contains the left child of the node
 	private BinaryTreeNode<T> leftChild;
-	// Contains the right child of the node
 	private BinaryTreeNode<T> rightChild;
 
 	/**
@@ -26,7 +20,6 @@ public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<Binar
 	 */
 	public BinaryTreeNode(T value) {
 		this.value = value;
-		this.parent = null;
 		this.leftChild = null;
 		this.rightChild = null;
 	}
@@ -41,12 +34,10 @@ public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<Binar
 		return this.value.hashCode();
 	}
 
-	// XXX: what does the unchecked warning mean?
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		BinaryTreeNode<T> other = (BinaryTreeNode<T>) obj;
-		System.out.println(this.parent.toString());
 		return this.compareTo(other) == 0;
 	}
 
@@ -68,25 +59,6 @@ public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<Binar
 	 */
 	public T getValue() {
 		return this.value;
-	}
-
-	/**
-	 * Gets the value of the node's parent or null if it does not exist.
-	 * 
-	 * @return the value of the node's parent
-	 */
-	public BinaryTreeNode<T> getParent() {
-		return this.parent;
-	}
-
-	/**
-	 * Sets the parent.
-	 * 
-	 * @param value
-	 *            the new parent to be set
-	 */
-	public void setParent(BinaryTreeNode<T> value) {
-		this.parent = value;
 	}
 
 	/**
