@@ -125,7 +125,7 @@ public class Sumator extends SummingLargeNumbers {
 	 *            the decimal part of the second number
 	 * @return the resulting sum of both decimal parts
 	 */
-	public String sumDecimalPart(String firstDecimalString, String secondDecimalString) {
+	private String sumDecimalPart(String firstDecimalString, String secondDecimalString) {
 		String output = "";
 		int transfer = 0;
 		if (firstDecimalString.length() < secondDecimalString.length()) {
@@ -162,7 +162,7 @@ public class Sumator extends SummingLargeNumbers {
 	 *            the index of the decimal point
 	 * @return a substring containing the integer part
 	 */
-	public String extractIntegerPart(String bigIntegersInString, int dotIndex) {
+	private String extractIntegerPart(String bigIntegersInString, int dotIndex) {
 		String integerPart;
 		if (dotIndex != -1) {
 			integerPart = bigIntegersInString.substring(0, dotIndex);
@@ -181,7 +181,7 @@ public class Sumator extends SummingLargeNumbers {
 	 *            the index of the decimal point
 	 * @return a substring containing the decimal part
 	 */
-	public String extractDecimalPart(String bigIntegersInString, int dotIndex) {
+	private String extractDecimalPart(String bigIntegersInString, int dotIndex) {
 		String decimalPart = "";
 		if (dotIndex != -1) {
 			decimalPart = bigIntegersInString.substring(dotIndex + 1, bigIntegersInString.length());

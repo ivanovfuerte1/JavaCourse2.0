@@ -144,7 +144,7 @@ public class HeterogeneousTree {
 	 * @param root
 	 *            the root to be set
 	 */
-	public void setRoot(HeterogeneousTreeNode root) {
+	private void setRoot(HeterogeneousTreeNode root) {
 		this.root = root;
 	}
 

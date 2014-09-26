@@ -8,6 +8,8 @@ package com.sirma.itt.javacourse.intro.summinglargenumbers;
  */
 public class SummingLargeNumbers {
 
+	private static final String PATTERN = "^0+";
+
 	/**
 	 * Sums two large numbers given as strings.
 	 * 
@@ -58,7 +60,7 @@ public class SummingLargeNumbers {
 			if (zeroInString.equals(output.toString())) {
 				return "0";
 			} else {
-				return output.toString().replaceAll("^0+", "");
+				return output.toString().replaceAll(PATTERN, "");
 			}
 		}
 	}

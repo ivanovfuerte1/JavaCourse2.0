@@ -281,7 +281,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * @param root
 	 *            the root to be set
 	 */
-	public void setRoot(BinaryTreeNode<T> root) {
+	private void setRoot(BinaryTreeNode<T> root) {
 		this.root = root;
 	}
 

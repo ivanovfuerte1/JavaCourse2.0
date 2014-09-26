@@ -46,8 +46,12 @@ public class HeterogeneousTreeNode {
 	 *            the value to be compared
 	 * @return the result of the comparison
 	 */
-	public int compareTo(HeterogeneousTreeNode other) {
-		return this.value.toString().compareTo(other.value.toString());
+	private int compareTo(HeterogeneousTreeNode other) {
+		if (this.value.hashCode() > other.value.hashCode()) {
+			return 1;
+		} else {
+			return this.value.hashCode() < other.value.hashCode() ? -1 : 0;
+		}
 	}
 
 	/**
