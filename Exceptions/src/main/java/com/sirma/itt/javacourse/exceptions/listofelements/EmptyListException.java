@@ -18,8 +18,10 @@ public final class EmptyListException extends Exception {
 	 * 
 	 * @param message
 	 *            the message to display
+	 * @param cause
+	 *            the reason message is displayed
 	 */
-	protected EmptyListException(String message) {
-		super(message);
+	protected EmptyListException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }

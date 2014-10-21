@@ -2,3 +2,7 @@
 com.sirma.itt.javacourse.exceptions.readnumbers.OutOfRangeException: Your number is not between 0 and 100.
 	at com.sirma.itt.javacourse.exceptions.readnumbers.ReadingNumbersConsole.readNumber(ReadingNumbersConsole.java:56) ~[classes/:?]
 	at com.sirma.itt.javacourse.exceptions.readnumbers.Run.main(Run.java:32) [classes/:?]
+[ERROR] 2014-10-289 16:52:19.799 [main] Run - mainSG
+com.sirma.itt.javacourse.exceptions.readnumbers.OutOfRangeException: Your number is not between 0 and 100.
+	at com.sirma.itt.javacourse.exceptions.readnumbers.ReadingNumbersConsole.readNumber(ReadingNumbersConsole.java:57) ~[classes/:?]
+	at com.sirma.itt.javacourse.exceptions.readnumbers.Run.main(Run.java:34) [classes/:?]

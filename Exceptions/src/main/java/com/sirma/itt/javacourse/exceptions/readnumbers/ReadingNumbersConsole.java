@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The method ReadingNumbersConsole contains a method for reading numbers from 0 to 100.
@@ -32,10 +31,9 @@ public class ReadingNumbersConsole {
 	 * @throws OutOfRangeException
 	 *             if the number is not in the range 0,100
 	 */
-	String[] readNumber() throws OutOfRangeException {
+	public List<Integer> readNumber() throws OutOfRangeException {
 		List<Integer> integerCollection = new ArrayList<Integer>();
 		int currentInteger;
-		Scanner in = new Scanner(System.in);
 		do {
 			try {
 				System.out
@@ -54,25 +52,16 @@ public class ReadingNumbersConsole {
 					}
 				} else {
 					System.out.println("Input stream closed.");
-					in.close();
 					throw new OutOfRangeException("Your number is not between 0 and 100.");
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("The input contains invalid characters.");
-				// e.printStackTrace();
+				System.out.println("The input contains invalid characters." + e);
 				break;
 			} catch (NumberFormatException e) {
-				System.out.println("The input contains invalid characters.");
-				// e.printStackTrace();
+				System.out.println("The input contains invalid characters." + e);
 				break;
 			}
 		} while (true);
-		in.close();
-		String[] input = new String[integerCollection.size()];
-		for (int i = 0; i < input.length; i++) {
-			input[i] = Integer.toString(integerCollection.get(i));
-		}
-		System.out.println("Input stream closed here.");
-		return input;
+		return integerCollection;
 	}
 }

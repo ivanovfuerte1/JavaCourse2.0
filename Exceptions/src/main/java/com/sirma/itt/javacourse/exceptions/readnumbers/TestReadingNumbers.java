@@ -28,11 +28,9 @@ public class TestReadingNumbers implements DataReader {
 		try {
 			userInput = inputs[index];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			return "";
-			// e.printStackTrace();
+			return e.toString();
 		} catch (NullPointerException e) {
-			return "";
-			// e.printStackTrace();
+			return e.toString();
 		}
 		index++;
 		return userInput;

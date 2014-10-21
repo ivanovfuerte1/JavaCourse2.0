@@ -18,8 +18,10 @@ public class FullListException extends Exception {
 	 * 
 	 * @param message
 	 *            the message to display
+	 * @param cause
+	 *            the reason message is displayed
 	 */
-	protected FullListException(String message) {
-		super(message);
+	protected FullListException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }

@@ -37,13 +37,13 @@ public class SummingLargeNumbers {
 			// manipulated wrong result letting the program to show correct test
 			return "";
 		}
-		if ("".equals(firstNumber) || "".equals(secondNumber)) {
-			ArithmeticException exception = new ArithmeticException("Not valid input!");
-			throw exception;
-		}
 		if (lengthFirstNumber < lengthSecondNumber) {
 			return sumLargeNumbers(secondNumber, firstNumber);
 		} else {
+			if (firstNumber.isEmpty() || secondNumber.isEmpty()) {
+				ArithmeticException exception = new ArithmeticException("Not valid input!");
+				throw exception;
+			}
 			int transfer = 0;
 			char[] digitsFirstNumber = firstNumber.toCharArray();
 			char[] digitsSecondNumber = secondNumber.toCharArray();
@@ -53,19 +53,23 @@ public class SummingLargeNumbers {
 
 			for (int i = digitsSecondNumber.length - 1; i >= 0; i--) {
 				try {
+					// Extracts from the largest number the digit to sum with. The possibility of
+					// having different amount of digits in both numbers is the reason to calculate
+					// this difference.
 					digitFirstNumber = Integer.parseInt(firstNumber.substring(i
 							+ digitsFirstNumber.length - digitsSecondNumber.length, i
 							+ digitsFirstNumber.length - digitsSecondNumber.length + 1));
 					digitSecondNumber = Integer.parseInt(secondNumber.substring(i, i + 1));
 				} catch (NumberFormatException e) {
-					System.out.println("Not valid character in the input!");
-					e.printStackTrace();
+					System.out.println("Not valid character in the input!" + e);
 					System.out.println();
 				}
 				tempSum = digitFirstNumber + digitSecondNumber + transfer;
 				output.insert(0, tempSum % 10);
 				transfer = tempSum / 10;
 			}
+			// If there is a difference of the amount of digits between both numbers, here the
+			// transfer is added to the digits of the larger number.
 			if (secondNumber.length() < firstNumber.length()) {
 				for (int i = digitsFirstNumber.length - digitsSecondNumber.length; i > 0; i--) {
 					try {

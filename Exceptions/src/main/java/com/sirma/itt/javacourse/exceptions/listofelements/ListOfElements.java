@@ -12,10 +12,24 @@ public final class ListOfElements {
 	private int count;
 
 	/**
-	 * Default constructor.
+	 * Creates new list of elements with initial capacity of two.
 	 */
 	protected ListOfElements() {
 		array = new Object[CAPACITY];
+		count = 0;
+	}
+
+	/**
+	 * Creates new list of elements with given capacity.
+	 * 
+	 * @param capacity
+	 *            the size of the array
+	 */
+	protected ListOfElements(int capacity) {
+		if (capacity < 1) {
+			throw new IllegalArgumentException("Invalid length of array");
+		}
+		array = new Object[capacity];
 		count = 0;
 	}
 
@@ -45,8 +59,7 @@ public final class ListOfElements {
 		try {
 			array[index] = item;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			// e.printStackTrace();
-			throw new FullListException("The list is full");
+			throw new FullListException("The list is full", e);
 		}
 		count++;
 
@@ -62,28 +75,17 @@ public final class ListOfElements {
 		try {
 			array[--count] = null;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			// e.printStackTrace();
-			throw new EmptyListException("The list is empty");
+			throw new EmptyListException("The list is empty", e);
 		}
 	}
 
 	/**
 	 * Displays the elements to the screen.
 	 */
-	@SuppressWarnings("unused")
-	private void print() {
+	public void print() {
 		for (int i = 0; i < array.length; i++) {
 			System.out.println(array[i]);
 		}
 	}
-
-	// public static void main(String... args) throws FullListException, EmptyListException {
-	// ListOfElements listOfElements = new ListOfElements();
-	// // listOfElements.add(2);
-	// // listOfElements.add(3);
-	// // listOfElements.add(3);
-	// listOfElements.remove();
-	// listOfElements.print();
-	// }
 
 }
