@@ -1,9 +1,10 @@
 package com.sirma.itt.javacourse.exceptions.readnumbers;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The method ReadingNumbersConsole contains a method for reading numbers from 0 to 100.
@@ -12,6 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ReadingNumbersConsole {
+	private static final Logger LOGGER = LogManager.getLogger(ReadingNumbersConsole.class);
 	private DataReader reader;
 
 	/**
@@ -39,29 +41,21 @@ public class ReadingNumbersConsole {
 				System.out
 						.println("Please enter an integer between 0 and 100 or press Enter to exit.");
 				String data = reader.readUserInput();
-				if ("".equals(data)) {
+				if (data.isEmpty()) {
 					break;
 				}
 				currentInteger = Integer.parseInt(data);
 				if (currentInteger >= 0 && currentInteger < 101) {
 					integerCollection.add(currentInteger);
-					for (Iterator<Integer> iterator = integerCollection.iterator(); iterator
-							.hasNext();) {
-						Integer integer = (Integer) iterator.next();
-						System.out.println(integer);
-					}
 				} else {
-					System.out.println("Input stream closed.");
 					throw new OutOfRangeException("Your number is not between 0 and 100.");
 				}
-			} catch (InputMismatchException e) {
-				System.out.println("The input contains invalid characters." + e);
-				break;
 			} catch (NumberFormatException e) {
-				System.out.println("The input contains invalid characters." + e);
+				LOGGER.error("The input contains invalid characters.", e);
 				break;
 			}
 		} while (true);
 		return integerCollection;
 	}
+
 }

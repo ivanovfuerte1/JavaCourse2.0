@@ -59,13 +59,10 @@ public class ListTest {
 	}
 
 	/**
-	 * @throws EmptyListException
-	 *             whenever the list is empty
-	 * @throws FullListException
-	 *             whenever the list is full
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeSizeList() throws EmptyListException, FullListException {
+	public void testNegativeSizeList() {
 		new ListOfElements(-5);
 	}
 }

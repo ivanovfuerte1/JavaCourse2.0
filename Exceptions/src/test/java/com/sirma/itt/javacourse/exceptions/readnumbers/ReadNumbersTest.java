@@ -34,12 +34,7 @@ public class ReadNumbersTest {
 	public void testWithNegative() throws OutOfRangeException {
 		ReadingNumbersConsole numbersRead = new ReadingNumbersConsole(new TestReadingNumbers(
 				arrayContainingNegative));
-		try {
-			numbersRead.readNumber();
-		} catch (OutOfRangeException e) {
-			System.out.println("Your number is not between 0 and 100.");
-		}
-		throw new OutOfRangeException(null);
+		numbersRead.readNumber();
 	}
 
 	/**
@@ -98,7 +93,7 @@ public class ReadNumbersTest {
 	 *             if the number is not in the range 0,100
 	 */
 	@Test
-	public void testEmptyArray() throws OutOfRangeException {
+	public void testNullArray() throws OutOfRangeException {
 		ReadingNumbersConsole numbersRead = new ReadingNumbersConsole(new TestReadingNumbers(
 				nullArray));
 		numbersRead.readNumber();
@@ -111,7 +106,7 @@ public class ReadNumbersTest {
 	 *             if the number is not in the range 0,100
 	 */
 	@Test
-	public void testNullArray() throws OutOfRangeException {
+	public void testEmptyArray() throws OutOfRangeException {
 		ReadingNumbersConsole numbersRead = new ReadingNumbersConsole(new TestReadingNumbers(
 				emptyArray));
 		numbersRead.readNumber();

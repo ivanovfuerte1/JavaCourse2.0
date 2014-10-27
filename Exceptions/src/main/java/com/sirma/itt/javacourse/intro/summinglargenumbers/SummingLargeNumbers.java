@@ -1,5 +1,8 @@
 package com.sirma.itt.javacourse.intro.summinglargenumbers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class SummingLargeNumbers contains methods for summing large numbers represented in strings.
  * 
@@ -7,6 +10,7 @@ package com.sirma.itt.javacourse.intro.summinglargenumbers;
  * @version 2.0
  */
 public class SummingLargeNumbers {
+	private static final Logger LOGGER = LogManager.getLogger(SummingLargeNumbers.class);
 
 	/**
 	 * Sums two large numbers given as strings.
@@ -20,6 +24,10 @@ public class SummingLargeNumbers {
 	public String sumLargeNumbers(final String firstNumber, final String secondNumber) {
 		// A string is initialized as an empty string in order to concatenate the consecutive digits
 		// to it.
+		if (firstNumber.isEmpty() || secondNumber.isEmpty()) {
+			ArithmeticException exception = new ArithmeticException("Not valid input!");
+			throw exception;
+		}
 		StringBuilder output = new StringBuilder();
 		final String zeroInString = "0";
 		// The algorithm that follows this verification works only for smaller or equal in length
@@ -32,18 +40,13 @@ public class SummingLargeNumbers {
 			lengthFirstNumber = firstNumber.length();
 			lengthSecondNumber = secondNumber.length();
 		} catch (NullPointerException e) {
-			System.out.println("One or both of the strings are null!");
-			e.printStackTrace();
-			// manipulated wrong result letting the program to show correct test
-			return "";
+			LOGGER.error("One or both of the strings are null!", e);
+			// System.out.println("One or both of the strings are null!");
+			// e.printStackTrace();
 		}
 		if (lengthFirstNumber < lengthSecondNumber) {
 			return sumLargeNumbers(secondNumber, firstNumber);
 		} else {
-			if (firstNumber.isEmpty() || secondNumber.isEmpty()) {
-				ArithmeticException exception = new ArithmeticException("Not valid input!");
-				throw exception;
-			}
 			int transfer = 0;
 			char[] digitsFirstNumber = firstNumber.toCharArray();
 			char[] digitsSecondNumber = secondNumber.toCharArray();
@@ -61,8 +64,9 @@ public class SummingLargeNumbers {
 							+ digitsFirstNumber.length - digitsSecondNumber.length + 1));
 					digitSecondNumber = Integer.parseInt(secondNumber.substring(i, i + 1));
 				} catch (NumberFormatException e) {
-					System.out.println("Not valid character in the input!" + e);
-					System.out.println();
+					LOGGER.error("Not valid character in the input!", e);
+					// System.out.println("Not valid character in the input!" + e);
+					// System.out.println();
 				}
 				tempSum = digitFirstNumber + digitSecondNumber + transfer;
 				output.insert(0, tempSum % 10);
@@ -75,9 +79,10 @@ public class SummingLargeNumbers {
 					try {
 						digitFirstNumber = Integer.parseInt(firstNumber.substring(i - 1, i));
 					} catch (NumberFormatException e) {
-						System.out.println("Not valid character in the input!");
-						e.printStackTrace();
-						System.out.println();
+						LOGGER.error("Not valid character in the input!", e);
+						// System.out.println("Not valid character in the input!");
+						// e.printStackTrace();
+						// System.out.println();
 					}
 					tempSum = digitFirstNumber + transfer;
 					output.insert(0, tempSum % 10);

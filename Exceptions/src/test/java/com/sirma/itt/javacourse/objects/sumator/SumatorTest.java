@@ -287,14 +287,11 @@ public class SumatorTest {
 	/**
 	 * Tests the method sum with illegal argument.
 	 */
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testNull() {
 		String a = null;
 		String b = "";
-		// manipulated wrong result letting the program to show correct test
-		String expectedResult = "";
-		String result = new Sumator().sum(a, b);
-		assertEquals(expectedResult, result);
+		new Sumator().sum(a, b);
 	}
 
 }
