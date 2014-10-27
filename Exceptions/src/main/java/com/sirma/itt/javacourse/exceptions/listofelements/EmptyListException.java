@@ -7,7 +7,6 @@ package com.sirma.itt.javacourse.exceptions.listofelements;
  * @author Svetlosar Kovatchev
  */
 public final class EmptyListException extends Exception {
-
 	/**
 	 * Generated serialVersionUID.
 	 */
