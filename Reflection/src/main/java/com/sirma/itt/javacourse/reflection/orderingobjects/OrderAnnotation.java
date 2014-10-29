@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
  * 
  * @author Svetlosar Kovatchev
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME) // XXX: Exmplain why retention policy is runtime and what else can it be.
+@Target(ElementType.TYPE) // XXX: Explain this what is it for?
 public @interface OrderAnnotation {
 	/**
 	 * Extracts a value which is the key for ordering classes.

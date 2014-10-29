@@ -17,8 +17,12 @@ public class EmailValidator {
 	 * @param email
 	 *            the string from the input
 	 * @return the boolean result of the validation
+	 * 
+	 * XXX: more appropriate name?
 	 */
 	public boolean emailValidator(String email) {
+		// XXX: Optimize!
+		// XXX: constant?
 		String emailPattern = "^[a-zA-Z]{1}[a-zA-Z0-9-.]+@[a-zA-Z]{1}[a-zA-Z0-9-.]+$";
 		Pattern pattern = Pattern.compile(emailPattern);
 		Matcher result = pattern.matcher(email);

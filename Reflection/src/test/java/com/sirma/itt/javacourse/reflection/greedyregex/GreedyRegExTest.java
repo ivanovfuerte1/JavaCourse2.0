@@ -5,15 +5,18 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * The class {@link GreedyRegExTest} contains a test for the method replaceTags of the class
- * {@link GreedyRegEx}.
+ * The class {@link GreedyRegExTest} contains a test for the method replaceTags
+ * of the class {@link GreedyRegEx}.
  * 
  * @author Svetlosar Kovatchev
  */
 public class GreedyRegExTest {
 
 	/**
-	 * Tests the method replaceTags of the class {@link GreedyRegEx} with given code.
+	 * XXX: only one test?
+	 * 
+	 * Tests the method replaceTags of the class {@link GreedyRegEx} with given
+	 * code.
 	 */
 	@Test
 	public void test1() {

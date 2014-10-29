@@ -11,6 +11,8 @@ import java.util.Arrays;
 public final class OrderingObjects {
 
 	/**
+	 * XXX: why default constructor?
+	 * 
 	 * Default constructor.
 	 */
 	private OrderingObjects() {
@@ -27,6 +29,7 @@ public final class OrderingObjects {
 				new ThirdSubclass(), new FourthClass() };
 		Arrays.sort(subClasses);
 		for (int i = 0; i < subClasses.length; i++) {
+			// XXX: Logger!
 			System.out.println(subClasses[i].getClass().getName());
 		}
 	}

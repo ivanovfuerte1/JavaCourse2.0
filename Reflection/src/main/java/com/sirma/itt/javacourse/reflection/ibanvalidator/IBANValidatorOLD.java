@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * XXX: Do NOT commit irrelevant code!
+ * 
  * The class IBANValidator contains a method for replacing the first part of valid Bulgarian IBAN
  * with '****'.
  * 

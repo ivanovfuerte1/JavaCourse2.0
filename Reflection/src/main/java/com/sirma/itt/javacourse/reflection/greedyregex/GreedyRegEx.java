@@ -2,11 +2,13 @@ package com.sirma.itt.javacourse.reflection.greedyregex;
 
 // JAVADOC MUST BE IMPROVED
 /**
+ * XXX: ??
+ * 
  * A warning about usage of HTML tags is being ignored.
  */
 @SuppressWarnings("javadoc")
 /**
- * The class {@link GreedyRegEx} contains a method for replacing data surrounded in '<x>' and '</x>'
+ * The class {@link GreedyRegEx} contains a method <br> for replacing data surrounded in '<x>' and '</x>'
  * with '<x/>'.
  * 
  * @author Svetlosar Kovatchev

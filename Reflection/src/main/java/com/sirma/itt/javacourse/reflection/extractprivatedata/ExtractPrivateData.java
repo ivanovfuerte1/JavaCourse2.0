@@ -21,6 +21,8 @@ public final class ExtractPrivateData {
 	}
 
 	/**
+	 * XXX: Why main? Why default constructor? Why sysout?
+	 * 
 	 * Instantiate a class, invokes its methods and displays its fields with the correspondent
 	 * values.
 	 * 
