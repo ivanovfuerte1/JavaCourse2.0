@@ -2,35 +2,34 @@ package com.sirma.itt.javacourse.reflection.orderingobjects;
 
 import java.util.Arrays;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class {@link OrderingObjects} contains a method for sorting an array of classes according to
  * {@link OrderAnnotation}.
  * 
  * @author Svetlosar Kovatchev
  */
-public final class OrderingObjects {
+public class OrderingObjects {
+	private static final Logger LOGGER = LogManager.getLogger(OrderingObjects.class);
 
 	/**
-	 * XXX: why default constructor?
-	 * 
 	 * Default constructor.
 	 */
-	private OrderingObjects() {
+	public OrderingObjects() {
 	}
 
 	/**
 	 * Creates an array of classes and sorts them according to the {@link OrderAnnotation}.
 	 * 
-	 * @param args
-	 *            default arguments
+	 * @param subClasses
+	 *            the classes for being ordered
 	 */
-	public static void main(String[] args) {
-		ParentClass[] subClasses = { new FirstSubclass(), new SecondSubclass(),
-				new ThirdSubclass(), new FourthClass() };
+	public void sortClasses(ParentClass[] subClasses) {
 		Arrays.sort(subClasses);
 		for (int i = 0; i < subClasses.length; i++) {
-			// XXX: Logger!
-			System.out.println(subClasses[i].getClass().getName());
+			LOGGER.info(subClasses[i].getClass().getSimpleName());
 		}
 	}
 }

@@ -1,15 +1,8 @@
 package com.sirma.itt.javacourse.reflection.greedyregex;
 
-// JAVADOC MUST BE IMPROVED
 /**
- * XXX: ??
- * 
- * A warning about usage of HTML tags is being ignored.
- */
-@SuppressWarnings("javadoc")
-/**
- * The class {@link GreedyRegEx} contains a method <br> for replacing data surrounded in '<x>' and '</x>'
- * with '<x/>'.
+ * The class {@link GreedyRegEx} contains a method <br>
+ * for replacing data surrounded in '&#60;x>' and '&#60;/x>' with '&#60;x/>'.
  * 
  * @author Svetlosar Kovatchev
  */
@@ -19,9 +12,8 @@ public final class GreedyRegEx {
 	private static final String REPLACE = "<x/>";
 
 	/**
-	 * Replaces data surrounded in '<x>' and '</x>' with '<x/>'.
-	 */
-	/**
+	 * Replaces data surrounded in '&#60;x>' and '&#60;/x>' with '&#60;x/>'.
+	 * 
 	 * @param input
 	 *            at
 	 * @return the modified string

@@ -6,8 +6,6 @@ package com.sirma.itt.javacourse.reflection.outputclassinfo;
  * @author Svetlosar Kovatchev
  */
 public class HeterogeneousTreeNode {
-	// commented to escape warning
-	// public static int i = 5;
 	private Object value;
 	private HeterogeneousTreeNode leftChild;
 	private HeterogeneousTreeNode rightChild;

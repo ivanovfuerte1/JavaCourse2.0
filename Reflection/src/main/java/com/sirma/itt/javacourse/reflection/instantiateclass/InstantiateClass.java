@@ -1,6 +1,9 @@
 package com.sirma.itt.javacourse.reflection.instantiateclass;
 
-import static java.lang.System.out;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.sirma.itt.javacourse.reflection.outputclassinfo.OutputClassInfo;
 
 /**
  * The class contains a method for displaying the superclass and the interfaces of the instantiated
@@ -8,41 +11,42 @@ import static java.lang.System.out;
  * 
  * @author Svetlosar Kovatchev
  */
-public final class InstantiateClass {
-	/**
-	 * Default constructor.
-	 */
-	private InstantiateClass() {
-	}
+public class InstantiateClass {
+	private static final Logger LOGGER = LogManager.getLogger(OutputClassInfo.class);
 
 	/**
-	 * XXX: why main method? Split methods?
+	 * Displays the superclass of the instantiated class.
 	 * 
-	 * Displays the superclass and interfaces of the instantiated class.
-	 * 
-	 * @param args
-	 *            default arguments
 	 * @throws ClassNotFoundException
 	 *             when the method cannot find the class from the input.
 	 * @throws InstantiationException
 	 *             when the specified class object cannot be instantiated
 	 * @throws IllegalAccessException
 	 *             when access to the current field or method is denied
+	 * @param className
+	 *            the name of the class
 	 */
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException {
-
-		// XXX: Again hard coded constants?
-		Class<?> myClassInstance = Class
-				.forName("com.sirma.itt.javacourse.reflection.instantiateclass.TestHangmanInput");
+	public void outputParent(String className) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
+		Class<?> myClassInstance = Class.forName(className);
 
 		Class<?> parent = myClassInstance.getSuperclass();
-		// XXX: Logger!
-		out.println(parent.getSimpleName());
+		LOGGER.info(parent.getSimpleName());
+	}
 
+	/**
+	 * Displays the interfaces of the instantiated class.
+	 * 
+	 * @throws ClassNotFoundException
+	 *             when the method cannot find the class from the input.
+	 * @param className
+	 *            the name of the class
+	 */
+	public void outputInterfaces(String className) throws ClassNotFoundException {
+		Class<?> myClassInstance = Class.forName(className);
 		Class<?>[] interfaces = myClassInstance.getInterfaces();
 		for (int i = 0; i < interfaces.length; i++) {
-			out.println(interfaces[i]);
+			LOGGER.info(interfaces[i].getSimpleName());
 		}
 	}
 

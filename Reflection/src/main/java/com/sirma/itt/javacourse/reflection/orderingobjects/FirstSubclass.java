@@ -1,7 +1,7 @@
 package com.sirma.itt.javacourse.reflection.orderingobjects;
 
 /**
- * XXX: Comment?
+ * The class {@link FirstSubclass} is an empty class used only for comparison by annotation.
  * 
  * @author Svetlosar Kovatchev
  */

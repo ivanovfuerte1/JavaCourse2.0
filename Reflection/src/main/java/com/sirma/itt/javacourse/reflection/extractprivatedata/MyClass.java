@@ -1,5 +1,8 @@
 package com.sirma.itt.javacourse.reflection.extractprivatedata;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class MyClass contains a method for printing a string from the input and another one for
  * finding the Greatest common divisor.
@@ -8,6 +11,7 @@ package com.sirma.itt.javacourse.reflection.extractprivatedata;
  */
 public class MyClass {
 
+	private static final Logger LOGGER = LogManager.getLogger(MyClass.class);
 	private int numberRepetitions = 2;
 	private int firstInteger = 15;
 
@@ -22,7 +26,7 @@ public class MyClass {
 	@SuppressWarnings("unused")
 	private void print(String input) {
 		for (int i = 0; i < numberRepetitions; i++) {
-			System.out.println(input);
+			LOGGER.info(input);
 		}
 	}
 
