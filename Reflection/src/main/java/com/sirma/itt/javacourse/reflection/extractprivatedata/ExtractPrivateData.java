@@ -41,6 +41,7 @@ public class ExtractPrivateData {
 			Class<?> myClass = Class.forName(className);
 			Object object = myClass.newInstance();
 
+			// XXX: constant
 			Method myMethod = myClass.getDeclaredMethod("print", paramString);
 			myMethod.setAccessible(true);
 			myMethod.invoke(object, new String("I'm a string"));

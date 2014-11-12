@@ -31,7 +31,8 @@ public final class Run {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException {
 		InstantiateClass instantiateClass = new InstantiateClass();
-		instantiateClass.outputParent(CLASS_NAME);
+		// XXX: NPE!
+		instantiateClass.outputParent("java.lang.Object");
 		instantiateClass.outputInterfaces(CLASS_NAME);
 	}
 
