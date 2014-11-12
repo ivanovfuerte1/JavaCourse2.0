@@ -31,6 +31,7 @@ public class TransferObjectTest {
 		OutputStream outputStream = null;
 		int result = 0;
 		try {
+			// XXX: where are those files?
 			inputStream = new FileInputStream("Name of file.txt");
 			outputStream = new FileOutputStream("characteroutput.txt");
 			TransferObject transferObject = new TransferObject(inputStream, outputStream);

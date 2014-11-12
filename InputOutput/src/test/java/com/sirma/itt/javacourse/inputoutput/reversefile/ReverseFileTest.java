@@ -26,6 +26,7 @@ public class ReverseFileTest {
 	 */
 	@Test
 	public void testDobleReversedFile() throws IOException {
+		// XXX: where are those files?
 		String fileName = "Name of file.txt";
 		for (int i = 0; i < 2; i++) {
 			ReverseFile.reverseFile(fileName);

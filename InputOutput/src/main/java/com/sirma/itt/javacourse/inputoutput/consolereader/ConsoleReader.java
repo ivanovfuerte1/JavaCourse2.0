@@ -9,6 +9,7 @@ import java.io.Reader;
  * The class {@link ConsoleReader} contains methods for reading strings, integers, floating point
  * numbers and single characters from an input.
  * 
+ * 
  * @author Svetlosar Kovatchev
  */
 public final class ConsoleReader {
@@ -20,7 +21,7 @@ public final class ConsoleReader {
 	 */
 	private ConsoleReader() {
 	}
-
+	
 	/**
 	 * Returns the value from the input.
 	 * 

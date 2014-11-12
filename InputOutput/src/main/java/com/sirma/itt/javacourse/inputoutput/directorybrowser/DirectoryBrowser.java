@@ -24,6 +24,8 @@ public final class DirectoryBrowser {
 	 * Traverses the contents of a given directory. In case a path to file is set instead of path to
 	 * variable a message will be displayed.
 	 * 
+	 * XXX: What about files in sub directories?
+	 * 
 	 * @param path
 	 *            - the path to the directory which should be traversed.
 	 * @return the contents of the given directory as a string
@@ -32,6 +34,7 @@ public final class DirectoryBrowser {
 	 */
 	public static String listContent(String path) throws IOException {
 		File fileCheck = new File(path);
+		// XXX: add condition for invalid input.
 		if (fileCheck.isFile()) {
 			throw new IllegalArgumentException("The parameter is not a directory!");
 		}

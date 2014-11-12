@@ -31,11 +31,13 @@ public final class ReverseFile {
 	 *             if an I/O operation is failed or interrupted
 	 */
 	public static String reverseFile(String nameFile) throws IOException {
+		// XXX: check input?
 		BufferedReader inputStream = null;
 		PrintWriter outputStream = null;
 		String l;
 		StringBuilder sb = new StringBuilder();
 		try {
+			// XXX: ehm?
 			inputStream = new BufferedReader(new FileReader("Name of file.txt"));
 			while ((l = inputStream.readLine()) != null) {
 				sb.append(l);
@@ -44,6 +46,7 @@ public final class ReverseFile {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			sb.reverse();
+			// XXX: ehm?
 			outputStream = new PrintWriter(new FileWriter("Name of file.txt"));
 			outputStream.println(sb);
 		} finally {
@@ -55,6 +58,5 @@ public final class ReverseFile {
 			}
 		}
 		return sb.toString();
-
 	}
 }

@@ -31,6 +31,8 @@ public class TransferObject {
 	 * Returns the number of bytes successfully transferred from the InputStream to the OutputStream
 	 * instance.
 	 * 
+	 * XXX: not correct
+	 * 
 	 * @param numberOfBytes
 	 *            the number of bytes to be transferred
 	 * @param offset
