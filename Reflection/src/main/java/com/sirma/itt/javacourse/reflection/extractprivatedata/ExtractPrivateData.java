@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
  * @author Svetlosar Kovatchev
  */
 public class ExtractPrivateData {
+	private static final String METHOD_NAME = "print";
 	private static final Logger LOGGER = LogManager.getLogger(ExtractPrivateData.class);
 
 	/**
@@ -41,8 +42,7 @@ public class ExtractPrivateData {
 			Class<?> myClass = Class.forName(className);
 			Object object = myClass.newInstance();
 
-			// XXX: constant
-			Method myMethod = myClass.getDeclaredMethod("print", paramString);
+			Method myMethod = myClass.getDeclaredMethod(METHOD_NAME, paramString);
 			myMethod.setAccessible(true);
 			myMethod.invoke(object, new String("I'm a string"));
 

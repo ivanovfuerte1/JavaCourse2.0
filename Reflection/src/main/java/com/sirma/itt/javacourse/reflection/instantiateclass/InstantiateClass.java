@@ -3,8 +3,6 @@ package com.sirma.itt.javacourse.reflection.instantiateclass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.sirma.itt.javacourse.reflection.outputclassinfo.OutputClassInfo;
-
 /**
  * The class contains a method for displaying the superclass and the interfaces of the instantiated
  * class.
@@ -12,7 +10,7 @@ import com.sirma.itt.javacourse.reflection.outputclassinfo.OutputClassInfo;
  * @author Svetlosar Kovatchev
  */
 public class InstantiateClass {
-	private static final Logger LOGGER = LogManager.getLogger(OutputClassInfo.class);
+	private static final Logger LOGGER = LogManager.getLogger(InstantiateClass.class);
 
 	/**
 	 * Displays the superclass of the instantiated class.

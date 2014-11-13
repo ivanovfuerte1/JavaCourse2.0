@@ -1,5 +1,8 @@
 package com.sirma.itt.javacourse.reflection.instantiateclass;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class {@link Run} contains a method for testing the methods of the class
  * {@link InstantiateClass}.
@@ -8,6 +11,7 @@ package com.sirma.itt.javacourse.reflection.instantiateclass;
  */
 public final class Run {
 	private static final String CLASS_NAME = "com.sirma.itt.javacourse.reflection.instantiateclass.TestHangmanInput";
+	private static final Logger LOGGER = LogManager.getLogger(Run.class);
 
 	/**
 	 * Default constructor.
@@ -31,9 +35,13 @@ public final class Run {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException {
 		InstantiateClass instantiateClass = new InstantiateClass();
-		// XXX: NPE!
-		instantiateClass.outputParent("java.lang.Object");
-		instantiateClass.outputInterfaces(CLASS_NAME);
+		try {
+			instantiateClass.outputParent(CLASS_NAME);
+			instantiateClass.outputInterfaces(CLASS_NAME);
+		} catch (NullPointerException e) {
+			LOGGER.info("The class does not have a parent!");
+			e.printStackTrace();
+		}
 	}
 
 }
