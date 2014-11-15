@@ -9,7 +9,7 @@ import java.io.IOException;
  * @author Svetlosar Kovatchev
  */
 public final class Run {
-	private static final String SAMPLE_FILE = "FileToBeSerialized.ser";
+	private static final String SAMPLE_FILE = "src/main/resources/FileToBeSerialized.ser";
 
 	/**
 	 * Default constructor.
@@ -22,7 +22,7 @@ public final class Run {
 	 * of the class {@link UserDefinedObject} using a sample file.
 	 * 
 	 * @param args
-	 *            at
+	 *            default arguments
 	 * @throws IOException
 	 *             if an I/O operation is failed or interrupted
 	 * @throws ClassNotFoundException

@@ -10,9 +10,6 @@ import java.io.ObjectOutputStream;
  * The class {@link DataClass} contains methods for serializing and deserializing.
  * 
  * @author Svetlosar Kovatchev
- * 
- * XXX: How can you read multiple serialzied objects?
- * 
  */
 public class DataClass {
 	/**

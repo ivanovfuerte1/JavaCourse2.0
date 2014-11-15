@@ -16,6 +16,7 @@ import org.junit.Test;
  */
 public class ReverseFileTest {
 	private static final String END_LINE = System.lineSeparator();
+	private static final String TEST_FILE = "src\\test\\resources\\Name of file.txt";
 
 	/**
 	 * Tests the method reverseFile of the class {@link ReverseFile} with sample file. The file is
@@ -26,8 +27,7 @@ public class ReverseFileTest {
 	 */
 	@Test
 	public void testDobleReversedFile() throws IOException {
-		// XXX: where are those files?
-		String fileName = "Name of file.txt";
+		String fileName = TEST_FILE;
 		for (int i = 0; i < 2; i++) {
 			ReverseFile.reverseFile(fileName);
 		}
@@ -61,10 +61,36 @@ public class ReverseFileTest {
 	 */
 	@Test
 	public void testReversedFile() throws IOException {
-		String fileName = "Name of file.txt";
+		String fileName = TEST_FILE;
 		String result = ReverseFile.reverseFile(fileName);
 		String expected = ".elif eht ni txet" + "\n" + "eht si sihT";
+		// The file is reversed again in order to leave it prepared for another test
+		ReverseFile.reverseFile(fileName);
 		assertEquals(expected, result);
+	}
+
+	/**
+	 * Tests the method reverseFile of the class {@link ReverseFile} with an invalid input.
+	 *
+	 * @throws IOException
+	 *             if an I/O operation is failed or interrupted
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidName() throws IOException {
+		String fileName = "Na,me of file.txt";
+		ReverseFile.reverseFile(fileName);
+	}
+
+	/**
+	 * Tests the method reverseFile of the class {@link ReverseFile} with an inexistent file.
+	 *
+	 * @throws IOException
+	 *             if an I/O operation is failed or interrupted
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testInexistentFile() throws IOException {
+		String fileName = "Name of file.tx";
+		ReverseFile.reverseFile(fileName);
 	}
 
 }

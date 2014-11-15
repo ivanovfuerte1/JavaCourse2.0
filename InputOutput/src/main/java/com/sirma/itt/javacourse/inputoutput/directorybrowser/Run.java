@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class Run {
 	private static final Logger LOGGER = LogManager.getLogger(Run.class);
-	private static final String SAMPLE_DIRECTORY = "asd";
+	private static final String SAMPLE_DIRECTORY = "C:\\Users\\kovachev\\Desktop\\SirmaITTAdditionalMaterials\\Beginner's stuff\\Helping files task 3";
 	private static final String SAMPLE_FILE = "C:\\Users\\kovachev\\Desktop\\SirmaITTAdditionalMaterials\\Beginner's stuff\\Helping files task 3\\Hangman.jar";
 
 	/**
@@ -35,7 +35,8 @@ public final class Run {
 		try {
 			String result = DirectoryBrowser.listContent(SAMPLE_DIRECTORY);
 			System.out.println(result);
-			// DirectoryBrowser.listContent(SAMPLE_FILE);
+			DirectoryBrowser.listContent("\"");
+			DirectoryBrowser.listContent(SAMPLE_FILE);
 		} catch (IllegalArgumentException e) {
 			LOGGER.error(e.getMessage(), e);
 		}

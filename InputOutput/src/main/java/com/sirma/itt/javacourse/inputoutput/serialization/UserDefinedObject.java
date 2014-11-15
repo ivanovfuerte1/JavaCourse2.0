@@ -8,15 +8,10 @@ import java.io.Serializable;
  * @author Svetlosar Kovatchev
  */
 public class UserDefinedObject implements Serializable {
-
 	/**
-	 * XXX: What is this for? What will happen if I remove it? What is I change it?
-	 * 
-	 * XXX: How can you specify a field not to be serialized?
-	 * 
 	 * Generated serialVersionUID.
 	 */
-	private static final long serialVersionUID = -7692588405445964661L;
+	private static final long serialVersionUID = 1653153880117350638L;
 	private String sampleString = "Sample string";
 	private int count = 3;
 

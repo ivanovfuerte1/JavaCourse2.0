@@ -17,6 +17,8 @@ import org.junit.Test;
  * @author Svetlosar Kovatchev
  */
 public class TransferObjectTest {
+	private static final String TEST_FILE = "src\\test\\resources\\Name of file.txt";
+	private static final String OUTPUT_FILE = "src\\test\\resources\\characteroutput.txt";
 
 	/**
 	 * Tests the method transfer of the class {@link TransferObject} with sample values for bytes to
@@ -31,9 +33,8 @@ public class TransferObjectTest {
 		OutputStream outputStream = null;
 		int result = 0;
 		try {
-			// XXX: where are those files?
-			inputStream = new FileInputStream("Name of file.txt");
-			outputStream = new FileOutputStream("characteroutput.txt");
+			inputStream = new FileInputStream(TEST_FILE);
+			outputStream = new FileOutputStream(OUTPUT_FILE);
 			TransferObject transferObject = new TransferObject(inputStream, outputStream);
 			result = transferObject.transfer(10, 0);
 		} finally {
@@ -61,8 +62,8 @@ public class TransferObjectTest {
 		OutputStream outputStream = null;
 		int result = 0;
 		try {
-			inputStream = new FileInputStream("Name of file.txt");
-			outputStream = new FileOutputStream("characteroutput.txt");
+			inputStream = new FileInputStream(TEST_FILE);
+			outputStream = new FileOutputStream(OUTPUT_FILE);
 			TransferObject transferObject = new TransferObject(inputStream, outputStream);
 			result = transferObject.transfer(50, 10);
 		} finally {
@@ -90,8 +91,8 @@ public class TransferObjectTest {
 		OutputStream outputStream = null;
 		int result = 0;
 		try {
-			inputStream = new FileInputStream("Name of file.txt");
-			outputStream = new FileOutputStream("characteroutput.txt");
+			inputStream = new FileInputStream(TEST_FILE);
+			outputStream = new FileOutputStream(OUTPUT_FILE);
 			TransferObject transferObject = new TransferObject(inputStream, outputStream);
 			result = transferObject.transfer(3, 2);
 		} finally {
@@ -119,8 +120,8 @@ public class TransferObjectTest {
 		OutputStream outputStream = null;
 		int result = 0;
 		try {
-			inputStream = new FileInputStream("Name of file.txt");
-			outputStream = new FileOutputStream("characteroutput.txt");
+			inputStream = new FileInputStream(TEST_FILE);
+			outputStream = new FileOutputStream(OUTPUT_FILE);
 			TransferObject transferObject = new TransferObject(inputStream, outputStream);
 			result = transferObject.transfer(5, 28);
 		} finally {
