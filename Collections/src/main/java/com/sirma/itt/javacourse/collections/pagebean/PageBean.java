@@ -13,8 +13,9 @@ import java.util.List;
 public class PageBean {
 	// A RUN CLASS SHOULD BE MADE CONTAING THE CALLING TO THE METHODS NEXT AND PREVIOUS INSTEAD OF
 	// CALLING THEM FROM THE CONSOLE
+	// XXX: better name, also why 
 	private List<List<String>> textInPages = new ArrayList<>();
-	private static final int PAGE_SIZE = 3;
+	private static final int PAGE_SIZE = 5;
 	private int counterOfPages = 0;
 	private int currentPage = 1;
 	private int lastPageElementsCounter = 0;

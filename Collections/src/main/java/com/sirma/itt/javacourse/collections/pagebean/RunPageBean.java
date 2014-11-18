@@ -40,9 +40,18 @@ public final class RunPageBean {
 		elementsFromInput.add("king");
 		PageBean pageBean = new PageBean();
 		pageBean.separatePages(elementsFromInput);
-		pageBean.next();
-		pageBean.next();
-		pageBean.previous();
+		
+//		System.out.println(pageBean.next());
+//		System.out.println(pageBean.next());
+//		System.out.println(pageBean.next());
+//		System.out.println(pageBean.next());
+//		System.out.println(pageBean.next());
+//		System.out.println(pageBean.next());
+//		System.out.println(pageBean.next());
+		
+		// pageBean.next();
+		System.out.println(pageBean.previous());
+		System.out.println(pageBean.previous());
 	}
 
 }

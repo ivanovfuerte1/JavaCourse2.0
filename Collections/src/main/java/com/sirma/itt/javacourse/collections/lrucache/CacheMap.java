@@ -10,15 +10,18 @@ import java.util.Queue;
  * algorithm.
  * 
  * @author Svetlosar Kovatchev
- * @param <K>
- * @param <V>
+ * @param <K> XXX: javadoc
+ * @param <V> XXX: javadoc
  */
 public class CacheMap<K, V> {
+	// XXX: better name!
 	private Queue<K> keyInsertionOrder = new LinkedList<K>();
 	private int maxCapacity;
+	// XXX: Better name!
 	private final Map<K, V> delegate = new LinkedHashMap<K, V>(maxCapacity, 0.75f, true);
 
 	/**
+	 * XXX: descpription
 	 * Constructs a cache with maximum capacity.
 	 * 
 	 * @param maxCapacity
@@ -34,6 +37,8 @@ public class CacheMap<K, V> {
 	/**
 	 * Returns an existing key of the map. It also refreshes the element of the map with the given
 	 * key.
+	 * 
+	 * XXX: javadoc, what does it refresh?
 	 * 
 	 * @param key
 	 *            the key to the element to refresh

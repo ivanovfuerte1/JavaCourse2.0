@@ -13,6 +13,7 @@ import java.util.TreeMap;
  * @author Svetlosar Kovatchev
  */
 public class HashDice {
+	// XXX: beeing named n and m in the task doesn't mean you have to name them that way!
 	private int m;
 	private int n;
 	private DataReader data;
@@ -20,6 +21,8 @@ public class HashDice {
 	/**
 	 * Constructs an object by assigning values for its number of sides of the die, number of throws
 	 * and data of combinations from different source.
+	 * 
+	 * XXX: Perhaps add default constructor with default initialization?
 	 * 
 	 * @param m
 	 *            the number of sides of the die
@@ -42,7 +45,10 @@ public class HashDice {
 	 *         number each one occurred
 	 */
 	public Map<String, Set<Integer>> combinationsCreator() {
+		// XXX: Why did you use TreeMap? What's the difference between HashMap, TreeMap, Hashtable, SortedMap?
+		// What is its complexity of TreeMap operations? What other structure can be used?
 		Map<String, Set<Integer>> combinations = new TreeMap<>();
+		// XXX: Why would you use additional memory?
 		Integer throwNumber = 0;
 		for (int i = 0; i < n; i++) {
 			throwNumber++;
@@ -69,6 +75,7 @@ public class HashDice {
 	 */
 	public void printStatistics(Map<String, Set<Integer>> combinationsCount) {
 		for (Entry<String, Set<Integer>> currentCombination : combinationsCount.entrySet()) {
+			// XXX: What's the problem here? ;)
 			System.out.format("Combination: '%s' Throw number: %s %n", currentCombination.getKey(),
 					currentCombination.getValue().toString());
 		}

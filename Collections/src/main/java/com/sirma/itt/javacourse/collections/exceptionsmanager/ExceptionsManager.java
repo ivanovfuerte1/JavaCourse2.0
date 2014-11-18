@@ -16,14 +16,18 @@ public class ExceptionsManager {
 	private Map<String, String> exceptions = new HashMap<>();
 	private String message = "";
 	private static final String SEPARATOR = "|";
+	// XXX: describe this!
 	private boolean subsequentMessage = false;
+	// XXX: var name
 	private StringBuilder sb = new StringBuilder();
 
 	/**
 	 * Constructs an object of the {@link ExceptionsManager} containing predefined messages.
 	 * 
+	 * XXX: you have to provide a pre-defined set of exception messages!
+	 * 
 	 * @param allPermittedMessages
-	 *            a
+	 *            a XXX: describe the variable
 	 */
 	public ExceptionsManager(String[] allPermittedMessages) {
 		for (int i = 0; i < allPermittedMessages.length; i++) {
@@ -35,6 +39,7 @@ public class ExceptionsManager {
 	/**
 	 * Adds a new message to the to the combination of messages for output.
 	 * 
+	 * XXX: rename var name
 	 * @param mess
 	 *            the message to add
 	 */
@@ -43,11 +48,13 @@ public class ExceptionsManager {
 			if (subsequentMessage) {
 				sb.append(SEPARATOR);
 			} else {
+				// XXX: ??
 				subsequentMessage = true;
 			}
 			sb.append(mess);
 			this.message = sb.toString();
 		} else {
+			// XXX: You could define a custom exception here
 			throw new IllegalArgumentException();
 		}
 	}
@@ -59,6 +66,7 @@ public class ExceptionsManager {
 	 *            the code of the message to add
 	 */
 	public void addExceptionMessageUsingCode(String messageCode) {
+		// XXX: duplicated method
 		if (exceptions.containsKey(messageCode)) {
 			if (subsequentMessage) {
 				sb.append(SEPARATOR);
@@ -68,6 +76,7 @@ public class ExceptionsManager {
 			sb.append(exceptions.get(messageCode));
 			this.message = sb.toString();
 		} else {
+			// XXX: You could define a custom exception here
 			throw new IllegalArgumentException();
 		}
 	}
