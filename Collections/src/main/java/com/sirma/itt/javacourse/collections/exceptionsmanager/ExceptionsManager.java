@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class {@link ExceptionsManager} contains methods for setting a combination of predefined list
  * of exception messages in a simple string.
@@ -16,46 +19,42 @@ public class ExceptionsManager {
 	private Map<String, String> exceptions = new HashMap<>();
 	private String message = "";
 	private static final String SEPARATOR = "|";
-	// XXX: describe this!
-	private boolean subsequentMessage = false;
-	// XXX: var name
-	private StringBuilder sb = new StringBuilder();
+	private boolean firstMessage = true;
+	private StringBuilder stringBuilder = new StringBuilder();
+	private static final Logger LOGGER = LogManager.getLogger(ExceptionsManager.class);
 
 	/**
 	 * Constructs an object of the {@link ExceptionsManager} containing predefined messages.
 	 * 
-	 * XXX: you have to provide a pre-defined set of exception messages!
-	 * 
 	 * @param allPermittedMessages
-	 *            a XXX: describe the variable
+	 *            provides a set of predefined exception messages
 	 */
-	public ExceptionsManager(String[] allPermittedMessages) {
+	public ExceptionsManager(PermittedMessages[] allPermittedMessages) {
 		for (int i = 0; i < allPermittedMessages.length; i++) {
-			String key = Integer.toString(i);
-			this.exceptions.put(key, allPermittedMessages[i]);
+			String key = allPermittedMessages[i].toString();
+			this.exceptions.put(key, allPermittedMessages[i].getMessage());
 		}
 	}
 
 	/**
 	 * Adds a new message to the to the combination of messages for output.
 	 * 
-	 * XXX: rename var name
-	 * @param mess
+	 * @param newMessage
 	 *            the message to add
+	 * @throws UndefinedMessage
+	 *             when the message is not defined
 	 */
-	public void addExceptionMessage(String mess) {
-		if (exceptions.containsValue(mess)) {
-			if (subsequentMessage) {
-				sb.append(SEPARATOR);
+	public void addExceptionMessage(String newMessage) throws UndefinedMessage {
+		if (exceptions.containsValue(newMessage)) {
+			if (!firstMessage) {
+				stringBuilder.append(SEPARATOR);
 			} else {
-				// XXX: ??
-				subsequentMessage = true;
+				firstMessage = false;
 			}
-			sb.append(mess);
-			this.message = sb.toString();
+			this.message = stringBuilder.append(newMessage).toString();
 		} else {
-			// XXX: You could define a custom exception here
-			throw new IllegalArgumentException();
+			LOGGER.error("The message is not defined");
+			throw new UndefinedMessage("The message is not defined", null);
 		}
 	}
 
@@ -64,20 +63,20 @@ public class ExceptionsManager {
 	 * 
 	 * @param messageCode
 	 *            the code of the message to add
+	 * @throws UndefinedMessage
+	 *             when the message is not defined
 	 */
-	public void addExceptionMessageUsingCode(String messageCode) {
-		// XXX: duplicated method
+	public void addExceptionMessageUsingCode(String messageCode) throws UndefinedMessage {
 		if (exceptions.containsKey(messageCode)) {
-			if (subsequentMessage) {
-				sb.append(SEPARATOR);
+			if (!firstMessage) {
+				stringBuilder.append(SEPARATOR);
 			} else {
-				subsequentMessage = true;
+				firstMessage = false;
 			}
-			sb.append(exceptions.get(messageCode));
-			this.message = sb.toString();
+			this.message = stringBuilder.append(exceptions.get(messageCode)).toString();
 		} else {
-			// XXX: You could define a custom exception here
-			throw new IllegalArgumentException();
+			LOGGER.error("The message code is not defined");
+			throw new UndefinedMessage("The message code is not defined", null);
 		}
 	}
 

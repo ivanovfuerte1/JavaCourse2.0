@@ -2,10 +2,10 @@ package com.sirma.itt.javacourse.collections.hashdice;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.junit.Test;
 
@@ -26,13 +26,13 @@ public class HashDiceTest {
 	public void test() {
 		HashDice hashDice = new HashDice(3, 3, new TestReader(input));
 		Map<String, Set<Integer>> result = hashDice.combinationsCreator();
-		Map<String, Set<Integer>> expected = new TreeMap<>();
+		Map<String, Set<Integer>> expected = new HashMap<>();
 		Set<Integer> firstThrow = new HashSet<Integer>();
-		firstThrow.add(2);
+		firstThrow.add(1);
 		expected.put(input[1], firstThrow);
 		Set<Integer> secondThrow = new HashSet<Integer>();
-		secondThrow.add(3);
-		secondThrow.add(1);
+		secondThrow.add(2);
+		secondThrow.add(0);
 		expected.put(input[0], secondThrow);
 		assertEquals(expected, result);
 	}

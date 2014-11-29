@@ -1,5 +1,7 @@
 package com.sirma.itt.javacourse.collections.exceptionsmanager;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 /**
@@ -9,29 +11,64 @@ import org.junit.Test;
  * @author Svetlosar Kovatchev
  */
 public class ExceptionsManagerTest {
-	private String[] allPermittedMessages = new String[] { "Wrong ID", "Invalid debit card number",
-			"Zip code invalid" };
+
+	private PermittedMessages[] allPermittedMessages = { PermittedMessages.FIRST_MESSAGE,
+			PermittedMessages.SECOND_MESSAGE, PermittedMessages.THIRD_MESSAGE };
+
+	/**
+	 * Tests the generated string after adding several messages by code.
+	 * 
+	 * @throws UndefinedMessage
+	 *             when the message is not defined
+	 */
+	@Test
+	public void testCorrectCode() throws UndefinedMessage {
+		ExceptionsManager exceptionManager = new ExceptionsManager(allPermittedMessages);
+		System.out.println(PermittedMessages.FIRST_MESSAGE.toString());
+		exceptionManager.addExceptionMessageUsingCode(PermittedMessages.THIRD_MESSAGE.toString());
+		exceptionManager.addExceptionMessageUsingCode(PermittedMessages.SECOND_MESSAGE.toString());
+		assertEquals("Zip code invalid|Invalid debit card number", exceptionManager.getMessage());
+	}
+
+	/**
+	 * Tests the generated string after adding several messages.
+	 *
+	 * @throws UndefinedMessage
+	 *             when the message is not defined
+	 */
+	@Test
+	public void testCorrectMessages() throws UndefinedMessage {
+		ExceptionsManager exceptionManager = new ExceptionsManager(allPermittedMessages);
+		exceptionManager.addExceptionMessage(PermittedMessages.FIRST_MESSAGE.getMessage());
+		exceptionManager.addExceptionMessage(PermittedMessages.SECOND_MESSAGE.getMessage());
+		assertEquals("Wrong ID|Invalid debit card number", exceptionManager.getMessage());
+	}
 
 	/**
 	 * Tests the method addExceptionMessageUsingCode with non-existing code of message.
+	 *
+	 * @throws UndefinedMessage
+	 *             when the message is not defined
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testWrongCode() {
+	@Test(expected = UndefinedMessage.class)
+	public void testWrongCode() throws UndefinedMessage {
 		ExceptionsManager exceptionManager = new ExceptionsManager(allPermittedMessages);
-		exceptionManager.addExceptionMessage("Wrong ID");
-		exceptionManager.addExceptionMessage("Invalid debit card number");
-		exceptionManager.addExceptionMessageUsingCode("2");
-		exceptionManager.addExceptionMessageUsingCode("3");
+		exceptionManager.addExceptionMessage(PermittedMessages.FIRST_MESSAGE.getMessage());
+		exceptionManager.addExceptionMessage(PermittedMessages.SECOND_MESSAGE.getMessage());
+		exceptionManager.addExceptionMessageUsingCode(PermittedMessages.SECOND_MESSAGE.toString());
+		exceptionManager.addExceptionMessageUsingCode("Non-existent code");
 	}
 
 	/**
 	 * Tests the method addExceptionMessage with non-existing message.
+	 *
+	 * @throws UndefinedMessage
+	 *             when the message is not defined
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testWrongMessage() {
+	@Test(expected = UndefinedMessage.class)
+	public void testWrongMessage() throws UndefinedMessage {
 		ExceptionsManager exceptionManager = new ExceptionsManager(allPermittedMessages);
-		exceptionManager.addExceptionMessage("Wrong ID");
+		exceptionManager.addExceptionMessage(PermittedMessages.FIRST_MESSAGE.getMessage());
 		exceptionManager.addExceptionMessage("Inexistent message");
 	}
-
 }

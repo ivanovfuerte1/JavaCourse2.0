@@ -14,9 +14,14 @@ public class PageBeanTest {
 	/**
 	 * Tests the expected exception of the method previous of the class {@link PageBean} when the
 	 * current page is the first.
+	 * 
+	 * @throws LastPageReached
+	 *             if the last page is reached
+	 * @throws FirstPageReached
+	 *             if the first page is reached
 	 */
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
-	public void test() {
+	@Test(expected = FirstPageReached.class)
+	public void test() throws LastPageReached, FirstPageReached {
 		elementsFromInput.add("ace");
 		elementsFromInput.add("2");
 		elementsFromInput.add("3");
@@ -46,9 +51,14 @@ public class PageBeanTest {
 
 	/**
 	 * Tests whether the current page is the expected.
+	 * 
+	 * @throws LastPageReached
+	 *             if the last page is reached
+	 * @throws FirstPageReached
+	 *             if the first page is reached
 	 */
 	@Test
-	public void test2() {
+	public void test2() throws LastPageReached, FirstPageReached {
 		elementsFromInput.add("ace");
 		elementsFromInput.add("2");
 		elementsFromInput.add("3");
@@ -77,9 +87,14 @@ public class PageBeanTest {
 	/**
 	 * Tests the expected exception of the method next of the class {@link PageBean} when the
 	 * current page is the last and the last page has the maximum permitted number of elements.
+	 * 
+	 * @throws LastPageReached
+	 *             if the last page is reached
+	 * @throws FirstPageReached
+	 *             if the first page is reached
 	 */
-	@Test(expected = IndexOutOfBoundsException.class)
-	public void test3() {
+	@Test(expected = LastPageReached.class)
+	public void test3() throws LastPageReached, FirstPageReached {
 		elementsFromInput.add("ace");
 		elementsFromInput.add("2");
 		elementsFromInput.add("3");
@@ -108,9 +123,12 @@ public class PageBeanTest {
 	/**
 	 * Tests the result of the method next of the class {@link PageBean} when the list of elements
 	 * is empty.
+	 * 
+	 * @throws LastPageReached
+	 *             if the last page is reached
 	 */
 	@Test(expected = IndexOutOfBoundsException.class)
-	public void test4() {
+	public void test4() throws LastPageReached {
 		PageBean pageBean = new PageBean();
 		pageBean.separatePages(elementsFromInput);
 		pageBean.next();
@@ -119,9 +137,14 @@ public class PageBeanTest {
 	/**
 	 * Tests the expected result of the method next of the class {@link PageBean} when the current
 	 * page is the last and the last page does not have the maximum permitted number of elements.
+	 * 
+	 * @throws LastPageReached
+	 *             if the last page is reached
+	 * @throws FirstPageReached
+	 *             if the first page is reached
 	 */
 	@Test
-	public void test5() {
+	public void test5() throws LastPageReached, FirstPageReached {
 		elementsFromInput.add("ace");
 		elementsFromInput.add("2");
 		elementsFromInput.add("3");

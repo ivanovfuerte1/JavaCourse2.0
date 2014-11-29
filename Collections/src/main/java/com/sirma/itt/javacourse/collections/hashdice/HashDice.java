@@ -1,10 +1,13 @@
 package com.sirma.itt.javacourse.collections.hashdice;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The class {@link HashDice} contains methods for generating a statistic containing combinations of
@@ -13,27 +16,41 @@ import java.util.TreeMap;
  * @author Svetlosar Kovatchev
  */
 public class HashDice {
-	// XXX: beeing named n and m in the task doesn't mean you have to name them that way!
-	private int m;
-	private int n;
+	private static final Logger LOGGER = LogManager.getLogger(HashDice.class);
+	private int sidesNumber;
+	private int numberOfThrows;
 	private DataReader data;
+	private static final int DEFAULT_NUMBER_OF_SIDES = 6;
 
 	/**
 	 * Constructs an object by assigning values for its number of sides of the die, number of throws
 	 * and data of combinations from different source.
 	 * 
-	 * XXX: Perhaps add default constructor with default initialization?
-	 * 
-	 * @param m
+	 * @param sidesNumber
 	 *            the number of sides of the die
-	 * @param n
+	 * @param numberOfThrows
 	 *            the number of throws
 	 * @param data
 	 *            the data of combinations from different source
 	 */
-	public HashDice(int m, int n, DataReader data) {
-		this.m = m;
-		this.n = n;
+	public HashDice(int sidesNumber, int numberOfThrows, DataReader data) {
+		this.sidesNumber = sidesNumber;
+		this.numberOfThrows = numberOfThrows;
+		this.data = data;
+	}
+
+	/**
+	 * Constructs an object by assigning values for its number of throws and data of combinations
+	 * from different source. A default number of sides is assigned.
+	 * 
+	 * @param numberOfThrows
+	 *            the number of throws
+	 * @param data
+	 *            the data of combinations from different source
+	 */
+	public HashDice(int numberOfThrows, DataReader data) {
+		this.sidesNumber = DEFAULT_NUMBER_OF_SIDES;
+		this.numberOfThrows = numberOfThrows;
 		this.data = data;
 	}
 
@@ -45,14 +62,9 @@ public class HashDice {
 	 *         number each one occurred
 	 */
 	public Map<String, Set<Integer>> combinationsCreator() {
-		// XXX: Why did you use TreeMap? What's the difference between HashMap, TreeMap, Hashtable, SortedMap?
-		// What is its complexity of TreeMap operations? What other structure can be used?
-		Map<String, Set<Integer>> combinations = new TreeMap<>();
-		// XXX: Why would you use additional memory?
-		Integer throwNumber = 0;
-		for (int i = 0; i < n; i++) {
-			throwNumber++;
-			String currentCombination = data.getCombination(m);
+		Map<String, Set<Integer>> combinations = new HashMap<>();
+		for (int throwNumber = 0; throwNumber < numberOfThrows; throwNumber++) {
+			String currentCombination = data.getCombination(sidesNumber);
 			if (combinations.containsKey(currentCombination)) {
 				Set<Integer> temp = combinations.get(currentCombination);
 				temp.add(throwNumber);
@@ -75,9 +87,10 @@ public class HashDice {
 	 */
 	public void printStatistics(Map<String, Set<Integer>> combinationsCount) {
 		for (Entry<String, Set<Integer>> currentCombination : combinationsCount.entrySet()) {
-			// XXX: What's the problem here? ;)
-			System.out.format("Combination: '%s' Throw number: %s %n", currentCombination.getKey(),
-					currentCombination.getValue().toString());
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append("Combination: '").append(currentCombination.getKey())
+					.append("' Throw number: ").append(currentCombination.getValue().toString());
+			LOGGER.info(stringBuilder);
 		}
 	}
 

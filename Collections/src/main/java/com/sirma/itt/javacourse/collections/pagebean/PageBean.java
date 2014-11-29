@@ -11,11 +11,8 @@ import java.util.List;
  * @author Svetlosar Kovatchev
  */
 public class PageBean {
-	// A RUN CLASS SHOULD BE MADE CONTAING THE CALLING TO THE METHODS NEXT AND PREVIOUS INSTEAD OF
-	// CALLING THEM FROM THE CONSOLE
-	// XXX: better name, also why 
-	private List<List<String>> textInPages = new ArrayList<>();
-	private static final int PAGE_SIZE = 5;
+	private List<List<String>> paginator = new ArrayList<>();
+	private static final int PAGE_SIZE = 3;
 	private int counterOfPages = 0;
 	private int currentPage = 1;
 	private int lastPageElementsCounter = 0;
@@ -35,17 +32,17 @@ public class PageBean {
 			List<String> currentPage = elementsFromInput.subList(currentElement, currentElement
 					+ PAGE_SIZE);
 			currentElement += PAGE_SIZE;
-			textInPages.add(currentPage);
+			paginator.add(currentPage);
 			counterOfPages++;
 		}
 		lastPageElementsCounter = elementsFromInput.size() % PAGE_SIZE;
 		if (lastPageElementsCounter != 0) {
 			List<String> currentPage = elementsFromInput.subList(currentElement, currentElement
 					+ lastPageElementsCounter);
-			textInPages.add(currentPage);
+			paginator.add(currentPage);
 			counterOfPages++;
 		}
-		return textInPages;
+		return paginator;
 	}
 
 	/**
@@ -58,7 +55,7 @@ public class PageBean {
 		// call to the method next(when method firstPage is called first).
 		startProgram = false;
 		currentPage = 1;
-		return textInPages.get(currentPage - 1);
+		return paginator.get(currentPage - 1);
 	}
 
 	/**
@@ -71,34 +68,42 @@ public class PageBean {
 		// call to the method next(when method firstPage is called first).
 		startProgram = false;
 		currentPage = counterOfPages;
-		return textInPages.get(currentPage - 1);
+		return paginator.get(currentPage - 1);
 	}
 
 	/**
 	 * Goes to the next page and returns it.
 	 * 
 	 * @return the next page
+	 * @throws LastPageReached
+	 *             if the last page is reached
 	 */
-	public List<String> next() {
+	public List<String> next() throws LastPageReached {
 		if (startProgram) {
 			startProgram = false;
 		} else if (currentPage != counterOfPages) {
 			currentPage++;
 		} else if (lastPageElementsCounter == 0) {
-			currentPage++;
-			return textInPages.get(currentPage);
+			throw new LastPageReached("The last page is reached!", null);
+			// currentPage++;
+			// return paginator.get(currentPage);
 		}
-		return textInPages.get(currentPage - 1);
+		return paginator.get(currentPage - 1);
 	}
 
 	/**
 	 * Goes to the next page and returns it.
 	 * 
 	 * @return the previous page
+	 * @throws FirstPageReached
+	 *             if the first page is reached
 	 */
-	public List<String> previous() {
+	public List<String> previous() throws FirstPageReached {
 		currentPage -= 1;
-		return textInPages.get(currentPage - 1);
+		if (currentPage == 0) {
+			throw new FirstPageReached("The first page is reached!", null);
+		}
+		return paginator.get(currentPage - 1);
 	}
 
 	/**

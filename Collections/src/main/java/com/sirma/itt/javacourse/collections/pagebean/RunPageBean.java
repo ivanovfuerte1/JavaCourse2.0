@@ -23,8 +23,12 @@ public final class RunPageBean {
 	 * 
 	 * @param args
 	 *            default arguments
+	 * @throws LastPageReached
+	 *             if the last page is reached
+	 * @throws FirstPageReached
+	 *             if the first page is reached
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws LastPageReached, FirstPageReached {
 		elementsFromInput.add("ace");
 		elementsFromInput.add("2");
 		elementsFromInput.add("3");
@@ -40,18 +44,9 @@ public final class RunPageBean {
 		elementsFromInput.add("king");
 		PageBean pageBean = new PageBean();
 		pageBean.separatePages(elementsFromInput);
-		
-//		System.out.println(pageBean.next());
-//		System.out.println(pageBean.next());
-//		System.out.println(pageBean.next());
-//		System.out.println(pageBean.next());
-//		System.out.println(pageBean.next());
-//		System.out.println(pageBean.next());
-//		System.out.println(pageBean.next());
-		
-		// pageBean.next();
-		System.out.println(pageBean.previous());
-		System.out.println(pageBean.previous());
+		pageBean.next();
+		pageBean.next();
+		pageBean.previous();
 	}
 
 }

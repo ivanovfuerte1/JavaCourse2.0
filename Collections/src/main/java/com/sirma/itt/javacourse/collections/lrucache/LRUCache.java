@@ -12,7 +12,7 @@ public class LRUCache {
 	private static final int SIZE_OF_CACHE = 3;
 	private Map<Integer, String> cache = new LinkedHashMap<Integer, String>(SIZE_OF_CACHE, 0.75f,
 			true) {
-		
+
 		private static final long serialVersionUID = 13135519790447313L;
 
 		@Override

@@ -10,19 +10,19 @@ import java.util.Queue;
  * algorithm.
  * 
  * @author Svetlosar Kovatchev
- * @param <K> XXX: javadoc
- * @param <V> XXX: javadoc
+ * @param <K>
+ *            the key to an element that can be saved in the cache
+ * @param <V>
+ *            the element that can be saved in the cache
  */
 public class CacheMap<K, V> {
-	// XXX: better name!
-	private Queue<K> keyInsertionOrder = new LinkedList<K>();
+	private Queue<K> queueOfKeys = new LinkedList<K>();
 	private int maxCapacity;
-	// XXX: Better name!
-	private final Map<K, V> delegate = new LinkedHashMap<K, V>(maxCapacity, 0.75f, true);
+	private final Map<K, V> cache = new LinkedHashMap<K, V>(maxCapacity, 1.0f, true);
 
 	/**
-	 * XXX: descpription
-	 * Constructs a cache with maximum capacity.
+	 * Constructs a cache with maximum capacity. It is used to memorize the most recently used
+	 * elements in order to access them faster.
 	 * 
 	 * @param maxCapacity
 	 *            the maximum capacity
@@ -36,18 +36,16 @@ public class CacheMap<K, V> {
 
 	/**
 	 * Returns an existing key of the map. It also refreshes the element of the map with the given
-	 * key.
-	 * 
-	 * XXX: javadoc, what does it refresh?
+	 * key - the element becomes the most recently used.
 	 * 
 	 * @param key
 	 *            the key to the element to refresh
 	 * @return the value of the refreshed element
 	 */
 	public V get(K key) {
-		keyInsertionOrder.remove(key);
-		keyInsertionOrder.add(key);
-		return delegate.get(key);
+		queueOfKeys.remove(key);
+		queueOfKeys.add(key);
+		return cache.get(key);
 	}
 
 	/**
@@ -56,7 +54,7 @@ public class CacheMap<K, V> {
 	 * @return the updated map
 	 */
 	public Map<K, V> getMap() {
-		return delegate;
+		return cache;
 	}
 
 	/**
@@ -69,13 +67,13 @@ public class CacheMap<K, V> {
 	 * @return the new element added if it already existed in the cache, otherwise returns null
 	 */
 	public V put(K key, V value) {
-		V previous = delegate.put(key, value);
-		keyInsertionOrder.remove(key);
-		keyInsertionOrder.add(key);
+		V previous = cache.put(key, value);
+		queueOfKeys.remove(key);
+		queueOfKeys.add(key);
 
-		if (delegate.size() > maxCapacity) {
-			K oldest = keyInsertionOrder.poll();
-			delegate.remove(oldest);
+		if (cache.size() > maxCapacity) {
+			K oldest = queueOfKeys.poll();
+			cache.remove(oldest);
 		}
 		return previous;
 	}
