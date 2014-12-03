@@ -12,22 +12,25 @@ public class AvailableArticles {
 		this.observer = observer;
 	}
 
-	public void register(Article article) {
+	public void register(Article article, AvailableArticles availableArticles2,
+			SoldArticles soldArticles) {
 		availableArticles.add(article);
-		notifyObserver(article);
+		notifyObserver(article, availableArticles2, soldArticles);
 	}
 
-	public void unregister(Article article) {
+	public void unregister(Article article, AvailableArticles availableArticles2,
+			SoldArticles soldArticles) {
 		if (availableArticles.contains(article)) {
 			availableArticles.remove(article);
-			notifyObserver(article);
+			notifyObserver(article, availableArticles2, soldArticles);
 		} else {
 			// SOME LOGGER
 		}
 	}
 
-	public void notifyObserver(Article article) {
-		observer.update(article);
+	public void notifyObserver(Article article, AvailableArticles availableArticles2,
+			SoldArticles soldArticles) {
+		observer.update(article, availableArticles2, soldArticles);
 	}
 
 	public List<Article> getAvailableArticles() {

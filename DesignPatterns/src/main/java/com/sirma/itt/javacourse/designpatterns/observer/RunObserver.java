@@ -14,19 +14,19 @@ public class RunObserver {
 		Observer observer = new ConcreteObserver();
 		AvailableArticles availableArticles = new AvailableArticles(observer);
 		SoldArticles soldArticles = new SoldArticles(observer);
-		availableArticles.register(article.get(0));
-		availableArticles.register(article.get(1));
+		availableArticles.register(article.get(0), availableArticles, soldArticles);
+		availableArticles.register(article.get(1), availableArticles, soldArticles);
 		List<Article> currentList = availableArticles.getAvailableArticles();
-		for (Article currentArticle : currentList) {
-			System.out.println(currentArticle.getNameArticle());
-			System.out.println(currentArticle.getQuantity());
-		}
+		// for (Article currentArticle : currentList) {
+		// System.out.println(currentArticle.getNameArticle());
+		// System.out.println(currentArticle.getQuantity());
+		// }
 		secondArticle.setQuantity(0);
-		for (Article currentArticle : currentList) {
-			System.out.println(currentArticle.getNameArticle());
-			System.out.println(currentArticle.getQuantity());
-		}
-		availableArticles.unregister(article.get(1));
+		// for (Article currentArticle : currentList) {
+		// System.out.println(currentArticle.getNameArticle());
+		// System.out.println(currentArticle.getQuantity());
+		// }
+		availableArticles.unregister(article.get(1), availableArticles, soldArticles);
 		for (Article currentArticle : currentList) {
 			System.out.println(currentArticle.getNameArticle());
 			System.out.println(currentArticle.getQuantity());

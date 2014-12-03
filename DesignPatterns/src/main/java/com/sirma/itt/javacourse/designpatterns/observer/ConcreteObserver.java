@@ -1,26 +1,27 @@
 package com.sirma.itt.javacourse.designpatterns.observer;
 
 public class ConcreteObserver implements Observer {
-	private AvailableArticles availableArticles;
-	private SoldArticles soldArticles;
+	// private AvailableArticles availableArticles;
+	// private SoldArticles soldArticles;
 
 	@Override
-	public void update(Article article) {
+	public void update(Article article, AvailableArticles availableArticles2,
+			SoldArticles soldArticles) {
 		if (article.getQuantity() <= 0) {
 			soldArticles.register(article);
-			availableArticles.unregister(article);
+			// availableArticles2.unregister(article);
 		} else {
-			availableArticles.register(article);
+			// availableArticles.register(article);
 			soldArticles.unregister(article);
 		}
 	}
 
-	public SoldArticles getSoldArticles() {
-		return soldArticles;
-	}
-
-	public AvailableArticles getAvailableArticles() {
-		return availableArticles;
-	}
+	// public SoldArticles getSoldArticles() {
+	// return soldArticles;
+	// }
+	//
+	// public AvailableArticles getAvailableArticles() {
+	// return availableArticles;
+	// }
 
 }
