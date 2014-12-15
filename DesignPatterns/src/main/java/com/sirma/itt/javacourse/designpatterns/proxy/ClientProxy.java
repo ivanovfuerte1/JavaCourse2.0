@@ -3,6 +3,8 @@ package com.sirma.itt.javacourse.designpatterns.proxy;
 /**
  * The class {@link ClientProxy} contains methods for testing the method create instance of the
  * class {@link IntegerFactory}.
+ * 
+ * XXX: if it's runner name it so
  */
 public final class ClientProxy {
 	/**

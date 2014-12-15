@@ -6,6 +6,7 @@ package com.sirma.itt.javacourse.designpatterns.calculator;
  */
 public class Subtract implements Command {
 
+	// XXX: repeated code?
 	private Result result = new Result();
 
 	@Override

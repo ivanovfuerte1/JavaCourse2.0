@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class {@link Pool} contains methods for acquiring and releasing resources to certain limit.
+ * XXX: Why not make this generic so I can use your pool with whatever kind of
+ * objects I want?
+ * 
+ * The class {@link Pool} contains methods for acquiring and releasing resources
+ * to certain limit.
  */
 public class Pool {
 	private static final String NO_RESOURCES = "There are no available resourses!";
@@ -28,20 +32,23 @@ public class Pool {
 	 * 
 	 * @return the pool with the new resource acquired
 	 * @throws NoAvailableResource
-	 *             if the number of resources reaches the maximum assigned in the constructor.
+	 *             if the number of resources reaches the maximum assigned in
+	 *             the constructor.
 	 */
 	public Reusable acquire() throws NoAvailableResource {
 		if (pool.size() < maxPoolSize) {
+			// XXX: why declare different class for this?
 			Reusable reusable = Reusable.getInstance();
 			pool.add(reusable);
 			return reusable;
 		} else {
-			// COULD(AND SHOULD) I PRESERVE SOME STACK TRACE HERE?
 			throw new NoAvailableResource(NO_RESOURCES, null);
 		}
 	}
 
 	/**
+	 * XXX: which element do you want to release? Why?
+	 * 
 	 * Releases a resource.
 	 * 
 	 * @throws AllReusableReleased
@@ -51,6 +58,7 @@ public class Pool {
 		if (pool.size() > 0) {
 			pool.remove(0);
 		} else {
+			// XXX: Is there something to preserve?
 			// COULD(AND SHOULD) I PRESERVE SOME STACK TRACE HERE?
 			throw new AllReusableReleased(ALL_REUSABLE_RELEASED, null);
 		}

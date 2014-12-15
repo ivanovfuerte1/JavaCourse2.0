@@ -19,7 +19,8 @@ public class Calculator {
 	 */
 	public String getDetails(String string) {
 		String[] operands = new String[2];
-
+		
+		// XXX: constants!
 		if (string.contains("+") && string.length() != 1) {
 			int separatorIndex = string.indexOf('+');
 			subCalculus(string, operands, separatorIndex);
@@ -71,6 +72,7 @@ public class Calculator {
 		parts[0] = string.substring(0, separatorIndex);
 		parts[1] = string.substring(separatorIndex + 1);
 		for (int i = 0; i < parts.length; i++) {
+			// XXX: Compile pattern
 			if (parts[i].matches("(.*)\\+(.*)||(.*)\\-(.*)||(.*)\\*(.*)||(.*)\\/(.*)||(.*)\\^(.*)")) {
 				operands[i] = getDetails(parts[i]);
 			} else {
@@ -91,26 +93,24 @@ public class Calculator {
 	 * @return the result of the current calculus
 	 */
 	public float calculate(char operator, float firstOperand, float secondOperand) {
+		Command command = null;
 		switch (operator) {
 			case '+':
-				Command addition = new Add();
-				return addition.execute(firstOperand, secondOperand).getResult();
+				 command = new Add();
 			case '-':
-				Command subtraction = new Subtract();
-				return subtraction.execute(firstOperand, secondOperand).getResult();
+				 command = new Subtract();
 			case '*':
-				Command multiplication = new Multiply();
-				return multiplication.execute(firstOperand, secondOperand).getResult();
+				 command = new Multiply();
 			case '/':
-				Command division = new Divide();
-				return division.execute(firstOperand, secondOperand).getResult();
+				 command = new Divide();
 			case '^':
-				Command exponentiation = new Exponentiate();
-				return exponentiation.execute(firstOperand, secondOperand).getResult();
+				 command = new Exponentiate();
 			default:
 				// This result is not supposed to be reached ever.
-				return 0;
+				
 
 		}
+		
+		return command.execute(firstOperand, secondOperand).getResult();
 	}
 }

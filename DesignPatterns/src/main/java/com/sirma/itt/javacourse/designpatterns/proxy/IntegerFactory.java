@@ -11,6 +11,9 @@ public class IntegerFactory {
 	 * Creates an instance of the interface {@link IntegerInterface} implemented by the class
 	 * {@link IntegerProxy} and assigns the value returned by its method getInteger to the local
 	 * field.
+	 * 
+	 * XXX: Is this a factory? What do you have to modify here?
+	 * 
 	 */
 	public void createInstance() {
 		IntegerInterface integerInterface = new IntegerProxy();

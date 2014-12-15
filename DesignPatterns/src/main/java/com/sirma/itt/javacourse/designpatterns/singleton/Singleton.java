@@ -6,6 +6,7 @@ package com.sirma.itt.javacourse.designpatterns.singleton;
  */
 public final class Singleton {
 	private static final Singleton SINGLE_INSTANCE = new Singleton();
+	// XXX: Why do we need this?
 	private int instances = 0;
 
 	/**
@@ -16,6 +17,8 @@ public final class Singleton {
 	}
 
 	/**
+	 * XXX: Thread safety!
+	 * 
 	 * Gets the instance of the class.
 	 * 
 	 * @return the instance of the class

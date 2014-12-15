@@ -6,17 +6,23 @@ import org.apache.logging.log4j.Logger;
 /**
  * The class {@link MyClassFactory} contains a method for testing the classes for creating and
  * resizing figures.
+ * 
+ * XXX: if it's a runner class rename it so.
  */
 public final class MyClassFactory {
 	private static final Logger LOGGER = LogManager.getLogger(MyClassFactory.class);
 
 	/**
+	 * XXX: remove constructors
+	 * 
 	 * Default constructor.
 	 */
 	private MyClassFactory() {
 	}
 
 	/**
+	 * XXX: Does not test anything.
+	 * 
 	 * Tests the methods for creating and resizing figures.
 	 * 
 	 * @param args

@@ -6,6 +6,7 @@ package com.sirma.itt.javacourse.designpatterns.calculator;
  */
 public class Exponentiate implements Command {
 
+	// XXX: ?
 	private Result result = new Result();
 
 	@Override
