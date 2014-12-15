@@ -1,27 +1,19 @@
 package com.sirma.itt.javacourse.designpatterns.observer;
 
+/**
+ * The class {@link ConcreteObserver} contains a methods for updating the list of sold articles
+ * according to the current state of the list of available articles.
+ */
 public class ConcreteObserver implements Observer {
-	// private AvailableArticles availableArticles;
-	// private SoldArticles soldArticles;
 
 	@Override
 	public void update(Article article, AvailableArticles availableArticles2,
 			SoldArticles soldArticles) {
 		if (article.getQuantity() <= 0) {
 			soldArticles.register(article);
-			// availableArticles2.unregister(article);
 		} else {
-			// availableArticles.register(article);
 			soldArticles.unregister(article);
 		}
 	}
-
-	// public SoldArticles getSoldArticles() {
-	// return soldArticles;
-	// }
-	//
-	// public AvailableArticles getAvailableArticles() {
-	// return availableArticles;
-	// }
 
 }

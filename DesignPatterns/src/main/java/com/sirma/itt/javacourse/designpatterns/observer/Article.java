@@ -1,7 +1,7 @@
 package com.sirma.itt.javacourse.designpatterns.observer;
 
 /**
- * The class {@link Article} contains only getters and setters for its variables.
+ * The class {@link Article} contains getters and setters for its variables - name and quantity.
  */
 public class Article {
 	private String nameArticle;
