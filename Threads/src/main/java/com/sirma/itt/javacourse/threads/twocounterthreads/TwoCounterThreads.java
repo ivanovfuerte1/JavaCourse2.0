@@ -1,7 +1,7 @@
 package com.sirma.itt.javacourse.threads.twocounterthreads;
 
 /**
- * The class {@link TwoCounterThreads} contains a method for running two counter threads.
+ * The class {@link TwoCounterThreads} contains a method for running several counter threads.
  */
 public final class TwoCounterThreads {
 	/**
@@ -11,7 +11,7 @@ public final class TwoCounterThreads {
 	}
 
 	/**
-	 * Runs two counter threads simultaneously.
+	 * Runs several counter threads simultaneously.
 	 * 
 	 * @param args
 	 *            default arguments
@@ -19,8 +19,12 @@ public final class TwoCounterThreads {
 	public static void main(String[] args) {
 		Thread firstThread = new Thread(new CounterThreads(5, 10));
 		Thread secondThread = new Thread(new CounterThreads(10, 20));
+		Thread thirdThread = new Thread(new CounterThreads(110, 120));
+		Thread fourthThread = new Thread(new CounterThreads(210, 220));
 		firstThread.start();
 		secondThread.start();
+		thirdThread.start();
+		fourthThread.start();
 	}
 
 }

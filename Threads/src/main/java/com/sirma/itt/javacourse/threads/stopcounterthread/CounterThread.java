@@ -15,10 +15,9 @@ public class CounterThread implements Runnable {
 	public void run() {
 		for (int i = 0; i < Integer.MAX_VALUE; i++) {
 			try {
-				Thread.sleep(20);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				LOGGER.info("The count stopped at: " + i);
-				e.printStackTrace();
+				LOGGER.info("The count stopped at: " + i, e);
 				return;
 			}
 		}
