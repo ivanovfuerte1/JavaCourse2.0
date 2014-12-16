@@ -30,15 +30,15 @@ public class Pool<T> {
 	 * Releases a new Resource.
 	 * 
 	 * @return the pool with the new resource acquired
-	 * @param t
+	 * @param object
 	 *            the resource from the input
 	 * @throws AllReusableReleased
 	 *             if there are no resources to release
 	 */
-	public T release(T t) throws AllReusableReleased {
+	public T release(T object) throws AllReusableReleased {
 		if (pool.size() < maxPoolSize) {
-			pool.add(t);
-			return t;
+			pool.add(object);
+			return object;
 		} else {
 			throw new AllReusableReleased(ALL_REUSABLE_RELEASED);
 		}
@@ -61,14 +61,14 @@ public class Pool<T> {
 	/**
 	 * Acquires a resource assigned from the input.
 	 * 
-	 * @param t
+	 * @param object
 	 *            the resource assigned from the input
 	 * @throws NoAvailableResource
 	 *             if the number of resources reaches the maximum assigned in the constructor.
 	 */
-	public void acquire(T t) throws NoAvailableResource {
-		if (pool.contains(t)) {
-			pool.remove(t);
+	public void acquire(T object) throws NoAvailableResource {
+		if (pool.contains(object)) {
+			pool.remove(object);
 		} else {
 			throw new NoAvailableResource(NO_RESOURCES);
 		}
