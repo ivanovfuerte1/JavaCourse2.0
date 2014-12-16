@@ -3,14 +3,12 @@ package com.sirma.itt.javacourse.designpatterns.calculator;
 /**
  * The class Add contains method for adding two float values.
  */
-public class Add implements Command {
-
-	private Result result = new Result();
+public class Add extends Command {
 
 	@Override
 	public Result execute(float firstOperand, float secondOperand) {
-		result.setResult(firstOperand + secondOperand);
-		return result;
+		getResult().setResult(firstOperand + secondOperand);
+		return getResult();
 	}
 
 }

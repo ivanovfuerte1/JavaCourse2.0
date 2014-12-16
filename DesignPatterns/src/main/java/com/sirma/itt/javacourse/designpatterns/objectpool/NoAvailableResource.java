@@ -13,11 +13,9 @@ public class NoAvailableResource extends Exception {
 	 * 
 	 * @param message
 	 *            the message to display
-	 * @param cause
-	 *            the reason message is displayed
 	 */
-	protected NoAvailableResource(String message, Throwable cause) {
-		super(message, cause);
+	protected NoAvailableResource(String message) {
+		super(message);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.sirma.itt.javacourse.designpatterns.calculator;
 
+import java.util.regex.Pattern;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,6 +10,18 @@ import org.apache.logging.log4j.Logger;
  * division and exponentiation of two or more values.
  */
 public class Calculator {
+	private static final char PLUS_SIGN = '+';
+	private static final char MINUS_SIGN = '-';
+	private static final char ASTERISK_SIGN = '*';
+	private static final char SLASH_SIGN = '/';
+	private static final char CARRET_SIGN = '^';
+	private static final String PLUS = "+";
+	private static final String MINUS = "-";
+	private static final String ASTERISK = "*";
+	private static final String SLASH = "/";
+	private static final String CARRET = "^";
+	private static final String CALCULUS_PATTERN = "(.*)\\+(.*)||(.*)\\-(.*)||(.*)\\*(.*)||(.*)\\/(.*)||(.*)\\^(.*)";
+	private static final Pattern PATTERN = Pattern.compile(CALCULUS_PATTERN);
 	private static final Logger LOGGER = LogManager.getLogger(Calculator.class);
 
 	/**
@@ -19,30 +33,29 @@ public class Calculator {
 	 */
 	public String getDetails(String string) {
 		String[] operands = new String[2];
-		
-		// XXX: constants!
-		if (string.contains("+") && string.length() != 1) {
-			int separatorIndex = string.indexOf('+');
+
+		if (string.contains(PLUS) && string.length() != 1) {
+			int separatorIndex = string.indexOf(PLUS_SIGN);
 			subCalculus(string, operands, separatorIndex);
-			return Float.toString(calculate('+', Float.parseFloat(operands[0]),
+			return Float.toString(calculate(PLUS_SIGN, Float.parseFloat(operands[0]),
 					Float.parseFloat(operands[1])));
-		} else if (string.contains("-") && string.length() != 1) {
-			int separatorIndex = string.indexOf('-');
+		} else if (string.contains(MINUS) && string.length() != 1) {
+			int separatorIndex = string.indexOf(MINUS_SIGN);
 			subCalculus(string, operands, separatorIndex);
-			return Float.toString(calculate('-', Float.parseFloat(operands[0]),
+			return Float.toString(calculate(MINUS_SIGN, Float.parseFloat(operands[0]),
 					Float.parseFloat(operands[1])));
-		} else if (string.contains("*") && string.length() != 1) {
-			int separatorIndex = string.indexOf('*');
+		} else if (string.contains(ASTERISK) && string.length() != 1) {
+			int separatorIndex = string.indexOf(ASTERISK_SIGN);
 			subCalculus(string, operands, separatorIndex);
-			return Float.toString(calculate('*', Float.parseFloat(operands[0]),
+			return Float.toString(calculate(ASTERISK_SIGN, Float.parseFloat(operands[0]),
 					Float.parseFloat(operands[1])));
-		} else if (string.contains("/") && string.length() != 1) {
-			int separatorIndex = string.indexOf('/');
+		} else if (string.contains(SLASH) && string.length() != 1) {
+			int separatorIndex = string.indexOf(SLASH_SIGN);
 			subCalculus(string, operands, separatorIndex);
-			return Float.toString(calculate('/', Float.parseFloat(operands[0]),
+			return Float.toString(calculate(SLASH_SIGN, Float.parseFloat(operands[0]),
 					Float.parseFloat(operands[1])));
-		} else if (string.contains("^") && string.length() != 1) {
-			int separatorIndex = string.indexOf('^');
+		} else if (string.contains(CARRET) && string.length() != 1) {
+			int separatorIndex = string.indexOf(CARRET_SIGN);
 			subCalculus(string, operands, separatorIndex);
 			try {
 				Integer.parseInt(operands[1]);
@@ -50,7 +63,7 @@ public class Calculator {
 				LOGGER.error("The exponent should be an integer", e);
 				throw new NumberFormatException();
 			}
-			return Float.toString(calculate('^', Float.parseFloat(operands[0]),
+			return Float.toString(calculate(CARRET_SIGN, Float.parseFloat(operands[0]),
 					Float.parseFloat(operands[1])));
 		}
 		return string;
@@ -72,8 +85,7 @@ public class Calculator {
 		parts[0] = string.substring(0, separatorIndex);
 		parts[1] = string.substring(separatorIndex + 1);
 		for (int i = 0; i < parts.length; i++) {
-			// XXX: Compile pattern
-			if (parts[i].matches("(.*)\\+(.*)||(.*)\\-(.*)||(.*)\\*(.*)||(.*)\\/(.*)||(.*)\\^(.*)")) {
+			if (PATTERN.matcher(parts[i]).matches()) {
 				operands[i] = getDetails(parts[i]);
 			} else {
 				operands[i] = parts[i];
@@ -96,21 +108,23 @@ public class Calculator {
 		Command command = null;
 		switch (operator) {
 			case '+':
-				 command = new Add();
+				command = new Add();
+				break;
 			case '-':
-				 command = new Subtract();
+				command = new Subtract();
+				break;
 			case '*':
-				 command = new Multiply();
+				command = new Multiply();
+				break;
 			case '/':
-				 command = new Divide();
+				command = new Divide();
+				break;
 			case '^':
-				 command = new Exponentiate();
+				command = new Exponentiate();
+				break;
 			default:
-				// This result is not supposed to be reached ever.
-				
-
+				break;
 		}
-		
 		return command.execute(firstOperand, secondOperand).getResult();
 	}
 }

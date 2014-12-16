@@ -2,8 +2,6 @@ package com.sirma.itt.javacourse.designpatterns.mail;
 
 /**
  * The class {@link Mail} contains methods for constructing Mail object containing sample fields.
- * 
- * XXX: When is this pattern used? What are its minuses?
  */
 public class Mail {
 	private String from = null;

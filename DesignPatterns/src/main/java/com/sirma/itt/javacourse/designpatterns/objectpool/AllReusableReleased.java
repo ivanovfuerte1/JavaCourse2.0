@@ -13,10 +13,8 @@ public class AllReusableReleased extends Exception {
 	 * 
 	 * @param message
 	 *            the message to display
-	 * @param cause
-	 *            the reason message is displayed
 	 */
-	protected AllReusableReleased(String message, Throwable cause) {
-		super(message, cause);
+	protected AllReusableReleased(String message) {
+		super(message);
 	}
 }

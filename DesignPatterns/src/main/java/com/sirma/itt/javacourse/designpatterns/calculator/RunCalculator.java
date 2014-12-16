@@ -7,16 +7,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The class {@link User} contains a method for testing the calculator with input from the console.
+ * The class {@link RunCalculator} contains a method for testing the calculator with input from the console.
  */
-public final class User {
-	private static final Logger LOGGER = LogManager.getLogger(User.class);
+public final class RunCalculator {
+	private static final Logger LOGGER = LogManager.getLogger(RunCalculator.class);
 	private static Calculator calculator = new Calculator();
 
 	/**
 	 * Default constructor.
 	 */
-	private User() {
+	private RunCalculator() {
 	}
 
 	/**

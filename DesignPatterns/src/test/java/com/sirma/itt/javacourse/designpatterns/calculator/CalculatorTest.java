@@ -37,8 +37,8 @@ public class CalculatorTest {
 	}
 
 	/**
-	 * Tests the method getValue of the class {@link Calculator} with a string containing two
-	 * operations, the second one having priority.
+	 * Tests the method getValue of the class {@link Calculator} with a string containing
+	 * exponentiation to float.
 	 */
 	@Test(expected = NumberFormatException.class)
 	public void testFloatPower() {

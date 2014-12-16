@@ -3,27 +3,30 @@ package com.sirma.itt.javacourse.designpatterns.objectpool;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
- * XXX: Why not make this generic so I can use your pool with whatever kind of
- * objects I want?
+ * The class {@link Pool} contains methods for acquiring and releasing resources to certain limit.
  * 
- * The class {@link Pool} contains methods for acquiring and releasing resources
- * to certain limit.
+ * @param <T>
+ *            the type of objects in the pool
  */
-public class Pool {
+public class Pool<T> {
 	private static final String NO_RESOURCES = "There are no available resourses!";
 	private static final String ALL_REUSABLE_RELEASED = "All reusable are released!";
 	private static int maxPoolSize;
-	private List<Reusable> pool;
+	private List<T> pool;
+	private static final Logger LOGGER = LogManager.getLogger(Pool.class);
 
 	/**
-	 * Construct a new pool with a given size.
+	 * Constructs a new pool with a given size.
 	 * 
 	 * @param size
 	 *            the size of the pool
 	 */
 	public Pool(int size) {
-		this.pool = new ArrayList<Reusable>();
+		this.pool = new ArrayList<T>();
 		maxPoolSize = size;
 	}
 
@@ -32,24 +35,22 @@ public class Pool {
 	 * 
 	 * @return the pool with the new resource acquired
 	 * @throws NoAvailableResource
-	 *             if the number of resources reaches the maximum assigned in
-	 *             the constructor.
+	 *             if the number of resources reaches the maximum assigned in the constructor.
 	 */
-	public Reusable acquire() throws NoAvailableResource {
+	public T acquire() throws NoAvailableResource {
 		if (pool.size() < maxPoolSize) {
-			// XXX: why declare different class for this?
-			Reusable reusable = Reusable.getInstance();
-			pool.add(reusable);
-			return reusable;
+			T t = null;
+			// T t = new T();
+			// T t = T.getInstance();
+			pool.add(t);
+			return t;
 		} else {
-			throw new NoAvailableResource(NO_RESOURCES, null);
+			throw new NoAvailableResource(NO_RESOURCES);
 		}
 	}
 
 	/**
-	 * XXX: which element do you want to release? Why?
-	 * 
-	 * Releases a resource.
+	 * Releases a resource. This method can be used when choice of resource is irrelevant.
 	 * 
 	 * @throws AllReusableReleased
 	 *             if there are no resources to release
@@ -58,9 +59,21 @@ public class Pool {
 		if (pool.size() > 0) {
 			pool.remove(0);
 		} else {
-			// XXX: Is there something to preserve?
-			// COULD(AND SHOULD) I PRESERVE SOME STACK TRACE HERE?
-			throw new AllReusableReleased(ALL_REUSABLE_RELEASED, null);
+			throw new AllReusableReleased(ALL_REUSABLE_RELEASED);
+		}
+	}
+
+	/**
+	 * Releases a resource assigned from the input.
+	 * 
+	 * @param t
+	 *            the resource assigned from the input
+	 */
+	public void release(T t) {
+		if (pool.contains(t)) {
+			pool.remove(t);
+		} else {
+			LOGGER.error("The resoource is not in the pool");
 		}
 	}
 
@@ -69,7 +82,7 @@ public class Pool {
 	 *
 	 * @return the pool
 	 */
-	public List<Reusable> getPool() {
+	public List<T> getPool() {
 		return pool;
 	}
 

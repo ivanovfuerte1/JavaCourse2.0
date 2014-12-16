@@ -11,26 +11,12 @@ import org.junit.Test;
 public class ProxyTest {
 
 	/**
-	 * Tests the method getTestValue of the class {@link IntegerFactory} before creating an
-	 * instance.
-	 */
-	@Test
-	public void testBefore() {
-		IntegerFactory integerFactory = new IntegerFactory();
-		int expected = 0;
-		int actual = integerFactory.getTestValue();
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Tests the method getTestValue of the class {@link IntegerFactory} after creating an instance.
 	 */
 	@Test
 	public void testAfter() {
-		IntegerFactory integerFactory = new IntegerFactory();
-		integerFactory.createInstance();
+		int actual = new IntegerFactory().createInstance().getInteger();
 		int expected = 6;
-		int actual = integerFactory.getTestValue();
 		assertEquals(expected, actual);
 	}
 

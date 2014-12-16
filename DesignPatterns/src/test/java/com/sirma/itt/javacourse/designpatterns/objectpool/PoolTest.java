@@ -1,7 +1,6 @@
 package com.sirma.itt.javacourse.designpatterns.objectpool;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +24,7 @@ public class PoolTest {
 	 */
 	@Test
 	public void testAcquire() throws NoAvailableResource {
-		Pool pool = new Pool(MAX_POOL_SIZE);
+		Pool<?> pool = new Pool<>(MAX_POOL_SIZE);
 		try {
 			pool.acquire();
 			pool.acquire();
@@ -38,25 +37,6 @@ public class PoolTest {
 	}
 
 	/**
-	 * Test if the instances created of the method acquire of the class {@link Pool} point to
-	 * different objects.
-	 * 
-	 * @throws NoAvailableResource
-	 *             when no resources are available
-	 */
-	@Test
-	public void testDifferentInstances() throws NoAvailableResource {
-		Pool pool = new Pool(MAX_POOL_SIZE);
-		try {
-			pool.acquire();
-			pool.acquire();
-		} catch (NoAvailableResource e) {
-			LOGGER.info(NO_RESOURCES, e);
-		}
-		assertNotEquals(pool.acquire(), pool.acquire());
-	}
-
-	/**
 	 * Tests the exception when no resources are available.
 	 * 
 	 * @throws NoAvailableResource
@@ -64,7 +44,7 @@ public class PoolTest {
 	 */
 	@Test(expected = NoAvailableResource.class)
 	public void testNoResources() throws NoAvailableResource {
-		Pool pool = new Pool(MAX_POOL_SIZE);
+		Pool<?> pool = new Pool<>(MAX_POOL_SIZE);
 		pool.acquire();
 		pool.acquire();
 		pool.acquire();
@@ -88,12 +68,12 @@ public class PoolTest {
 	 */
 	@Test
 	public void testSize() throws NoAvailableResource, AllReusableReleased {
-		Pool pool = new Pool(MAX_POOL_SIZE);
+		Pool<?> pool = new Pool<>(MAX_POOL_SIZE);
 		pool.acquire();
 		try {
 			pool.release();
 		} catch (AllReusableReleased e) {
-			throw new AllReusableReleased(EMPTY_POOL, e);
+			throw new AllReusableReleased(EMPTY_POOL);
 		}
 		int expected = 0;
 		int actual = pool.getPool().size();
@@ -110,7 +90,7 @@ public class PoolTest {
 	 */
 	@Test(expected = AllReusableReleased.class)
 	public void testEmptyPool() throws NoAvailableResource, AllReusableReleased {
-		Pool pool = new Pool(MAX_POOL_SIZE);
+		Pool<?> pool = new Pool<>(MAX_POOL_SIZE);
 		pool.acquire();
 		pool.release();
 		pool.release();
