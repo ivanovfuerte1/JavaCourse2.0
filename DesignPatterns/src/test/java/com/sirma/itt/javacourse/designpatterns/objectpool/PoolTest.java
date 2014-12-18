@@ -97,4 +97,22 @@ public class PoolTest {
 		pool.acquire();
 	}
 
+	/**
+	 * Tests the result of the method acquire with an argument.
+	 *
+	 * @throws NoAvailableResource
+	 *             if no resources are available
+	 * @throws AllReusableReleased
+	 *             when the pool is empty
+	 */
+	@Test
+	public void testAquireSampleResoource() throws NoAvailableResource, AllReusableReleased {
+		Pool<Integer> pool = new Pool<>(MAX_POOL_SIZE);
+		pool.release(sampleResource);
+		pool.acquire(sampleResource);
+		int actual = pool.getPool().size();
+		int expected = 0;
+		assertEquals(expected, actual);
+	}
+
 }
