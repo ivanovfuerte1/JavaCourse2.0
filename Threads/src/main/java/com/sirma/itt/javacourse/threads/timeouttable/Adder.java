@@ -37,6 +37,7 @@ public class Adder extends Thread {
 	public synchronized void run() {
 		timeoutHashtable.put(key, value);
 		try {
+			// XXX: Constant
 			wait(3000);
 			timeoutHashtable.remove(key);
 		} catch (InterruptedException e) {

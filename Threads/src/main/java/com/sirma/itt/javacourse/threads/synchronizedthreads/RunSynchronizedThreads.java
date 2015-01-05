@@ -17,8 +17,8 @@ public final class RunSynchronizedThreads {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		FirstThread firstInitializingThread = new FirstThread(1, 5);
-		SecondThread secondInitializingThread = new SecondThread(1, 5, firstInitializingThread);
+		FirstThread firstInitializingThread = new FirstThread(1, 5000);
+		SecondThread secondInitializingThread = new SecondThread(1, 5000, firstInitializingThread);
 		firstInitializingThread.register(secondInitializingThread);
 		Thread firstThread = new Thread(firstInitializingThread);
 		Thread secondThread = new Thread(secondInitializingThread);

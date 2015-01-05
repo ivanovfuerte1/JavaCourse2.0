@@ -50,6 +50,7 @@ public class FirstThread implements Runnable {
 		for (int i = initialCounterValue; i <= finalCounterValue; i++) {
 			if (timeToFinish) {
 				try {
+					// XXX: move to synchronized block 
 					wait();
 				} catch (InterruptedException e) {
 					LOGGER.error("The thread was interrupted while waiting.", e);

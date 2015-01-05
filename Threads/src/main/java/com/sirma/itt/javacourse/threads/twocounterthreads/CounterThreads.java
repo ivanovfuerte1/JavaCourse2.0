@@ -12,6 +12,7 @@ public class CounterThreads implements Runnable {
 	private static final Logger LOGGER = LogManager.getLogger(CounterThreads.class);
 	private int initialCounterValue;
 	private int finalCounterValue;
+	// XXX: variable name
 	private static boolean timeToFinish = false;
 
 	/**
@@ -33,7 +34,7 @@ public class CounterThreads implements Runnable {
 		for (int i = initialCounterValue; i < finalCounterValue; i++) {
 			if (!timeToFinish) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					LOGGER.error("The thread was interrupted while sleeping.", e);
 				}
@@ -42,6 +43,7 @@ public class CounterThreads implements Runnable {
 				return;
 			}
 		}
+		// is this thread safe?
 		timeToFinish = true;
 		return;
 	}

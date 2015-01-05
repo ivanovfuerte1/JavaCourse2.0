@@ -33,6 +33,7 @@ public class TimeoutHashtable {
 	 *            the specified value
 	 */
 	public synchronized void put(String key, Object value) {
+		// XXX: Move logic for starting the thread here.
 		LOGGER.info("The entry: " + key + ", value " + value + " added");
 		timeoutTable.put(key, value);
 	}

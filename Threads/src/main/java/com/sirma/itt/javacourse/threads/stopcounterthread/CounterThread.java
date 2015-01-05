@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * The class {@link CounterThread} contains a method for running a counter and stopping if the
  * thread is interrupted.
+ * 
+ * XXX: this does not work correctly. When the timer expires the execution doesn't terminate.
  */
 public class CounterThread implements Runnable {
 
@@ -13,14 +15,17 @@ public class CounterThread implements Runnable {
 
 	@Override
 	public void run() {
-		for (int i = 0; i < Integer.MAX_VALUE; i++) {
+		for (int i = 0; i < 300; i++) {
 			try {
-				Thread.sleep(1000);
+				// XXX: I'd put a counter here so I see how the thread counts.
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				LOGGER.info("The count stopped at: " + i, e);
 				return;
 			}
 		}
+		System.out.println("asd");
+		Thread.currentThread().interrupt();
 	}
 
 }
