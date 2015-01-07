@@ -16,9 +16,7 @@ public abstract class Command {
 	 *            the second operand
 	 * @return the result of the operation
 	 */
-	Result execute(float firstOperand, float secondOperand) {
-		return null;
-	}
+	abstract Result execute(float firstOperand, float secondOperand);
 
 	/**
 	 * @return a
