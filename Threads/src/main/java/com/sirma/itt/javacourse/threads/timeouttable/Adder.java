@@ -13,8 +13,8 @@ public class Adder extends Thread {
 	private TimeoutHashtable timeoutHashtable;
 	private Map<String, Object> timeoutTable;
 	private String key;
-	private Object value;
 	private static final Logger LOGGER = LogManager.getLogger(Adder.class);
+	private static final int THREE_SECONDS = 3000;
 
 	/**
 	 * Constructs an element with specified value mapped to a specified key.
@@ -30,15 +30,12 @@ public class Adder extends Thread {
 		this.timeoutHashtable = timeoutHashtable;
 		this.timeoutTable = timeoutHashtable.getTimeoutTable();
 		this.key = key;
-		this.value = value;
 	}
 
 	@Override
 	public synchronized void run() {
-		timeoutHashtable.put(key, value);
 		try {
-			// XXX: Constant
-			wait(3000);
+			wait(THREE_SECONDS);
 			timeoutHashtable.remove(key);
 		} catch (InterruptedException e) {
 			LOGGER.error("The thread was interrupted while waiting.", e);
@@ -57,8 +54,9 @@ public class Adder extends Thread {
 	public synchronized Object get(String key) {
 		String tempKey = key;
 		Object tempValue = timeoutTable.get(key);
+		timeoutHashtable.remove(tempKey);
 		notify();
-		(new Adder(tempKey, tempValue, timeoutHashtable)).start();
+		timeoutHashtable.put(tempKey, tempValue);
 		return tempValue;
 	}
 

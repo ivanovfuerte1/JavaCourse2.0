@@ -18,8 +18,8 @@ public final class RunSleeepingThreads {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		Thread thirdThread = new Thread(new SleepingThread(25, 30));
-		Thread fourthThread = new Thread(new SleepingThread(30, 40));
+		Thread thirdThread = new Thread(new WaitingThread(25, 30));
+		Thread fourthThread = new Thread(new WaitingThread(30, 40));
 		thirdThread.start();
 		fourthThread.start();
 	}

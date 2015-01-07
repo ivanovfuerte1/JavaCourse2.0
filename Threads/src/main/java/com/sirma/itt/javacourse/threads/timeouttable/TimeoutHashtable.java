@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 public class TimeoutHashtable {
 	private Map<String, Object> timeoutTable = new Hashtable<>();
 	private static final Logger LOGGER = LogManager.getLogger(TimeoutHashtable.class);
+	private Adder firstAdder;
 
 	/**
 	 * Returns the map containing values and keys associated with them.
@@ -33,7 +34,8 @@ public class TimeoutHashtable {
 	 *            the specified value
 	 */
 	public synchronized void put(String key, Object value) {
-		// XXX: Move logic for starting the thread here.
+		firstAdder = new Adder(key, value, this);
+		firstAdder.start();
 		LOGGER.info("The entry: " + key + ", value " + value + " added");
 		timeoutTable.put(key, value);
 	}
@@ -47,5 +49,14 @@ public class TimeoutHashtable {
 	public synchronized void remove(String key) {
 		LOGGER.info("The entry: " + key + ", value " + timeoutTable.get(key) + " is being removed");
 		timeoutTable.remove(key);
+	}
+
+	/**
+	 * Returns the first adder.
+	 * 
+	 * @return the first adder
+	 */
+	public Adder getFirstAdder() {
+		return firstAdder;
 	}
 }

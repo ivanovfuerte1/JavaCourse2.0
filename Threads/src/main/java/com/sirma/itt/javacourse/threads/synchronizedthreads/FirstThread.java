@@ -46,21 +46,22 @@ public class FirstThread implements Runnable {
 	}
 
 	@Override
-	public synchronized void run() {
-		for (int i = initialCounterValue; i <= finalCounterValue; i++) {
-			if (timeToFinish) {
-				try {
-					// XXX: move to synchronized block 
-					wait();
-				} catch (InterruptedException e) {
-					LOGGER.error("The thread was interrupted while waiting.", e);
+	public void run() {
+		synchronized (this) {
+			for (int i = initialCounterValue; i <= finalCounterValue; i++) {
+				if (timeToFinish) {
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						LOGGER.error("The thread was interrupted while waiting.", e);
+					}
 				}
+				timeToFinish = true;
+				secondThread.notifyThread();
+				LOGGER.info(i);
 			}
-			timeToFinish = true;
-			secondThread.notifyThread();
-			LOGGER.info(i);
+			return;
 		}
-		return;
 	}
 
 }

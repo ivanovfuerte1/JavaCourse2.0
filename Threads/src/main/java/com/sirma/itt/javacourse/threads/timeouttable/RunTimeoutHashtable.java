@@ -23,11 +23,10 @@ public final class RunTimeoutHashtable {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		TimeoutHashtable timeoutHashtable = new TimeoutHashtable();
-		Adder firstAdder = new Adder("a", 11, timeoutHashtable);
-		firstAdder.start();
+		timeoutHashtable.put("a", 11);
 		Thread.sleep(500);
-		(new Adder("b", 22, timeoutHashtable)).start();
+		timeoutHashtable.put("b", 22);
 		Thread.sleep(500);
-		firstAdder.get("a");
+		timeoutHashtable.getFirstAdder().get("a");
 	}
 }

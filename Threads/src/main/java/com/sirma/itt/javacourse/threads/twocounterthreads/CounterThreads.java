@@ -1,5 +1,7 @@
 package com.sirma.itt.javacourse.threads.twocounterthreads;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,8 +14,7 @@ public class CounterThreads implements Runnable {
 	private static final Logger LOGGER = LogManager.getLogger(CounterThreads.class);
 	private int initialCounterValue;
 	private int finalCounterValue;
-	// XXX: variable name
-	private static boolean timeToFinish = false;
+	private static AtomicBoolean aThreadFinished = new AtomicBoolean();
 
 	/**
 	 * Constructs an object of the class {@link CounterThreads} defining the initialCounterValue and
@@ -32,9 +33,9 @@ public class CounterThreads implements Runnable {
 	@Override
 	public void run() {
 		for (int i = initialCounterValue; i < finalCounterValue; i++) {
-			if (!timeToFinish) {
+			if (!aThreadFinished.get()) {
 				try {
-					Thread.sleep(200);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					LOGGER.error("The thread was interrupted while sleeping.", e);
 				}
@@ -43,8 +44,7 @@ public class CounterThreads implements Runnable {
 				return;
 			}
 		}
-		// is this thread safe?
-		timeToFinish = true;
+		aThreadFinished.set(true);
 		return;
 	}
 

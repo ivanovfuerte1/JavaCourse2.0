@@ -17,7 +17,7 @@ public final class StopCounterThread {
 		t.start();
 		String input = null;
 		try (Scanner SCANNER = new Scanner(System.in)) {
-			while (t.isInterrupted()) {
+			while (true) {
 				input = SCANNER.nextLine();
 				if (input != null) {
 					t.interrupt();
