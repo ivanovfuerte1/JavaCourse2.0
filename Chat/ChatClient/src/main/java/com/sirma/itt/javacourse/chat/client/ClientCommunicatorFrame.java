@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	private OriginatorChat originatorChat = new OriginatorChat();
 	private CareTakerChat careTakerChat = new CareTakerChat();
 	private int counter = 0;
+	private ResourceBundle messages = Language.getMessages();
 
 	public ClientCommunicatorFrame(String nickname, ObjectTransfer objectTransfer) {
 		initComponents();
@@ -89,7 +91,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	 */
 	public void setSendBtn() {
 		JButton sendBtn = new JButton();
-		sendBtn.setText("Send");
+		sendBtn.setText(messages.getString("stopServer"));
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);

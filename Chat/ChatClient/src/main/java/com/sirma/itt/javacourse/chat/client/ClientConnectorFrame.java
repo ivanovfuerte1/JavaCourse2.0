@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -15,8 +18,8 @@ import javax.swing.JTextField;
 import com.sirma.itt.javacourse.chat.commonfiles.ConstantsChat;
 
 /**
- * The class {@link ClientConnectorFrame} contains methods for sending messages to and receiving them
- * from a server.
+ * The class {@link ClientConnectorFrame} contains methods for sending messages to and receiving
+ * them from a server.
  */
 public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 
@@ -24,7 +27,9 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 	private JTextField inputTextField;
 	private JTextField outputTextField;
 	private ChatClientThread clientThread;
+	private JButton sendBtn;
 	private static final Pattern NICKNAME_PATTERN = Pattern.compile("[\\w\\d!@#$%^&*()_+]{3,12}");
+	private ResourceBundle messages = Language.getMessages();
 
 	// private OriginatorChat originatorChat = new OriginatorChat();
 	// private CareTakerChat careTakerChat = new CareTakerChat();
@@ -56,14 +61,14 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 			}
 		});
 		outputTextField = new JTextField();
-		JButton sendBtn = new JButton();
+		sendBtn = new JButton();
 		JPanel contentPane;
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle(ConstantsChat.CLIENT_WINDOW_LABEL);
 
 		setBounds(ConstantsChat.WINDOW_X_POSITION, ConstantsChat.CLIENT_WINDOW_Y_POSITION,
-				ConstantsChat.WINDOW_WIDTH, ConstantsChat.WINDOW_HEIGHT);
+				ConstantsChat.WINDOW_WIDTH, ConstantsChat.WINDOW_HEIGHT + 50);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -75,7 +80,7 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 		inputTextField.setFocusable(true);
 		// inputTextField.addKeyListener(this);
 
-		sendBtn.setText(ConstantsChat.SEND_BUTTON_LABEL);
+		sendBtn.setText(messages.getString("stopServer"));
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);
@@ -102,6 +107,8 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 				ConstantsChat.THIRD_ROW_COMPONENT, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(outputTextField);
+
+		setLanguage();
 	}
 
 	/**
@@ -112,6 +119,31 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 	 */
 	public void setInfo(String info) {
 		outputTextField.setText(info);
+	}
+
+	public void setLanguage() {
+
+		String[] languages = { "English", "Bulgarian" };
+		JComboBox<?> languageSelector = new JComboBox<String>(languages);
+		languageSelector.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
+				ConstantsChat.THIRD_ROW_COMPONENT + 50, ConstantsChat.COMPONENT_WIDTH,
+				ConstantsChat.COMPONENT_HEIGHT);
+		add(languageSelector);
+		languageSelector.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
+				String languagName = (String) languageSelector.getSelectedItem();
+				if (languagName.equals("Bulgarian")) {
+					Language.setLocale(new Locale("bg", "BG"));
+					messages = Language.getMessages();
+				} else {
+					Language.setLocale(new Locale("en", "US"));
+					messages = Language.getMessages();
+				}
+				sendBtn.setText(messages.getString("stopServer"));
+			}
+		});
 	}
 
 	// @Override
