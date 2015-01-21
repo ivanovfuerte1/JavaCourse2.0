@@ -8,12 +8,23 @@ import java.net.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The class {@link ObjectTransfer} contains methods for transferring data from server to client and
+ * vice versa.
+ */
 public class ObjectTransfer {
 	private Socket socket;
-	ObjectOutputStream objectOutputStream;
-	ObjectInputStream objectInputStream;
+	private ObjectOutputStream objectOutputStream;
+	private ObjectInputStream objectInputStream;
 	private static final Logger LOGGER = LogManager.getLogger(ObjectTransfer.class);
 
+	/**
+	 * Construct an object of {@link ObjectTransfer} assigning input and output streams of a client
+	 * to its variables.
+	 * 
+	 * @param socket
+	 *            the socket of the current client
+	 */
 	public ObjectTransfer(Socket socket) {
 		this.socket = socket;
 		try {
@@ -24,6 +35,9 @@ public class ObjectTransfer {
 		}
 	}
 
+	/**
+	 * Closes the streams used.
+	 */
 	public void closeStreams() {
 		try {
 			objectInputStream.close();
@@ -34,6 +48,11 @@ public class ObjectTransfer {
 		}
 	}
 
+	/**
+	 * Reads a message from server to client or vice versa.
+	 * 
+	 * @return the message read
+	 */
 	public Message readObject() {
 		Message message = null;
 		try {
@@ -46,6 +65,12 @@ public class ObjectTransfer {
 		return message;
 	}
 
+	/**
+	 * Sends a message from server to client or vice versa.
+	 * 
+	 * @param message
+	 *            the message to send
+	 */
 	public void writeObject(Message message) {
 		try {
 			objectOutputStream.writeObject(message);

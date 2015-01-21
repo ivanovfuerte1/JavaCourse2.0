@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.sirma.itt.javacourse.chat.commonfiles.ConstantsChat;
+import com.sirma.itt.javacourse.chat.commonfiles.Language;
 
 /**
  * The class {@link ChatServerFrame} contains methods for receiving messages from clients, reversing
@@ -20,10 +21,9 @@ import com.sirma.itt.javacourse.chat.commonfiles.ConstantsChat;
 public class ChatServerFrame extends JFrame {
 	private static final long serialVersionUID = 9047879748322156170L;
 	private JTextField tempTextField;
-	JButton stopServer;
+	private JButton stopServer;
 	private ChatServerThread serverThread;
-	private Locale currentLocale = new Locale("en", "US");
-	private ResourceBundle messages = ResourceBundle.getBundle("ChatBundle", currentLocale);
+	private ResourceBundle messages = Language.getMessages();
 
 	/**
 	 * Constructs an object of {@link ChatServerFrame}.
@@ -53,7 +53,7 @@ public class ChatServerFrame extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Sets the text field.
 	 */
 	public void setTextField() {
 		tempTextField = new JTextField();
@@ -63,12 +63,18 @@ public class ChatServerFrame extends JFrame {
 		add(tempTextField);
 	}
 
+	/**
+	 * Sets content for the text field.
+	 * 
+	 * @param text
+	 *            the content to set in the text field
+	 */
 	public void setTextFieldContent(String text) {
 		tempTextField.setText(text);
 	}
 
 	/**
-	 * 
+	 * Sets the stop button.
 	 */
 	public void setStopButton() {
 		stopServer = new JButton();
@@ -85,6 +91,9 @@ public class ChatServerFrame extends JFrame {
 		});
 	}
 
+	/**
+	 * Sets the language for the server.
+	 */
 	public void setLanguage() {
 
 		String[] languages = { "English", "Bulgarian" };
@@ -98,12 +107,12 @@ public class ChatServerFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
 				String languagName = (String) languageSelector.getSelectedItem();
-				if (languagName.equals("Bulgarian")) {
-					currentLocale = new Locale("bg", "BG");
-					messages = ResourceBundle.getBundle("ChatBundle", currentLocale);
+				if ("Bulgarian".equals(languagName)) {
+					Language.setLocale(new Locale("bg", "BG"));
+					messages = Language.getMessages();
 				} else {
-					currentLocale = new Locale("en", "US");
-					messages = ResourceBundle.getBundle("ChatBundle", currentLocale);
+					Language.setLocale(new Locale("en", "US"));
+					messages = Language.getMessages();
 				}
 				stopServer.setText(messages.getString("stopServer"));
 			}

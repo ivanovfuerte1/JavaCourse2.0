@@ -5,10 +5,24 @@ import java.util.Map;
 import com.sirma.itt.javacourse.chat.commonfiles.Message;
 import com.sirma.itt.javacourse.chat.commonfiles.ObjectTransfer;
 
+/**
+ * The class {@link NewChatCommunication} contains a method for running a thread for reading
+ * messages from the client and sending messages to him.
+ */
 public class NewChatCommunication extends Thread {
-	Map<ObjectTransfer, String> connectedClients;
-	ObjectTransfer objectTransfer;
+	private Map<ObjectTransfer, String> connectedClients;
+	private ObjectTransfer objectTransfer;
 
+	// private ChatServerFrame chatServerFrame;
+
+	/**
+	 * Constructs a new line for communication between client and server.
+	 * 
+	 * @param objectTransfer
+	 *            the object for transferring data between server and client
+	 * @param connectedClients
+	 *            the map of the connected clients
+	 */
 	public NewChatCommunication(ObjectTransfer objectTransfer,
 			Map<ObjectTransfer, String> connectedClients) {
 		this.objectTransfer = objectTransfer;
@@ -29,10 +43,12 @@ public class NewChatCommunication extends Thread {
 
 		while (true) {
 			Message message = objectTransfer.readObject();
-			if (message == null || message.getMessageContents().equals("Stop thread")) {
+			if (message == null || "Stop thread".equals(message.getMessageContents())) {
+				// chatServerFrame.setTextFieldContent("A client disconnected.");
 				connectedClients.remove(objectTransfer);
 				objectTransfer.writeObject(new Message("", "Stop reading"));
-
+				// chatServerFrame.setTextFieldContent("Client " + objectTransfer.toString()
+				// + " disconnected.");
 				break;
 			}
 			for (ObjectTransfer client : connectedClients.keySet()) {

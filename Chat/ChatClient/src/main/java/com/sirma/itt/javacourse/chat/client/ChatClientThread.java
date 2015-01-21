@@ -54,7 +54,7 @@ public class ChatClientThread extends Thread {
 					objectTransfer.writeObject(message);
 					message = objectTransfer.readObject();
 					client.setInfo(message.getMessageContents());
-					if (message.getMessageContents().equals("You are connected.")) {
+					if ("You are connected.".equals(message.getMessageContents())) {
 						new ClientCommunicatorFrame(nickname, objectTransfer).setVisible(true);
 						client.dispose();
 						break;
@@ -69,19 +69,19 @@ public class ChatClientThread extends Thread {
 	}
 
 	/**
-	 * Returns the message to reverse.
+	 * Returns the nickname of the current client.
 	 * 
-	 * @return the message to reverse
+	 * @return the nickname of the current client
 	 */
 	public String getNickname() {
 		return nickname;
 	}
 
 	/**
-	 * Sets a new message to reverse.
+	 * Sets a new nickname.
 	 * 
 	 * @param nickname
-	 *            the new message to reverse
+	 *            the new nickname
 	 */
 	public void setNickname(String nickname) {
 		this.nickname = nickname;

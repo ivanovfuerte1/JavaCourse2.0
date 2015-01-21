@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.sirma.itt.javacourse.chat.commonfiles.ConstantsChat;
+import com.sirma.itt.javacourse.chat.commonfiles.Language;
 
 /**
  * The class {@link ClientConnectorFrame} contains methods for sending messages to and receiving
@@ -80,7 +81,7 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 		inputTextField.setFocusable(true);
 		// inputTextField.addKeyListener(this);
 
-		sendBtn.setText(messages.getString("stopServer"));
+		sendBtn.setText(messages.getString("connect"));
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);
@@ -121,8 +122,10 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 		outputTextField.setText(info);
 	}
 
+	/**
+	 * Sets the language for the current client.
+	 */
 	public void setLanguage() {
-
 		String[] languages = { "English", "Bulgarian" };
 		JComboBox<?> languageSelector = new JComboBox<String>(languages);
 		languageSelector.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
@@ -134,14 +137,14 @@ public class ClientConnectorFrame extends JFrame/* implements KeyListener */{
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
 				String languagName = (String) languageSelector.getSelectedItem();
-				if (languagName.equals("Bulgarian")) {
+				if ("Bulgarian".equals(languagName)) {
 					Language.setLocale(new Locale("bg", "BG"));
 					messages = Language.getMessages();
 				} else {
 					Language.setLocale(new Locale("en", "US"));
 					messages = Language.getMessages();
 				}
-				sendBtn.setText(messages.getString("stopServer"));
+				sendBtn.setText(messages.getString("connect"));
 			}
 		});
 	}

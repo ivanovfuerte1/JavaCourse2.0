@@ -6,12 +6,24 @@ import org.apache.logging.log4j.Logger;
 import com.sirma.itt.javacourse.chat.commonfiles.Message;
 import com.sirma.itt.javacourse.chat.commonfiles.ObjectTransfer;
 
+/**
+ * The class {@link ClientReadThread} contains a method for reading messages, displaying their
+ * sender and content.
+ */
 public class ClientReadThread extends Thread {
 	private ClientCommunicatorFrame clientCommunicatorFrame;
 	private ObjectTransfer objectTransfer;
-	StringBuilder messageString = new StringBuilder();
+	// private StringBuilder messageString = new StringBuilder();
 	private static final Logger LOGGER = LogManager.getLogger(ClientReadThread.class);
 
+	/**
+	 * Constructs a new thread assigning values for window and streams container.
+	 * 
+	 * @param clientCommunicatorFrame
+	 *            the window for communication of the current client
+	 * @param objectTransfer
+	 *            the object having the streams of the current socket
+	 */
 	public ClientReadThread(ClientCommunicatorFrame clientCommunicatorFrame,
 			ObjectTransfer objectTransfer) {
 		this.clientCommunicatorFrame = clientCommunicatorFrame;
@@ -23,9 +35,10 @@ public class ClientReadThread extends Thread {
 		try {
 			while (true) {
 				Message message = objectTransfer.readObject();
-				if (message.getMessageContents().equals("Stop reading")) {
+				if ("Stop reading".equals(message.getMessageContents())) {
 					break;
 				}
+				// TO REMOVE LATER
 				System.out.println("Print ouput");
 				clientCommunicatorFrame.setOutputFieldContent(message.getNickname() + ": "
 						+ message.getMessageContents());

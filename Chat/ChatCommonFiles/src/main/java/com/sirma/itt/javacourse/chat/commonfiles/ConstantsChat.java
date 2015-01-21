@@ -1,7 +1,7 @@
 package com.sirma.itt.javacourse.chat.commonfiles;
 
 /**
- * The class {@link ConstantsChat} contains constants used in the classes of its package.
+ * The class {@link ConstantsChat} contains constants used in the classes of its project.
  */
 public final class ConstantsChat {
 	public static final String SUGGESTING_MESSAGE = "Enter your nickname";

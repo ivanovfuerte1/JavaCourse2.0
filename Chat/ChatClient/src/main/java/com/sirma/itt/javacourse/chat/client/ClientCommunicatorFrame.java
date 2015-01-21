@@ -21,9 +21,14 @@ import javax.swing.WindowConstants;
 
 import com.sirma.itt.javacourse.chat.commonfiles.ConstantsChat;
 import com.sirma.itt.javacourse.chat.commonfiles.JTextFieldLimit;
+import com.sirma.itt.javacourse.chat.commonfiles.Language;
 import com.sirma.itt.javacourse.chat.commonfiles.Message;
 import com.sirma.itt.javacourse.chat.commonfiles.ObjectTransfer;
 
+/**
+ * The class {@link ClientCommunicatorFrame} contains methods for initializing a frame for a new
+ * client.
+ */
 public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 
 	private static final long serialVersionUID = 3059627133370923452L;
@@ -38,6 +43,14 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	private int counter = 0;
 	private ResourceBundle messages = Language.getMessages();
 
+	/**
+	 * Constructs a new frame for the current client.
+	 * 
+	 * @param nickname
+	 *            the nickname of the current client
+	 * @param objectTransfer
+	 *            the object containing the streams of the socket of the current client
+	 */
 	public ClientCommunicatorFrame(String nickname, ObjectTransfer objectTransfer) {
 		initComponents();
 		communication = new ClientWriteThread(nickname, objectTransfer);
@@ -45,6 +58,9 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 		new ClientReadThread(this, objectTransfer).start();
 	}
 
+	/**
+	 * Initializes the frame for communication of the client.
+	 */
 	private void initComponents() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -64,7 +80,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * 
+	 * Sets the content pane.
 	 */
 	public void setContentPane() {
 		JPanel contentPane = new JPanel();
@@ -73,7 +89,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 *
+	 * Sets the field for input.
 	 */
 	public void setInputText() {
 		inputTextField = new JTextField();
@@ -87,11 +103,11 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * 
+	 * Sets the send button.
 	 */
 	public void setSendBtn() {
 		JButton sendBtn = new JButton();
-		sendBtn.setText(messages.getString("stopServer"));
+		sendBtn.setText(messages.getString("send"));
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);
@@ -103,6 +119,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 				message = new Message();
 				message.setMessageContents(tempText);
 				System.out.println(message.getMessageContents() + " before setMessage");
+
 				communication.setMessage(tempText);
 				// communication.setMessage(message);
 				System.out.println(tempText + " after setMessage");
@@ -112,7 +129,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * 
+	 * Sets the text area designed for listing the clients.
 	 */
 	public void setListOfClientsText() {
 		listOfClients = new JTextArea();
@@ -121,6 +138,13 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 		add(listOfClients);
 	}
 
+	/**
+	 * Sets a new list of clients whenever it is longer than the old one.
+	 * 
+	 * @param list
+	 *            the list of clients to set
+	 */
+	// THIS METHOD HAS TO BE IMPROVED IN ORDER TO ENABLE REMOVING OF CLIENTS.
 	public void setListOfClientsContent(String list) {
 		if (list.length() > listOfClients.getText().length()) {
 			listOfClients.setText(list);
@@ -128,7 +152,7 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * 
+	 * Sets the text field for output.
 	 */
 	public void setOutputText() {
 		outputTextField = new JTextField();
@@ -138,19 +162,32 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 		add(outputTextField);
 	}
 
+	/**
+	 * Sets the text in the parameter to the output text field, adding the current time to it and
+	 * memorizing it.
+	 * 
+	 * @param message
+	 *            the message to display
+	 */
 	public void setOutputFieldContent(String message) {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		message = "[" + dateFormat.format(date) + "] " + message;
-		outputTextField.setText(message);
+		String currentMessage = message;
+		currentMessage = "[" + dateFormat.format(date) + "] " + message;
+
+		originatorChat.setState(currentMessage);
+		careTakerChat.add(originatorChat.saveStateToMemento());
+		counter++;
+
+		outputTextField.setText(currentMessage);
 	}
 
 	/**
-	 * 
+	 * Sets the disconnect button.
 	 */
 	public void setDisconnectBtn() {
 		JButton disconnect = new JButton();
-		disconnect.setText("Disconnect");
+		disconnect.setText(messages.getString("disconnect"));
 		disconnect.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
 				ConstantsChat.THIRD_ROW_COMPONENT + 250, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
@@ -165,6 +202,12 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 		});
 	}
 
+	/**
+	 * Sets the text in the parameter to the output text field.
+	 * 
+	 * @param info
+	 *            the message to display
+	 */
 	public void setInfo(String info) {
 		outputTextField.setText(info);
 	}
@@ -179,13 +222,13 @@ public class ClientCommunicatorFrame extends JFrame implements KeyListener {
 				&& counter < careTakerChat.getMementoList().size() - 1) {
 			originatorChat.getStateFromMemento(careTakerChat.get(++counter));
 			String result = originatorChat.getState();
-			inputTextField.setText(ConstantsChat.EMPTY_STRING);
-			inputTextField.setText(result);
+			outputTextField.setText(ConstantsChat.EMPTY_STRING);
+			outputTextField.setText(result);
 		} else if (e.getKeyCode() == KeyEvent.VK_UP && counter > 0) {
 			originatorChat.getStateFromMemento(careTakerChat.get(--counter));
 			String result = originatorChat.getState();
-			inputTextField.setText(ConstantsChat.EMPTY_STRING);
-			inputTextField.setText(result);
+			outputTextField.setText(ConstantsChat.EMPTY_STRING);
+			outputTextField.setText(result);
 		}
 	}
 
