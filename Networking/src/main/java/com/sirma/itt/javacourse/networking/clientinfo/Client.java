@@ -6,6 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
+ * XXX: Class comment/name. What does this class do?
+ * 
+ * XXX: Diagrams!
+ * 
  * The class {@link Client} contains methods for reading and displaying messages from the server.
  */
 public class Client extends JFrame {
@@ -44,6 +48,7 @@ public class Client extends JFrame {
 		connectBtn.setText("Connect");
 		connectBtn.setBounds(10, 80, 290, 40);
 		add(connectBtn);
+		// Use: external action listener perhaps?
 		connectBtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				clientThread.start();

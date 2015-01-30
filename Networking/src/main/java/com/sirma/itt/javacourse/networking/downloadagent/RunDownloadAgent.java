@@ -18,11 +18,12 @@ public final class RunDownloadAgent {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
+		// XXX: it's broken :(
 		DownloadAgent downloadAgent = new DownloadAgent();
 		downloadAgent
 				.downloadFile(
-						"http://www.wallpaperbod.com/wallpapers/2013/05/Free-Beautiful-Landscape-Desktop-Wallpaper-06-2010-98-1800x2880.jpg",
-						"outFile.jpg");
+						"http://www.data.bg",
+						"outFile.html");
 	}
 
 }

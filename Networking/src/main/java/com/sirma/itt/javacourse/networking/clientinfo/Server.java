@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
+ * XXX: Class comment/name.
+ * 
  * The class {@link Server} contains a method for receiving messages from and sending to clients.
  */
 public class Server extends JFrame {

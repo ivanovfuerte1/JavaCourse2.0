@@ -3,6 +3,9 @@ package com.sirma.itt.javacourse.networking.transmitter;
 /**
  * The class {@link ConstantsTransmitter} contains constants for the classes of server and client of
  * transmitter.
+ * 
+ * XXX: interface or enum
+ * 
  */
 public final class ConstantsTransmitter {
 	public static final String MULTICAST_GROUP1_ADDRESS = "224.0.0.10";

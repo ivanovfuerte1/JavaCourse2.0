@@ -25,9 +25,11 @@ import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 
 /**
- * The class {@link DownloadAgent} contains methods for downloading file from the Internet.
+ * The class {@link DownloadAgent} contains methods for downloading file from
+ * the Internet.
  */
-public class DownloadAgent extends JPanel implements ActionListener, PropertyChangeListener {
+public class DownloadAgent extends JPanel implements ActionListener,
+		PropertyChangeListener {
 
 	private static final long serialVersionUID = 6365642499369801016L;
 	private JProgressBar progressBar;
@@ -38,7 +40,8 @@ public class DownloadAgent extends JPanel implements ActionListener, PropertyCha
 	private String fileName;
 
 	/**
-	 * Constructs an object of {@link DownloadAgent} creating user interface for it.
+	 * Constructs an object of {@link DownloadAgent} creating user interface for
+	 * it.
 	 */
 	public DownloadAgent() {
 		super(new BorderLayout());
@@ -66,6 +69,8 @@ public class DownloadAgent extends JPanel implements ActionListener, PropertyCha
 	}
 
 	/**
+	 * XXX: controller
+	 * 
 	 * Invoked when the user presses the start button.
 	 * 
 	 * @param evt
@@ -89,13 +94,14 @@ public class DownloadAgent extends JPanel implements ActionListener, PropertyCha
 		if ("progress".equals(evt.getPropertyName())) {
 			int progress = (Integer) evt.getNewValue();
 			progressBar.setValue(progress);
-			taskOutput.append(String.format("Completed %d%% of task.\n", task.getProgress()));
+			taskOutput.append(String.format("Completed %d%% of task.\n",
+					task.getProgress()));
 		}
 	}
 
 	/**
-	 * Create the GUI and show it. As with all GUI code, this must run on the event-dispatching
-	 * thread.
+	 * Create the GUI and show it. As with all GUI code, this must run on the
+	 * event-dispatching thread.
 	 */
 	private void createAndShowGUI() {
 		JFrame frame = new JFrame("ProgressBarDemo");
@@ -110,8 +116,8 @@ public class DownloadAgent extends JPanel implements ActionListener, PropertyCha
 	}
 
 	/**
-	 * Schedule a job for the event-dispatching thread - creating and showing this application's
-	 * GUI.
+	 * Schedule a job for the event-dispatching thread - creating and showing
+	 * this application's GUI.
 	 * 
 	 * @param urlString
 	 *            the string to download the file from
@@ -129,6 +135,8 @@ public class DownloadAgent extends JPanel implements ActionListener, PropertyCha
 	}
 
 	/**
+	 * XXX: why is this in the same class? Separate download logic for a good unit test.
+	 * 
 	 * Main task. Executed in background thread.
 	 */
 	class Task extends SwingWorker<Void, Void> {
@@ -142,6 +150,7 @@ public class DownloadAgent extends JPanel implements ActionListener, PropertyCha
 			URL url = new URL(urlString);
 			URLConnection connection = url.openConnection();
 			long lengthURL = connection.getContentLengthLong();
+			// XXX: reuse something?
 			FileOutputStream outFile = new FileOutputStream(fileName);
 			InputStream in = connection.getInputStream();
 			byte[] b = new byte[1];

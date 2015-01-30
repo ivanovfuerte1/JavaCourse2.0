@@ -1,9 +1,11 @@
 package com.sirma.itt.javacourse.networking.reversingmessages;
 
 /**
- * The class {@link ConstantsReverser} contains constants used in the classes of its package.
+ * XXX: interface or enum! Also when is interface used for constants and when
+ * enum? The class {@link ConstantsReverser} contains constants used in the
+ * classes of its package.
  */
-public final class ConstantsReverser {
+public interface ConstantsReverser {
 	public static final String SUGGESTING_MESSAGE = "Type here text to reverse";
 	public static final String INPUT_OUTPUT_FAIL = "A transfer operation is failed or interrupted";
 	public static final int TARGET_PORT = 2004;
@@ -24,11 +26,4 @@ public final class ConstantsReverser {
 	public static final int SERVER_WINDOW_Y_POSITION = 400;
 	public static final int WINDOW_HEIGHT = 225;
 	public static final int WINDOW_WIDTH = 325;
-
-	/**
-	 * Default constructor.
-	 */
-	private ConstantsReverser() {
-	}
-
 }

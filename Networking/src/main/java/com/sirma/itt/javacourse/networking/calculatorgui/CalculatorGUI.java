@@ -18,8 +18,8 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -8734956488678969786L;
 	private JPanel contentPane;
 	private JTextField resultField = new JTextField();
-	private static final String[] BUTTONS = { "7", "8", "9", "/", "C", "4", "5", "6", "*", "R",
-			"1", "2", "3", "-", "=", "0", ".", "+" };
+	private static final String[] BUTTONS = { "7", "8", "9", "/", "C", "4",
+			"5", "6", "*", "R", "1", "2", "3", "-", "=", "0", ".", "+" };
 	private Calculator calculator = new Calculator();
 
 	/**
@@ -48,9 +48,10 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 		for (int i = 0; i < BUTTONS.length; i++) {
 			JButton tempBtn = new JButton(BUTTONS[i]);
 			tempBtn.addActionListener(this);
-			if (!"0".equals(BUTTONS[i]) && !".".equals(BUTTONS[i]) && !"+".equals(BUTTONS[i])
-					&& !"=".equals(BUTTONS[i])) {
-				// Order most of the buttons with a single complex expression in a loop
+			if (!"0".equals(BUTTONS[i]) && !".".equals(BUTTONS[i])
+					&& !"+".equals(BUTTONS[i]) && !"=".equals(BUTTONS[i])) {
+				// Order most of the buttons with a single complex expression in
+				// a loop
 				tempBtn.setBounds(10 + i * 60 % 300, 80 + i / 5 * 50, 50, 40);
 			} else if ("0".equals(BUTTONS[i])) {
 				tempBtn.setBounds(10, 230, 110, 40);
@@ -66,6 +67,8 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * XXX: Can you move to a different class and why?
+	 * 
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -74,6 +77,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 		if (!"=".equals(button) && !"C".equals(button) && !"R".equals(button)) {
 			resultField.setText(resultField.getText() + button);
 		} else if ("=".equals(button)) {
+			// XXX: method name"getDetails" is not good
 			resultField.setText(calculator.getDetails(resultField.getText()));
 		} else if ("C".equals(button)) {
 			resultField.setText("");

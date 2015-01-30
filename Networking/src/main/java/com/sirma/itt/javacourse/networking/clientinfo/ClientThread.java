@@ -29,6 +29,7 @@ public class ClientThread extends Thread {
 
 	@Override
 	public void run() {
+		// XXX: hardcoded host, very bad practice
 		try (Socket socket = new Socket("localhost", 2004);
 				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
 						socket.getInputStream()))) {

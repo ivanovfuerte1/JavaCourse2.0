@@ -108,6 +108,7 @@ public class ClientReverser extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 	}
 
+	// XXX: logic extract for unit testing
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_DOWN && counter < careTaker.getMementoList().size() - 1) {

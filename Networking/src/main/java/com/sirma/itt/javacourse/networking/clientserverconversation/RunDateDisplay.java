@@ -3,6 +3,8 @@ package com.sirma.itt.javacourse.networking.clientserverconversation;
 /**
  * The class {@link RunDateDisplay} contains methods for running an user interface that can display
  * the date.
+ * 
+ * XXX: Class name. This is not a display.
  */
 public final class RunDateDisplay {
 	/**
