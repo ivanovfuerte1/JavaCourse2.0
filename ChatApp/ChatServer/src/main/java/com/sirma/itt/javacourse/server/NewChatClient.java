@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.sirma.itt.javacourse.common.ConstantsChat;
 import com.sirma.itt.javacourse.common.Language;
 import com.sirma.itt.javacourse.common.MediatorInterface;
 import com.sirma.itt.javacourse.common.Message;
@@ -75,8 +76,10 @@ public class NewChatClient extends User implements Runnable {
 				}
 			}
 			connectedClients.put(objectTransfer, currentNickname);
-			System.out.println("The number of onnected clients is: " + connectedClients.size());
 			objectTransfer.writeObject(connected);
+			// THIS SHOULD BE A STRING CONTAINING THE LIST OF CLIENTS. NEXT ROW IS FOR
+			// MEDIATOR.
+			send(connectedClients.toString());
 		} catch (NullPointerException e) {
 			LOGGER.error("There is no message to read.", e);
 		}
@@ -94,10 +97,9 @@ public class NewChatClient extends User implements Runnable {
 				+ connectedClients.get(objectTransfer) + " started.");
 
 		StringBuilder stringBuilder = new StringBuilder();
-		final String newLine = System.lineSeparator();
 		for (String nickname : connectedClients.values()) {
 			stringBuilder.append(nickname);
-			stringBuilder.append(newLine);
+			stringBuilder.append(ConstantsChat.LINE_SEPARATOR);
 		}
 		Message listOfClients = new Message();
 		listOfClients.setMessageContents(stringBuilder.toString());
@@ -112,9 +114,16 @@ public class NewChatClient extends User implements Runnable {
 				objectTransfer.writeObject(new Message("", "Stop reading"));
 				break;
 			}
+			StringBuilder actualListOfClients = new StringBuilder();
+			for (String nickname : connectedClients.values()) {
+				actualListOfClients.append(nickname);
+				actualListOfClients.append(ConstantsChat.LINE_SEPARATOR);
+			}
+			Message actualList = new Message();
+			actualList.setMessageContents(actualListOfClients.toString());
 			for (ObjectTransfer client : connectedClients.keySet()) {
 				client.writeObject(message);
-				client.writeObject(listOfClients);
+				client.writeObject(actualList);
 			}
 		}
 

@@ -35,4 +35,13 @@ public class JTextFieldLimit extends PlainDocument {
 			super.insertString(offset, str, attr);
 		}
 	}
+
+	/**
+	 * Getter method for limit.
+	 *
+	 * @return the limit
+	 */
+	public int getLimit() {
+		return limit;
+	}
 }

@@ -1,7 +1,7 @@
 package com.sirma.itt.javacourse.common;
 
 /**
- * The interface {@link MediatorInterface} contains methods for sending messagesto a destination as
+ * The interface {@link MediatorInterface} contains methods for sending messages to a destination as
  * well as adding a new user to the list of clients.
  */
 public interface MediatorInterface {

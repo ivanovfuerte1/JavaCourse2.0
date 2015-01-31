@@ -27,8 +27,6 @@ public class ClientReadThread extends Thread {
 	@Override
 	public void run() {
 		Message listOfClients = objectTransfer.readObject();
-		System.out.println("This is the current list of clients: "
-				+ listOfClients.getMessageContents());
 		clientCommunicatorFrame.setListOfClientsContent(listOfClients.getMessageContents());
 		while (true) {
 			Message message = objectTransfer.readObject();
@@ -37,6 +35,7 @@ public class ClientReadThread extends Thread {
 			}
 			clientCommunicatorFrame.setOutputFieldContent(message.getNickname() + ": "
 					+ message.getMessageContents());
+			// THIS ROW SHOULD BE REMOVED VERY CAREFULLY
 			Message list = objectTransfer.readObject();
 			clientCommunicatorFrame.setListOfClientsContent(list.getMessageContents());
 		}

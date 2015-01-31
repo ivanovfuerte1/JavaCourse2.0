@@ -1,7 +1,5 @@
 package com.sirma.itt.javacourse.client;
 
-// import javax.swing.SwingUtilities;
-
 /**
  * The class {@link RunChatClient} contains a method for running a client for reversing messages.
  */

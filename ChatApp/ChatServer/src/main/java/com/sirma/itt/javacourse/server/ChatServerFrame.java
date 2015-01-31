@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import com.sirma.itt.javacourse.common.ConstantsChat;
 import com.sirma.itt.javacourse.common.Language;
@@ -42,7 +43,7 @@ public class ChatServerFrame extends JFrame {
 	 */
 	private void initComponents() {
 		setTitle(ConstantsChat.CHAT_SERVER);
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(ConstantsChat.WINDOW_X_POSITION, ConstantsChat.SERVER_WINDOW_Y_POSITION,
 				ConstantsChat.WINDOW_WIDTH, ConstantsChat.WINDOW_HEIGHT);
 		// INCREASE WIDTH
