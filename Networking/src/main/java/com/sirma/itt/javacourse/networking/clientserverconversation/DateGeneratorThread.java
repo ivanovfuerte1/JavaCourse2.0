@@ -9,9 +9,9 @@ import java.util.Date;
 import javax.swing.JTextField;
 
 /**
- * The class {@link StartServer} contains methods for starting and stopping the server.
+ * The class {@link DateGeneratorThread} contains methods for starting and stopping the server.
  */
-public class StartServer extends Thread {
+public class DateGeneratorThread extends Thread {
 	private ServerSocket serverSocket;
 	private JTextField tempTextField;
 
@@ -21,7 +21,7 @@ public class StartServer extends Thread {
 	 * @param tempTextField
 	 *            the text field of the server
 	 */
-	public StartServer(JTextField tempTextField) {
+	public DateGeneratorThread(JTextField tempTextField) {
 		this.tempTextField = tempTextField;
 	}
 

@@ -7,13 +7,10 @@ import java.awt.EventQueue;
  * messages.
  */
 public final class RunClientReverser {
-	/**
-	 * Default constructor.
-	 */
-	private RunClientReverser() {
-	}
 
 	/**
+	 * Runs a client for reversing messages.
+	 * 
 	 * @param args
 	 *            default arguments
 	 */

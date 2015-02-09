@@ -6,20 +6,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * XXX: Class comment/name.
- * 
- * The class {@link Server} contains a method for receiving messages from and sending to clients.
+ * The class {@link ServerFrame} contains methods for displaying the frame of the server.
  */
-public class Server extends JFrame {
+public class ServerFrame extends JFrame {
 
 	private static final long serialVersionUID = -6545319197988784914L;
 	private JTextField tempTextField;
 	private ServerThread serverThread;
 
 	/**
-	 * Construct an object of {@link Server}.
+	 * Construct an object of {@link ServerFrame}.
 	 */
-	public Server() {
+	public ServerFrame() {
 		initComponents();
 		this.serverThread = new ServerThread(this);
 		serverThread.start();

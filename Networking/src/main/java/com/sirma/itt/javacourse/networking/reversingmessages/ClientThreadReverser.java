@@ -35,6 +35,9 @@ public class ClientThreadReverser extends Thread {
 		notify();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		synchronized (this) {

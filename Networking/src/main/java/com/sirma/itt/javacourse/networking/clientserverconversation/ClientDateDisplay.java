@@ -12,17 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * The class {@link DateDisplay} contains methods for displaying the current date on a new window.
+ * The class {@link ClientDateDisplay} contains methods for displaying the current date on a new window.
  */
-public class DateDisplay extends JFrame {
+public class ClientDateDisplay extends JFrame {
 
 	private static final long serialVersionUID = 4469088764885447439L;
 	private JTextField tempTextField;
 
 	/**
-	 * Constructs an object of {@link DateDisplay}, initializing its components.
+	 * Constructs an object of {@link ClientDateDisplay}, initializing its components.
 	 */
-	public DateDisplay() {
+	public ClientDateDisplay() {
 		initComponents();
 	}
 

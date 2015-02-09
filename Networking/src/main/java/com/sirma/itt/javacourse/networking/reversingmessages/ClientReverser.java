@@ -1,9 +1,9 @@
 package com.sirma.itt.javacourse.networking.reversingmessages;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  * The class {@link ClientReverser} contains methods for sending messages to and receiving them from
  * a server.
  */
-public class ClientReverser extends JFrame implements KeyListener {
+public class ClientReverser extends JFrame {
 
 	private static final long serialVersionUID = -1488415918830598890L;
 	private JTextField inputTextField;
@@ -67,15 +67,16 @@ public class ClientReverser extends JFrame implements KeyListener {
 				ConstantsReverser.COMPONENT_HEIGHT);
 		add(inputTextField);
 		inputTextField.setFocusable(false);
-		inputTextField.addKeyListener(this);
+		inputTextField.addKeyListener(new MementoKeyListener(careTaker, counter, originator,
+				inputTextField));
 
 		sendBtn.setText(ConstantsReverser.SEND_BUTTON_LABEL);
 		sendBtn.setBounds(ConstantsReverser.FIRST_COLUMN_COMPONENT,
 				ConstantsReverser.SECOND_ROW_COMPONENT, ConstantsReverser.COMPONENT_WIDTH,
 				ConstantsReverser.COMPONENT_HEIGHT);
 		add(sendBtn);
-		sendBtn.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		sendBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				inputTextField.setFocusable(true);
 				String tempText = inputTextField.getText();
 
@@ -102,31 +103,6 @@ public class ClientReverser extends JFrame implements KeyListener {
 	 */
 	public void setInfo(String info) {
 		outputTextField.setText(info);
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	// XXX: logic extract for unit testing
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_DOWN && counter < careTaker.getMementoList().size() - 1) {
-			originator.getStateFromMemento(careTaker.get(++counter));
-			String result = originator.getState();
-			inputTextField.setText(ConstantsReverser.EMPTY_STRING);
-			inputTextField.setText(result);
-		} else if (e.getKeyCode() == KeyEvent.VK_UP && counter > 0) {
-			originator.getStateFromMemento(careTaker.get(--counter));
-			String result = originator.getState();
-			inputTextField.setText(ConstantsReverser.EMPTY_STRING);
-			inputTextField.setText(result);
-
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
 	}
 
 }

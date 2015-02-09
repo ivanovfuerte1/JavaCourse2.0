@@ -4,27 +4,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 /**
- * XXX: Class comment/name. What does this class do?
- * 
- * XXX: Diagrams!
- * 
- * The class {@link Client} contains methods for reading and displaying messages from the server.
+ * The class {@link ClientFrame} contains methods for displaying the frame of the client.
  */
-public class Client extends JFrame {
+public class ClientFrame extends JFrame {
 
 	private static final long serialVersionUID = -8096042495206006937L;
 	private JTextField tempTextField;
-	private JButton connectBtn;
+	private JButton connectBtn = new JButton();
 	private ClientThread clientThread;
+	private ClientButtonListener clientButtonListener;
 
 	/**
-	 * Constructs an object of {@link Client}.
+	 * Constructs an object of {@link ClientFrame}.
 	 */
-	public Client() {
-		initComponents();
+	public ClientFrame() {
 		clientThread = new ClientThread(this);
+		clientButtonListener = new ClientButtonListener(clientThread, connectBtn);
+		initComponents();
 	}
 
 	/**
@@ -32,10 +31,9 @@ public class Client extends JFrame {
 	 */
 	private void initComponents() {
 		tempTextField = new JTextField();
-		connectBtn = new JButton();
 		JPanel contentPane;
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Client");
 
 		setBounds(100, 100, 325, 225);
@@ -48,13 +46,7 @@ public class Client extends JFrame {
 		connectBtn.setText("Connect");
 		connectBtn.setBounds(10, 80, 290, 40);
 		add(connectBtn);
-		// Use: external action listener perhaps?
-		connectBtn.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				clientThread.start();
-				connectBtn.setEnabled(false);
-			}
-		});
+		connectBtn.addActionListener(clientButtonListener);
 	}
 
 	/**

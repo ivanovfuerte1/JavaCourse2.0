@@ -21,6 +21,9 @@ public class ListThread extends Thread {
 		this.connectedClients = connectedClients;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		for (int i = 0; i < connectedClients.size() - 1; i++) {

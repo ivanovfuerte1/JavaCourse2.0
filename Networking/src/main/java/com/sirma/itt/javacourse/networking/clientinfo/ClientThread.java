@@ -14,30 +14,34 @@ import org.apache.logging.log4j.Logger;
  * The class {@link ClientThread} contains method for setting text to client's user interface.
  */
 public class ClientThread extends Thread {
-	private Client client;
+	private static final int PORT_NUMBER = 2004;
+	private static final String HOST_NAME = "localhost";
+	private ClientFrame clientFrame;
 	private static final Logger LOGGER = LogManager.getLogger(ClientThread.class);
 
 	/**
 	 * Constructs an object and associates it with a client.
 	 * 
-	 * @param client
+	 * @param clientFrame
 	 *            the client to associate with the object
 	 */
-	public ClientThread(Client client) {
-		this.client = client;
+	public ClientThread(ClientFrame clientFrame) {
+		this.clientFrame = clientFrame;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
-		// XXX: hardcoded host, very bad practice
-		try (Socket socket = new Socket("localhost", 2004);
+		try (Socket socket = new Socket(HOST_NAME, PORT_NUMBER);
 				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
 						socket.getInputStream()))) {
-			client.setInfo("Connected");
+			clientFrame.setInfo("Connected");
 			String message;
 			do {
 				message = bufferedReader.readLine();
-				client.setInfo(message);
+				clientFrame.setInfo(message);
 			} while (message != null);
 		} catch (UnknownHostException e) {
 			LOGGER.error("The IP address of a host could not be determined", e);
@@ -48,7 +52,7 @@ public class ClientThread extends Thread {
 		} catch (IOException e) {
 			LOGGER.error("An I/O operation is failed or interrupted", e);
 		}
-		client.setInfo("Server stopped.");
+		clientFrame.setInfo("Server stopped.");
 	}
 
 }

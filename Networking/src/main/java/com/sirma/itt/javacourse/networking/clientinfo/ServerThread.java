@@ -17,17 +17,17 @@ public class ServerThread extends Thread {
 	private List<Socket> connectedClients = new ArrayList<>();
 	private ServerSocket serverSocket;
 	private static final int TARGET_PORT = 2004;
-	private Server server;
+	private ServerFrame serverFrame;
 	private static final Logger LOGGER = LogManager.getLogger(ServerThread.class);
 
 	/**
 	 * Constructs an object for the current server.
 	 * 
-	 * @param server
+	 * @param serverFrame
 	 *            the server to construct object for
 	 */
-	public ServerThread(Server server) {
-		this.server = server;
+	public ServerThread(ServerFrame serverFrame) {
+		this.serverFrame = serverFrame;
 		try {
 			this.serverSocket = new ServerSocket(TARGET_PORT);
 		} catch (IOException e) {
@@ -35,6 +35,9 @@ public class ServerThread extends Thread {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		Socket socket = null;
@@ -43,7 +46,7 @@ public class ServerThread extends Thread {
 			while (true) {
 				socket = serverSocket.accept();
 				connectedClients.add(socket);
-				server.setTempTextField("Client ¹ " + connectedClients.size() + " is added");
+				serverFrame.setTempTextField("Client ¹ " + connectedClients.size() + " is added");
 				new ListThread(connectedClients).start();
 				socketWriter = new PrintWriter(socket.getOutputStream(), true);
 				socketWriter.println("You are client ¹ " + connectedClients.size());

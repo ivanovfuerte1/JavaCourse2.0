@@ -27,6 +27,9 @@ public class NewClient extends Thread {
 		this.socket = socket;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		PrintWriter socketWriter = null;

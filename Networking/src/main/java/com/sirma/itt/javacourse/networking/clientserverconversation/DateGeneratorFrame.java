@@ -9,18 +9,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * The class {@link DateGenerator} contains methods for constantly generating the current date.
+ * The class {@link DateGeneratorFrame} contains methods for constantly generating the current date.
  */
-public class DateGenerator extends JFrame {
+public class DateGeneratorFrame extends JFrame {
 
 	private static final long serialVersionUID = 4277571605250284727L;
 	private JTextField tempTextField;
-	private StartServer startServer;
+	private DateGeneratorThread dateGeneratorThread;
 
 	/**
-	 * Creates an object of {@link DateGenerator} and initializes its interface.
+	 * Creates an object of {@link DateGeneratorFrame} and initializes its interface.
 	 */
-	public DateGenerator() {
+	public DateGeneratorFrame() {
 		initComponents();
 	}
 
@@ -70,7 +70,7 @@ public class DateGenerator extends JFrame {
 	 *            the event that calls the method
 	 */
 	private void stopServer(ActionEvent evt) {
-		startServer.stopServer();
+		dateGeneratorThread.stopServer();
 
 	}
 
@@ -81,8 +81,8 @@ public class DateGenerator extends JFrame {
 	 *            the event that calls the method
 	 */
 	private void generateDate(ActionEvent evt) {
-		startServer = new StartServer(tempTextField);
-		startServer.start();
+		dateGeneratorThread = new DateGeneratorThread(tempTextField);
+		dateGeneratorThread.start();
 	}
 
 	/**

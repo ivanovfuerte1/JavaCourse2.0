@@ -1,7 +1,7 @@
 package com.sirma.itt.javacourse.networking.reversingmessages;
 
 /**
- * The class {@link Memento} contains method for getting the value of its variable.
+ * The class {@link Memento} contains a method for getting the value of its variable.
  */
 public class Memento {
 	private String state;
