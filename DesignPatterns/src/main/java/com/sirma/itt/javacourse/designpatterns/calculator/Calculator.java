@@ -31,7 +31,7 @@ public class Calculator {
 	 *            the input
 	 * @return the result of the calculus
 	 */
-	public String getDetails(String string) {
+	public String getResult(String string) {
 		String[] operands = new String[2];
 
 		if (string.contains(PLUS) && string.length() != 1) {
@@ -86,7 +86,7 @@ public class Calculator {
 		parts[1] = string.substring(separatorIndex + 1);
 		for (int i = 0; i < parts.length; i++) {
 			if (PATTERN.matcher(parts[i]).matches()) {
-				operands[i] = getDetails(parts[i]);
+				operands[i] = getResult(parts[i]);
 			} else {
 				operands[i] = parts[i];
 			}

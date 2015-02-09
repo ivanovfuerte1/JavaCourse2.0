@@ -21,7 +21,7 @@ public class CalculatorTest {
 	@Test
 	public void testTwoIntegers() {
 		String expected = "11.0";
-		String actual = calculator.getDetails(firstInput);
+		String actual = calculator.getResult(firstInput);
 		assertEquals(expected, actual);
 	}
 
@@ -32,7 +32,7 @@ public class CalculatorTest {
 	@Test
 	public void testTwoOperations() {
 		String expected = "31.33";
-		String actual = calculator.getDetails(secondInput);
+		String actual = calculator.getResult(secondInput);
 		assertEquals(expected, actual);
 	}
 
@@ -42,7 +42,7 @@ public class CalculatorTest {
 	 */
 	@Test(expected = NumberFormatException.class)
 	public void testFloatPower() {
-		calculator.getDetails(thirdInput);
+		calculator.getResult(thirdInput);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class CalculatorTest {
 	@Test
 	public void testAllOperations() {
 		String expected = "25.33";
-		String actual = calculator.getDetails(allOperations);
+		String actual = calculator.getResult(allOperations);
 		assertEquals(expected, actual);
 	}
 

@@ -39,6 +39,6 @@ public final class RunCalculator {
 			}
 			stringBuilder.append(ch);
 		}
-		LOGGER.info(calculator.getDetails(stringBuilder.toString()));
+		LOGGER.info(calculator.getResult(stringBuilder.toString()));
 	}
 }
