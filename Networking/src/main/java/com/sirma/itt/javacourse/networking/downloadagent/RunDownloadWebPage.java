@@ -1,12 +1,12 @@
 package com.sirma.itt.javacourse.networking.downloadagent;
 
 /**
- * The class {@link RunDownloadAgent} contains methods for downloading a simple image from the
+ * The class {@link RunDownloadWebPage} contains a method for downloading a web page from the
  * Internet.
  */
-public class RunDownloadAgent {
+public class RunDownloadWebPage {
 	/**
-	 * Downloads a simple image from the Internet.
+	 * Downloads a web page from the Internet.
 	 * 
 	 * @param args
 	 *            default arguments
@@ -14,8 +14,6 @@ public class RunDownloadAgent {
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
 		DownloadAgentController downloadAgentController = new DownloadAgentController(
-				"outFile3.jpg",
-				"http://arenawallpapers.com/wp-content/uploads/2015/02/8c8LXdgcX.jpg");
+				"outFile1.html", "http://www.data.bg");
 	}
-
 }
