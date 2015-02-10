@@ -31,6 +31,9 @@ public class MulticastingServer extends Thread {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		Mediator mediator = new Mediator();
@@ -65,9 +68,9 @@ public class MulticastingServer extends Thread {
 				Thread.sleep(1000);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("An I/O operation is failed or interrupted", e);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LOGGER.error("The thread was interrupted while sleeping", e);
 		}
 	}
 

@@ -1,5 +1,8 @@
 package com.sirma.itt.javacourse.networking.clientinfo;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,8 +48,8 @@ public class ServerFrame extends JFrame {
 		stopServer.setText("Stop");
 		stopServer.setBounds(10, 80, 290, 40);
 		add(stopServer);
-		stopServer.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		stopServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				tempTextField.setText("Server stopped.");
 				serverThread.stopServer();
 			}

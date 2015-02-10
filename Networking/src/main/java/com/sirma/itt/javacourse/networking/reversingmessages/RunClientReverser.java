@@ -1,6 +1,5 @@
 package com.sirma.itt.javacourse.networking.reversingmessages;
 
-import java.awt.EventQueue;
 
 /**
  * The class {@link RunClientReverser} contains a method for running a client for reversing
@@ -15,10 +14,6 @@ public final class RunClientReverser {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new ClientReverser().setVisible(true);
-			}
-		});
+		new ClientReverser().setVisible(true);
 	}
 }

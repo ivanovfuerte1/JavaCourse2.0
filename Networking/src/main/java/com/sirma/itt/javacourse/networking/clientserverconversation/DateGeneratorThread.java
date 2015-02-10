@@ -8,12 +8,17 @@ import java.util.Date;
 
 import javax.swing.JTextField;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class {@link DateGeneratorThread} contains methods for starting and stopping the server.
  */
 public class DateGeneratorThread extends Thread {
+	private static final int SERVER_PORT = 2002;
 	private ServerSocket serverSocket;
 	private JTextField tempTextField;
+	private static final Logger LOGGER = LogManager.getLogger(DateGeneratorThread.class);
 
 	/**
 	 * Starts the server passing its text field as a parameter.
@@ -31,7 +36,7 @@ public class DateGeneratorThread extends Thread {
 	@Override
 	public void run() {
 		try {
-			serverSocket = new ServerSocket(2002);
+			serverSocket = new ServerSocket(SERVER_PORT);
 			while (true) {
 				Socket socket = serverSocket.accept();
 				OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
@@ -41,7 +46,7 @@ public class DateGeneratorThread extends Thread {
 			}
 		} catch (IOException e) {
 			tempTextField.setText("An I/O operation is failed or interrupted");
-			e.printStackTrace();
+			LOGGER.error("An I/O operation is failed or interrupted", e);
 		}
 	}
 
@@ -53,7 +58,7 @@ public class DateGeneratorThread extends Thread {
 			serverSocket.close();
 		} catch (IOException e) {
 			tempTextField.setText("Server socket can not be closed.");
-			e.printStackTrace();
+			LOGGER.error("An I/O operation is failed or interrupted", e);
 		}
 	}
 }

@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The class {@link DownloadAgentModel} contains methods for downloading a file from a given
  * location. It also works with web pages.
@@ -14,6 +17,7 @@ public class DownloadAgentModel extends Thread {
 	private DownloadAgentView downloadAgentView;
 	private String fileName;
 	private String urlString;
+	private static final Logger LOGGER = LogManager.getLogger(DownloadAgentModel.class);
 
 	/**
 	 * Constructs an object of the {@link DownloadAgentModel} assigning its user interface, name of
@@ -40,7 +44,6 @@ public class DownloadAgentModel extends Thread {
 		FileOutputStream outFile = null;
 		InputStream in = null;
 		try {
-			float progress = 1;
 			URL url = new URL(urlString);
 			URLConnection connection = url.openConnection();
 			long lengthURL = connection.getContentLengthLong();
@@ -48,20 +51,19 @@ public class DownloadAgentModel extends Thread {
 			in = connection.getInputStream();
 			byte[] b = new byte[1];
 			long bytesRead = 0;
+			float progress = 1;
+			downloadAgentView.disableButton();
 			while ((bytesRead = in.read(b)) != -1) {
 				outFile.write(b);
 				outFile.flush();
 				progress += (float) bytesRead * 100 / lengthURL;
-
 				downloadAgentView.setProgress((int) progress);
-				downloadAgentView.disableButton();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			closeStreams(outFile, in);
 			downloadAgentView.setProgress(100);
-			downloadAgentView.disableButton();
 			downloadAgentView.endDownload();
 		}
 	}
@@ -79,7 +81,7 @@ public class DownloadAgentModel extends Thread {
 			in.close();
 			outFile.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("An I/O operation is failed or interrupted", e);
 		}
 	}
 

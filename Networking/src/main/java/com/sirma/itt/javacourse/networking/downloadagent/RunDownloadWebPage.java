@@ -12,8 +12,6 @@ public class RunDownloadWebPage {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		DownloadAgentController downloadAgentController = new DownloadAgentController(
-				"outFile1.html", "http://www.data.bg");
+		new DownloadAgentController("outFile1.html", "http://www.data.bg");
 	}
 }

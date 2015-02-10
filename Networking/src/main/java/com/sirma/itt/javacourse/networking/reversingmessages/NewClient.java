@@ -55,7 +55,7 @@ public class NewClient extends Thread {
 				socketWriter.close();
 				socketReader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.error("An I/O operation is failed or interrupted", e);
 			}
 		}
 	}

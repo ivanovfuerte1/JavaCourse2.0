@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
+ * The class {@link CalculatorModelTest} contains tests for the method getSolution of the class
+ * {@link CalculatorModel}.
  */
 public class CalculatorModelTest {
 	private CalculatorModel calculatorModel = new CalculatorModel();

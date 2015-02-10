@@ -95,4 +95,12 @@ public class DateGeneratorFrame extends JFrame {
 		this.tempTextField = tempTextField;
 	}
 
+	/**
+	 * Getter method for tempTextField.
+	 *
+	 * @return the tempTextField
+	 */
+	public JTextField getTempTextField() {
+		return tempTextField;
+	}
 }

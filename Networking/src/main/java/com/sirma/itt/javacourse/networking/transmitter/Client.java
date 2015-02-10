@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 /**
  * Contains methods for creating an user interface for every client.
@@ -37,7 +38,7 @@ public class Client extends JFrame {
 		JButton channel3 = new JButton();
 		JPanel contentPane;
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Client");
 
 		setBounds(100, 100, 325, 225);

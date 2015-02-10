@@ -32,14 +32,34 @@ public class CalculatorControllerTest {
 	}
 
 	/**
-	 * Tests calling methods by Mockito.
+	 * Tests calling methods after "=" is pressed.
 	 */
 	@Test
-	public void test() {
+	public void pressEqualsTest() {
 		calculatorController.actionPerformed(new ActionEvent(new JButton(), 0, "="));
 		Mockito.verify(calculatorView, Mockito.atLeast(1)).setExpression(Mockito.anyString());
 		Mockito.verify(calculatorView, Mockito.atLeast(1)).getExpression();
 		Mockito.verify(calculatorModel, Mockito.atLeast(1)).getSolution(Mockito.anyString());
+	}
+
+	/**
+	 * Tests calling methods after "C" is pressed.
+	 */
+	@Test
+	public void pressClearTest() {
+		calculatorController.actionPerformed(new ActionEvent(new JButton(), 0, "C"));
+		Mockito.verify(calculatorView, Mockito.atLeast(1)).setExpression(Mockito.anyString());
+	}
+
+	/**
+	 * Tests calling methods after "R" is pressed.
+	 */
+	@Test
+	public void pressRemoveCharTest() {
+		Mockito.when(calculatorView.getExpression()).thenReturn("5");
+		calculatorController.actionPerformed(new ActionEvent(new JButton(), 0, "R"));
+		Mockito.verify(calculatorView, Mockito.atLeast(1)).setExpression(Mockito.anyString());
+		Mockito.verify(calculatorView, Mockito.atLeast(1)).getExpression();
 	}
 
 }

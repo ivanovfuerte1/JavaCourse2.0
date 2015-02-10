@@ -12,9 +12,7 @@ public class RunDownloadAgent {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		DownloadAgentController downloadAgentController = new DownloadAgentController(
-				"outFile3.jpg",
+		new DownloadAgentController("outFile3.jpg",
 				"http://arenawallpapers.com/wp-content/uploads/2015/02/8c8LXdgcX.jpg");
 	}
 

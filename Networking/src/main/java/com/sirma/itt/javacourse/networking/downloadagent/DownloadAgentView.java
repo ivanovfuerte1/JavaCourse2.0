@@ -75,8 +75,8 @@ public class DownloadAgentView extends JFrame {
 	/**
 	 * Sets the default cursor. Used when the download is finished.
 	 */
-	@SuppressWarnings("deprecation")
 	public void endDownload() {
-		setCursor(Cursor.DEFAULT_CURSOR);
+		setCursor(Cursor.getDefaultCursor());
+		startButton.setEnabled(true);
 	}
 }
