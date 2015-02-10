@@ -5,11 +5,6 @@ package com.sirma.itt.javacourse.threads.synchronizedstack;
  * threads for adding and removing elements of a list without conflict.
  */
 public final class RunSyncStack {
-	/**
-	 * Default constructor.
-	 */
-	private RunSyncStack() {
-	}
 
 	/**
 	 * Runs several threads simultaneously and proves there is no conflict among them.

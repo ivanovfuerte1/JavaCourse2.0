@@ -20,6 +20,9 @@ public class Adder implements Runnable {
 		this.item = item;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		synchronizedStack.add(item);

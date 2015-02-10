@@ -21,6 +21,9 @@ public class Consumer extends Thread {
 		this.repository = repository;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		repository.sell();

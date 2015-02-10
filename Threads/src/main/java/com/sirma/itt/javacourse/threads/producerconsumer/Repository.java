@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
  * The class {@link Repository} contains methods for selling and buying articles from repository.
  */
 public class Repository {
-	private static int productsInStorage = 0;
+	private int productsInStorage = 0;
 	private static final Logger LOGGER = LogManager.getLogger(Repository.class);
 
 	/**
@@ -26,7 +26,7 @@ public class Repository {
 	 *            the new number of articles
 	 */
 	public synchronized void setProductsInStorage(int productsInStorage) {
-		Repository.productsInStorage = productsInStorage;
+		this.productsInStorage = productsInStorage;
 	}
 
 	/**

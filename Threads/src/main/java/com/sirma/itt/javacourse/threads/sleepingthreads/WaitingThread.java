@@ -28,6 +28,9 @@ public class WaitingThread implements Runnable {
 		this.finalCounterValue = finalCounterValue;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		synchronized (this) {

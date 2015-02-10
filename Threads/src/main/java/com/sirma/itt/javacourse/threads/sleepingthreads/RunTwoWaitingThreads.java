@@ -5,11 +5,6 @@ package com.sirma.itt.javacourse.threads.sleepingthreads;
  * simultaneously.
  */
 public final class RunTwoWaitingThreads {
-	/**
-	 * Default constructor.
-	 */
-	private RunTwoWaitingThreads() {
-	}
 
 	/**
 	 * Runs two waiting threads simultaneously.

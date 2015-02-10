@@ -5,11 +5,6 @@ package com.sirma.itt.javacourse.threads.timeouttable;
  * {@link Adder}.
  */
 public final class RunTimeoutHashtable {
-	/**
-	 * Default constructor.
-	 */
-	private RunTimeoutHashtable() {
-	}
 
 	/**
 	 * Tests the methods of the class Adder by getting a previously added element and this way

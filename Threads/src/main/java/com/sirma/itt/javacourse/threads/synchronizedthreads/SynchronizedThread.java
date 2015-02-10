@@ -4,31 +4,42 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The class {@link SecondThread} contains methods for running a counter thread, logging and
+ * The class {@link SynchronizedThread} contains methods for running a counter thread, logging and
  * notifying the other thread every time the counter changes.
  */
-public class SecondThread implements Runnable {
-	private static final Logger LOGGER = LogManager.getLogger(SecondThread.class);
+public class SynchronizedThread implements Runnable {
 	private int initialCounterValue;
 	private int finalCounterValue;
-	private FirstThread firstThread;
-	private static boolean timeToFinish = true;
+	private SynchronizedThread synchronizedThread;
+	private boolean timeToFinish = true;
+	private static final Logger LOGGER = LogManager.getLogger(SynchronizedThread.class);
 
 	/**
-	 * Constructs an object of the class {@link SecondThread} defining the initialCounterValue, the
-	 * finalCounterValue and assigning a thread to notify.
+	 * Constructs an object of the class {@link SynchronizedThread} defining the
+	 * initialCounterValue, the finalCounterValue and assigning a thread to notify.
 	 * 
 	 * @param initialCounterValue
 	 *            the initial counter value
 	 * @param finalCounterValue
 	 *            the final counter value
-	 * @param firstThread
+	 * @param synchronizedThread
 	 *            the another thread to wait for
 	 */
-	public SecondThread(int initialCounterValue, int finalCounterValue, FirstThread firstThread) {
+	public SynchronizedThread(int initialCounterValue, int finalCounterValue,
+			SynchronizedThread synchronizedThread) {
 		this.initialCounterValue = initialCounterValue;
 		this.finalCounterValue = finalCounterValue;
-		this.firstThread = firstThread;
+		this.synchronizedThread = synchronizedThread;
+	}
+
+	/**
+	 * Registers another thread to wait for.
+	 * 
+	 * @param synchronizedThread
+	 *            the another thread
+	 */
+	public void register(SynchronizedThread synchronizedThread) {
+		this.synchronizedThread = synchronizedThread;
 	}
 
 	/**
@@ -38,6 +49,9 @@ public class SecondThread implements Runnable {
 		notify();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized void run() {
 		for (int i = initialCounterValue; i <= finalCounterValue; i++) {
@@ -49,7 +63,7 @@ public class SecondThread implements Runnable {
 				}
 			}
 			timeToFinish = false;
-			firstThread.notifyThread();
+			synchronizedThread.notifyThread();
 			LOGGER.info(i);
 		}
 		return;

@@ -26,6 +26,9 @@ public class Producer extends Thread {
 		this.item = item;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		repository.supply();

@@ -16,6 +16,9 @@ public class Remover implements Runnable {
 		this.synchronizedStack = synchronizedStack;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		synchronizedStack.remove();

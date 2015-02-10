@@ -32,6 +32,9 @@ public class Adder extends Thread {
 		this.key = key;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized void run() {
 		try {

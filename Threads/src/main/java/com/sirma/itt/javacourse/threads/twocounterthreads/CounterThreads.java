@@ -10,10 +10,11 @@ import org.apache.logging.log4j.Logger;
  * time the counter changes. The thread notifies other threads for getting to the end by setting a
  * flag.
  */
-public class CounterThreads implements Runnable {
+public class CounterThreads extends Thread {
 	private static final Logger LOGGER = LogManager.getLogger(CounterThreads.class);
 	private int initialCounterValue;
 	private int finalCounterValue;
+	private int counter;
 	private static AtomicBoolean aThreadFinished = new AtomicBoolean();
 
 	/**
@@ -30,22 +31,34 @@ public class CounterThreads implements Runnable {
 		this.finalCounterValue = finalCounterValue;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
-		for (int i = initialCounterValue; i < finalCounterValue; i++) {
+		for (counter = initialCounterValue; counter < finalCounterValue; counter++) {
 			if (!aThreadFinished.get()) {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					LOGGER.error("The thread was interrupted while sleeping.", e);
 				}
-				LOGGER.info(Thread.currentThread().getName() + " The count is at: " + i);
+				LOGGER.info(Thread.currentThread().getName() + " The count is at: " + counter);
 			} else {
 				return;
 			}
 		}
 		aThreadFinished.set(true);
 		return;
+	}
+
+	/**
+	 * Returns the counter.
+	 * 
+	 * @return the counter
+	 */
+	public int getCounter() {
+		return counter;
 	}
 
 }
