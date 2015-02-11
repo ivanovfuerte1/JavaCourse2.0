@@ -9,13 +9,32 @@ import java.util.List;
  */
 public class Mediator implements MediatorInterface {
 
-	private List<User> users;
+	private static List<User> users;
+
+	/**
+	 * Getter method for users.
+	 *
+	 * @return the users
+	 */
+	public List<User> getUsers() {
+		return users;
+	}
+
+	/**
+	 * Setter method for users.
+	 *
+	 * @param users
+	 *            the users to set
+	 */
+	public void setUsers(List<User> users) {
+		Mediator.users = users;
+	}
 
 	/**
 	 * Constructs an implementation of {@link Mediator} initializing its list of users.
 	 */
 	public Mediator() {
-		this.users = new ArrayList<>();
+		Mediator.users = new ArrayList<>();
 	}
 
 	/**
@@ -23,8 +42,9 @@ public class Mediator implements MediatorInterface {
 	 */
 	@Override
 	public void sendMessage(String message) {
-		for (User currentUser : this.users) {
+		for (User currentUser : Mediator.users) {
 			currentUser.receive(message);
+			System.out.println(currentUser.getNickname() + " is in the list of users.");
 		}
 	}
 
@@ -33,8 +53,8 @@ public class Mediator implements MediatorInterface {
 	 */
 	@Override
 	public void addUser(User user) {
-		this.users.add(user);
-
+		Mediator.users.add(user);
+		System.out.println(user.getNickname() + " is added.");
 	}
 
 }

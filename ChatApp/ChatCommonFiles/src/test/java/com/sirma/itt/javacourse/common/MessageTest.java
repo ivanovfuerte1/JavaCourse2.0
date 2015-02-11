@@ -10,7 +10,7 @@ import org.junit.Test;
 public class MessageTest {
 
 	/**
-	 * Tests the methods setMessageContents and getMessageContents with sample value.
+	 * Tests the methods setMessageContents and getMessageContents with a sample value.
 	 */
 	@Test
 	public void testMessageContents() {
@@ -22,7 +22,7 @@ public class MessageTest {
 	}
 
 	/**
-	 * Tests the methods setNickname and getNickname with sample value.
+	 * Tests the methods setNickname and getNickname with a sample value.
 	 */
 	@Test
 	public void testNickname() {
@@ -34,7 +34,7 @@ public class MessageTest {
 	}
 
 	/**
-	 * Tests the methods setType and getType with sample value.
+	 * Tests the methods setType and getType with a sample value.
 	 */
 	@Test
 	public void testType() {

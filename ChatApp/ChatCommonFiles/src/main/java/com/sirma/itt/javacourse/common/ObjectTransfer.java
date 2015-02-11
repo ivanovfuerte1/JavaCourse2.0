@@ -16,7 +16,6 @@ public class ObjectTransfer {
 	private Socket socket;
 	private ObjectOutputStream objectOutputStream;
 	private ObjectInputStream objectInputStream;
-
 	private static final Logger LOGGER = LogManager.getLogger(ObjectTransfer.class);
 
 	/**
@@ -33,6 +32,7 @@ public class ObjectTransfer {
 			objectInputStream = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			LOGGER.error("An input-output operation is failed or interrupted", e);
+			// VIEW SHOULD BE UPDATED SOMEHOW
 		}
 	}
 
@@ -45,7 +45,7 @@ public class ObjectTransfer {
 			objectOutputStream.close();
 			socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("An input-output operation is failed or interrupted", e);
 		}
 	}
 
