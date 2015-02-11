@@ -8,7 +8,7 @@ import com.sirma.itt.javacourse.common.User;
  * current client.
  */
 public class UserImplementation extends User {
-	private ClientView frame;
+	private ClientCommunicationFrame frame;
 
 	/**
 	 * Constructs an object of the class {@link UserImplementation} assigning a frame for
@@ -21,7 +21,7 @@ public class UserImplementation extends User {
 	 * @param frame
 	 *            the communication frame of the current client
 	 */
-	public UserImplementation(MediatorInterface mediatorInterface, String nickname, ClientView frame) {
+	public UserImplementation(MediatorInterface mediatorInterface, String nickname, ClientCommunicationFrame frame) {
 		super(mediatorInterface, nickname);
 		this.frame = frame;
 	}

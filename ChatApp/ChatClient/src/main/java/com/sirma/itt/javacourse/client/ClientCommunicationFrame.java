@@ -25,21 +25,15 @@ import com.sirma.itt.javacourse.common.Language;
 import com.sirma.itt.javacourse.common.ObjectTransfer;
 
 /**
- * The class {@link ClientConnectorFrame} contains methods for initializing the components of the
+ * The class {@link ClientConnectionFrame} contains methods for initializing the components of the
  * window for connecting clients to the server.
  */
-public class ClientView extends JFrame {
+public class ClientCommunicationFrame extends JFrame {
 	private static final long serialVersionUID = -7691477458517408418L;
 	private JTextField inputTextField;
 	private JTextArea listOfClients;
 	private JTextField outputTextField;
-	// private Message message;
-
-	private ClientWriteThread communication;
-
-	// private OriginatorChat originatorChat = new OriginatorChat();
-	// private CareTakerChat careTakerChat = new CareTakerChat();
-	// private int counter = 0;
+	private ClientCommunicationThread clientCommunicationThread;
 	private ResourceBundle messages = Language.getMessages();
 
 	/**
@@ -50,11 +44,10 @@ public class ClientView extends JFrame {
 	 * @param objectTransfer
 	 *            the object containing the streams of the socket of the current client
 	 */
-	public ClientView(String nickname, ObjectTransfer objectTransfer) {
+	public ClientCommunicationFrame(String nickname, ObjectTransfer objectTransfer) {
 		initComponents();
-		communication = new ClientWriteThread(nickname, objectTransfer);
-		communication.start();
-		new ClientReadThread(this, objectTransfer).start();
+		clientCommunicationThread = new ClientCommunicationThread(this, objectTransfer, nickname);
+		clientCommunicationThread.start();
 	}
 
 	/**
@@ -97,7 +90,6 @@ public class ClientView extends JFrame {
 		add(inputTextField);
 		inputTextField.setDocument(new JTextFieldLimit(200));
 		// THIS REGEX CAN ALSO BE USED WITH IF ^.{200}$
-		// inputTextField.addKeyListener(this);
 	}
 
 	/**
@@ -115,10 +107,9 @@ public class ClientView extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				String tempText = inputTextField.getText();
 				if (tempText.length() > 0) {
-					tempText = Character.toUpperCase(tempText.charAt(0))
-							+ tempText.substring(1, tempText.length());
+					tempText = Character.toUpperCase(tempText.charAt(0)) + tempText.substring(1);
 				}
-				communication.setMessage(tempText);
+				clientCommunicationThread.sendMessage(tempText);
 				inputTextField.setText(ConstantsChat.EMPTY_STRING);
 			}
 		});
@@ -140,11 +131,8 @@ public class ClientView extends JFrame {
 	 * @param list
 	 *            the list of clients to set
 	 */
-	// THIS METHOD HAS TO BE IMPROVED IN ORDER TO ENABLE REMOVING OF CLIENTS.
 	public void setListOfClientsContent(String list) {
-		// if (list.length() > listOfClients.getText().length()) {
 		listOfClients.setText(list);
-		// }
 	}
 
 	/**
@@ -170,11 +158,6 @@ public class ClientView extends JFrame {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		String currentMessage = messageInString;
 		currentMessage = "[" + dateFormat.format(date) + "] " + messageInString;
-
-		// originatorChat.setState(currentMessage);
-		// careTakerChat.add(originatorChat.saveStateToMemento());
-		// counter++;
-
 		outputTextField.setText(currentMessage);
 	}
 
@@ -193,32 +176,9 @@ public class ClientView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				communication.disconnectClient();
+				clientCommunicationThread.disconnectClient();
 			}
 		});
 	}
 
-	// @Override
-	// public void keyTyped(KeyEvent e) {
-	// }
-	//
-	// @Override
-	// public void keyPressed(KeyEvent e) {
-	// if (e.getKeyCode() == KeyEvent.VK_DOWN
-	// && counter < careTakerChat.getMementoList().size() - 1) {
-	// originatorChat.getStateFromMemento(careTakerChat.get(++counter));
-	// String result = originatorChat.getState();
-	// outputTextField.setText(ConstantsChat.EMPTY_STRING);
-	// outputTextField.setText(result);
-	// } else if (e.getKeyCode() == KeyEvent.VK_UP && counter > 0) {
-	// originatorChat.getStateFromMemento(careTakerChat.get(--counter));
-	// String result = originatorChat.getState();
-	// outputTextField.setText(ConstantsChat.EMPTY_STRING);
-	// outputTextField.setText(result);
-	// }
-	// }
-	//
-	// @Override
-	// public void keyReleased(KeyEvent e) {
-	// }
 }

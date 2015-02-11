@@ -20,33 +20,26 @@ import com.sirma.itt.javacourse.common.ConstantsChat;
 import com.sirma.itt.javacourse.common.Language;
 
 /**
- * The class {@link ClientConnectorFrame} contains methods for sending messages to and receiving
- * them from a server.
+ * The class {@link ClientConnectionFrame} contains methods for displaying a connection window for a
+ * chat client.
  */
-public class ClientConnectorFrame extends JFrame
-/* implements ActionListener implements KeyListener */
-{
-
+public class ClientConnectionFrame extends JFrame implements FocusListener, ActionListener {
 	private static final long serialVersionUID = -1488415918830598890L;
 	private JTextField inputTextField;
 	private JTextField outputTextField;
 	private JButton sendBtn;
 	private static final Pattern NICKNAME_PATTERN = Pattern.compile("[\\w\\d!@#$%^&*()_+]{3,12}");
-	// private MediatorInterface mediatorInterface = new Mediator();
 	private ResourceBundle messages = Language.getMessages();
-	private RunMediatorClient runMediatorClient;
-
-	// private OriginatorChat originatorChat = new OriginatorChat();
-	// private CareTakerChat careTakerChat = new CareTakerChat();
-	// private int counter = 0;
+	private ClientConnectionThread clientConnectionThread;
 
 	/**
-	 * Creates an object of {@link ClientConnectorFrame}.
+	 * Creates an object of {@link ClientConnectionFrame} initializing the components of its window
+	 * and starting a thread for connection.
 	 */
-	public ClientConnectorFrame() {
+	public ClientConnectionFrame() {
 		initComponents();
-		runMediatorClient = new RunMediatorClient(this);
-		runMediatorClient.start();
+		clientConnectionThread = new ClientConnectionThread(null, null, this);
+		new Thread(clientConnectionThread).start();
 	}
 
 	/**
@@ -79,23 +72,12 @@ public class ClientConnectorFrame extends JFrame
 	 */
 	private void setInputTextField() {
 		inputTextField = new JTextField(ConstantsChat.SUGGESTING_MESSAGE);
-		inputTextField.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent e) {
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				inputTextField.setText(ConstantsChat.EMPTY_STRING);
-			}
-		});
+		inputTextField.addFocusListener(this);
 		inputTextField.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
 				ConstantsChat.FIRST_ROW_COMPONENT, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(inputTextField);
 		inputTextField.setFocusable(true);
-		// inputTextField.addKeyListener(this);
 	}
 
 	/**
@@ -107,31 +89,11 @@ public class ClientConnectorFrame extends JFrame
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);
-		// sendBtn.addActionListener(this);
-		sendBtn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				inputTextField.setFocusable(true);
-				String tempText = inputTextField.getText();
-				Matcher matcher = NICKNAME_PATTERN.matcher(tempText);
-				if (!matcher.matches()) {
-					setInfo("Nickname can not contain [ or ] and must have 3 to 12 symbols.");
-
-				} else {
-					runMediatorClient.setNickname(tempText);
-					runMediatorClient.notifyClient();
-				}
-				// originatorChat.setState(tempText);
-				// careTakerChat.add(originatorChat.saveStateToMemento());
-				// counter++;
-
-			}
-		});
+		sendBtn.addActionListener(this);
 	}
 
 	/**
-	 * 
+	 * Sets the output text field.
 	 */
 	private void setOutputTextField() {
 		outputTextField = new JTextField();
@@ -161,46 +123,44 @@ public class ClientConnectorFrame extends JFrame
 				ConstantsChat.THIRD_ROW_COMPONENT + 50, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(languageSelector);
-		languageSelector.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
-				String languagName = (String) languageSelector.getSelectedItem();
-				if ("Bulgarian".equals(languagName)) {
-					Language.setLocale(new Locale("bg", "BG"));
-					messages = Language.getMessages();
-				} else {
-					Language.setLocale(new Locale("en", "US"));
-					messages = Language.getMessages();
-				}
-				sendBtn.setText(messages.getString("connect"));
-			}
-		});
+		languageSelector.addActionListener(this);
 	}
 
-	// @Override
-	// public void keyTyped(KeyEvent e) {
-	// }
-	//
-	// @Override
-	// public void keyPressed(KeyEvent e) {
-	// if (e.getKeyCode() == KeyEvent.VK_DOWN
-	// && counter < careTakerChat.getMementoList().size() - 1) {
-	// originatorChat.getStateFromMemento(careTakerChat.get(++counter));
-	// String result = originatorChat.getState();
-	// inputTextField.setText(ConstantsChat.EMPTY_STRING);
-	// inputTextField.setText(result);
-	// } else if (e.getKeyCode() == KeyEvent.VK_UP && counter > 0) {
-	// originatorChat.getStateFromMemento(careTakerChat.get(--counter));
-	// String result = originatorChat.getState();
-	// inputTextField.setText(ConstantsChat.EMPTY_STRING);
-	// inputTextField.setText(result);
-	//
-	// }
-	// }
-	//
-	// @Override
-	// public void keyReleased(KeyEvent e) {
-	// }
+	@Override
+	public void focusGained(FocusEvent e) {
+		inputTextField.setText(ConstantsChat.EMPTY_STRING);
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() instanceof JButton) {
+			inputTextField.setFocusable(true);
+			String tempText = inputTextField.getText();
+			Matcher matcher = NICKNAME_PATTERN.matcher(tempText);
+			if (!matcher.matches()) {
+				setInfo("Nickname can not contain [ or ] and must have 3 to 12 symbols.");
+			} else {
+				clientConnectionThread.setNickname(tempText);
+				clientConnectionThread.notifyClient();
+			}
+		} else {
+			JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
+			String languagName = (String) languageSelector.getSelectedItem();
+			if ("Bulgarian".equals(languagName)) {
+				Language.setLocale(new Locale("bg", "BG"));
+				messages = Language.getMessages();
+			} else {
+				Language.setLocale(new Locale("en", "US"));
+				messages = Language.getMessages();
+			}
+			sendBtn.setText(messages.getString("connect"));
+		}
+	}
 
 }
