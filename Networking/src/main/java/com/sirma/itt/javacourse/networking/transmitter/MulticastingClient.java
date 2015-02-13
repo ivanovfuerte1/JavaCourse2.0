@@ -11,7 +11,7 @@ import java.net.MulticastSocket;
  */
 public class MulticastingClient extends Thread {
 	private Client client;
-	private int channel = 0;
+	private int channel = 3;
 	private MulticastSocket multicastSocket;
 
 	/**

@@ -36,6 +36,11 @@ public class JTextFieldLimit extends PlainDocument {
 		}
 	}
 
+	@Override
+	public int getLength() {
+		return super.getLength();
+	}
+
 	/**
 	 * Getter method for limit.
 	 *

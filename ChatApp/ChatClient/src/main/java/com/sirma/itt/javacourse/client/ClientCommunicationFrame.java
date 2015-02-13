@@ -3,8 +3,6 @@ package com.sirma.itt.javacourse.client;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,13 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-// import com.sirma.itt.javacourse.chat.client.CareTakerChat;
-// import com.sirma.itt.javacourse.chat.client.OriginatorChat;
 
+import com.sirma.itt.javacourse.common.CareTaker;
 import com.sirma.itt.javacourse.common.ConstantsChat;
 import com.sirma.itt.javacourse.common.JTextFieldLimit;
 import com.sirma.itt.javacourse.common.Language;
+import com.sirma.itt.javacourse.common.MementoKeyListener;
 import com.sirma.itt.javacourse.common.ObjectTransfer;
+import com.sirma.itt.javacourse.common.Originator;
 
 /**
  * The class {@link ClientConnectionFrame} contains methods for initializing the components of the
@@ -35,6 +34,10 @@ public class ClientCommunicationFrame extends JFrame {
 	private JTextField outputTextField;
 	private ClientCommunicationThread clientCommunicationThread;
 	private ResourceBundle messages = Language.getMessages();
+	private CommunicationListener communicationListener = new CommunicationListener(this);
+	private Originator originator = new Originator();
+	private int counter = 0;
+	private CareTaker careTaker = new CareTaker();
 
 	/**
 	 * Constructs a new frame for the current client.
@@ -59,10 +62,10 @@ public class ClientCommunicationFrame extends JFrame {
 		setLayout(new FlowLayout());
 
 		setContentPane();
+		setOutputText();
 		setInputText();
 		setSendBtn();
 		setListOfClientsText();
-		setOutputText();
 		setDisconnectBtn();
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -90,6 +93,9 @@ public class ClientCommunicationFrame extends JFrame {
 		add(inputTextField);
 		inputTextField.setDocument(new JTextFieldLimit(200));
 		// THIS REGEX CAN ALSO BE USED WITH IF ^.{200}$
+		inputTextField.addKeyListener(new MementoKeyListener(careTaker, counter, originator,
+				outputTextField));
+		// inputTextField.addKeyListener(this);
 	}
 
 	/**
@@ -98,21 +104,11 @@ public class ClientCommunicationFrame extends JFrame {
 	public void setSendBtn() {
 		JButton sendBtn = new JButton();
 		sendBtn.setText(messages.getString("send"));
+		sendBtn.setName("sendBtn");
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);
-		sendBtn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				String tempText = inputTextField.getText();
-				if (tempText.length() > 0) {
-					tempText = Character.toUpperCase(tempText.charAt(0)) + tempText.substring(1);
-				}
-				clientCommunicationThread.sendMessage(tempText);
-				inputTextField.setText(ConstantsChat.EMPTY_STRING);
-			}
-		});
+		sendBtn.addActionListener(communicationListener);
 	}
 
 	/**
@@ -159,6 +155,10 @@ public class ClientCommunicationFrame extends JFrame {
 		String currentMessage = messageInString;
 		currentMessage = "[" + dateFormat.format(date) + "] " + messageInString;
 		outputTextField.setText(currentMessage);
+
+		originator.setState(currentMessage);
+		careTaker.add(originator.saveStateToMemento());
+		counter++;
 	}
 
 	/**
@@ -171,14 +171,67 @@ public class ClientCommunicationFrame extends JFrame {
 				ConstantsChat.THIRD_ROW_COMPONENT + 250, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(disconnect);
-		disconnect.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				clientCommunicationThread.disconnectClient();
-			}
-		});
+		disconnect.addActionListener(communicationListener);
 	}
 
+	/**
+	 * 
+	 */
+	public void send() {
+		String tempText = inputTextField.getText();
+		if (tempText.length() > 0) {
+			tempText = Character.toUpperCase(tempText.charAt(0)) + tempText.substring(1);
+		}
+		clientCommunicationThread.sendMessage(tempText);
+		inputTextField.setText(ConstantsChat.EMPTY_STRING);
+	}
+
+	/**
+	 * 
+	 */
+	public void disconnect() {
+		dispose();
+		clientCommunicationThread.disconnectClient();
+	}
+
+	/**
+	 * Getter method for inputTextField.
+	 *
+	 * @return the inputTextField
+	 */
+	public JTextField getInputTextField() {
+		return inputTextField;
+	}
+
+	/**
+	 * Getter method for clientCommunicationThread.
+	 *
+	 * @return the clientCommunicationThread
+	 */
+	public ClientCommunicationThread getClientCommunicationThread() {
+		return clientCommunicationThread;
+	}
+
+	// @Override
+	// public void keyTyped(KeyEvent e) {
+	// }
+	//
+	// @Override
+	// public void keyPressed(KeyEvent e) {
+	// if (e.getKeyCode() == KeyEvent.VK_DOWN && counter < careTaker.getMementoList().size() - 1) {
+	// originator.getStateFromMemento(careTaker.get(++counter));
+	// String result = originator.getState();
+	// outputTextField.setText(ConstantsChat.EMPTY_STRING);
+	// outputTextField.setText(result);
+	// } else if (e.getKeyCode() == KeyEvent.VK_UP && counter > 0) {
+	// originator.getStateFromMemento(careTaker.get(--counter));
+	// String result = originator.getState();
+	// outputTextField.setText(ConstantsChat.EMPTY_STRING);
+	// outputTextField.setText(result);
+	// }
+	// }
+	//
+	// @Override
+	// public void keyReleased(KeyEvent e) {
+	// }
 }

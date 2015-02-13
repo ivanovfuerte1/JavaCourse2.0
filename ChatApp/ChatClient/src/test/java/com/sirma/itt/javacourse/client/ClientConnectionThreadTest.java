@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.sirma.itt.javacourse.common.MediatorInterface;
-
 /**
  * The class {@link ClientConnectionThreadTest} contains tests for the class
  * {@link ClientConnectionThread}.
@@ -17,8 +15,6 @@ public class ClientConnectionThreadTest {
 	@Mock
 	private ClientConnectionFrame clinetConnectionFrame;
 	private ClientConnectionThread clientConnectionThread;
-	@Mock
-	private MediatorInterface mediatorInterface;
 	private String nickname = "abc";
 
 	/**
@@ -26,8 +22,7 @@ public class ClientConnectionThreadTest {
 	 */
 	@Before
 	public void setUp() {
-		clientConnectionThread = new ClientConnectionThread(mediatorInterface, nickname,
-				clinetConnectionFrame);
+		clientConnectionThread = new ClientConnectionThread(clinetConnectionFrame);
 	}
 
 	/**
@@ -35,6 +30,7 @@ public class ClientConnectionThreadTest {
 	 */
 	@Test
 	public void testGetNickname() {
+		clientConnectionThread.setNickname(nickname);
 		String expected = nickname;
 		String actual = clientConnectionThread.getNickname();
 		assertEquals(expected, actual);

@@ -1,9 +1,5 @@
 package com.sirma.itt.javacourse.client;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -23,14 +19,17 @@ import com.sirma.itt.javacourse.common.Language;
  * The class {@link ClientConnectionFrame} contains methods for displaying a connection window for a
  * chat client.
  */
-public class ClientConnectionFrame extends JFrame implements FocusListener, ActionListener {
+public class ClientConnectionFrame extends JFrame {
 	private static final long serialVersionUID = -1488415918830598890L;
 	private JTextField inputTextField;
+
 	private JTextField outputTextField;
 	private JButton sendBtn;
 	private static final Pattern NICKNAME_PATTERN = Pattern.compile("[\\w\\d!@#$%^&*()_+]{3,12}");
 	private ResourceBundle messages = Language.getMessages();
 	private ClientConnectionThread clientConnectionThread;
+	private ConnectionListener connectionListener = new ConnectionListener(this);
+	private JComboBox<?> languageSelector;
 
 	/**
 	 * Creates an object of {@link ClientConnectionFrame} initializing the components of its window
@@ -38,8 +37,7 @@ public class ClientConnectionFrame extends JFrame implements FocusListener, Acti
 	 */
 	public ClientConnectionFrame() {
 		initComponents();
-		clientConnectionThread = new ClientConnectionThread(null, null, this);
-		new Thread(clientConnectionThread).start();
+		clientConnectionThread = new ClientConnectionThread(this);
 	}
 
 	/**
@@ -72,7 +70,7 @@ public class ClientConnectionFrame extends JFrame implements FocusListener, Acti
 	 */
 	private void setInputTextField() {
 		inputTextField = new JTextField(ConstantsChat.SUGGESTING_MESSAGE);
-		inputTextField.addFocusListener(this);
+		inputTextField.addFocusListener(connectionListener);
 		inputTextField.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
 				ConstantsChat.FIRST_ROW_COMPONENT, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
@@ -89,7 +87,7 @@ public class ClientConnectionFrame extends JFrame implements FocusListener, Acti
 		sendBtn.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT, ConstantsChat.SECOND_ROW_COMPONENT,
 				ConstantsChat.COMPONENT_WIDTH, ConstantsChat.COMPONENT_HEIGHT);
 		add(sendBtn);
-		sendBtn.addActionListener(this);
+		sendBtn.addActionListener(connectionListener);
 	}
 
 	/**
@@ -118,49 +116,51 @@ public class ClientConnectionFrame extends JFrame implements FocusListener, Acti
 	 */
 	public void setLanguage() {
 		String[] languages = { "English", "Bulgarian" };
-		JComboBox<?> languageSelector = new JComboBox<String>(languages);
+		languageSelector = new JComboBox<String>(languages);
 		languageSelector.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
 				ConstantsChat.THIRD_ROW_COMPONENT + 50, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(languageSelector);
-		languageSelector.addActionListener(this);
+		languageSelector.addActionListener(connectionListener);
 	}
 
-	@Override
-	public void focusGained(FocusEvent e) {
-		inputTextField.setText(ConstantsChat.EMPTY_STRING);
-
+	/**
+	 * Setter method for inputTextField.
+	 *
+	 * @param text
+	 *            the inputTextField to set
+	 */
+	public void setInputTextFieldContent(String text) {
+		inputTextField.setText(text);
 	}
 
-	@Override
-	public void focusLost(FocusEvent e) {
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() instanceof JButton) {
-			inputTextField.setFocusable(true);
-			String tempText = inputTextField.getText();
-			Matcher matcher = NICKNAME_PATTERN.matcher(tempText);
-			if (!matcher.matches()) {
-				setInfo("Nickname can not contain [ or ] and must have 3 to 12 symbols.");
-			} else {
-				clientConnectionThread.setNickname(tempText);
-				clientConnectionThread.notifyClient();
-			}
+	/**
+	 * 
+	 */
+	public void connect() {
+		inputTextField.setFocusable(true);
+		String tempText = inputTextField.getText();
+		Matcher matcher = NICKNAME_PATTERN.matcher(tempText);
+		if (!matcher.matches()) {
+			setInfo("Nickname can not contain [ or ] and must have 3 to 12 symbols.");
 		} else {
-			JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
-			String languagName = (String) languageSelector.getSelectedItem();
-			if ("Bulgarian".equals(languagName)) {
-				Language.setLocale(new Locale("bg", "BG"));
-				messages = Language.getMessages();
-			} else {
-				Language.setLocale(new Locale("en", "US"));
-				messages = Language.getMessages();
-			}
-			sendBtn.setText(messages.getString("connect"));
+			clientConnectionThread.setNickname(tempText);
+			clientConnectionThread.sendUserInfo();
 		}
 	}
 
+	/**
+	 * 
+	 */
+	public void selectLanguage() {
+		String languagName = (String) languageSelector.getSelectedItem();
+		if ("Bulgarian".equals(languagName)) {
+			Language.setLocale(new Locale("bg", "BG"));
+			messages = Language.getMessages();
+		} else {
+			Language.setLocale(new Locale("en", "US"));
+			messages = Language.getMessages();
+		}
+		sendBtn.setText(messages.getString("connect"));
+	}
 }

@@ -53,17 +53,16 @@ public class ObjectTransfer {
 	 * Reads a message from server to client or vice versa.
 	 * 
 	 * @return the message read
+	 * @throws IOException
+	 *             a
 	 */
-	public Message readObject() {
-		Message message = null;
+	public Message readObject() throws IOException {
 		try {
-			message = (Message) objectInputStream.readObject();
+			return (Message) objectInputStream.readObject();
 		} catch (ClassNotFoundException e) {
-			LOGGER.error("no definition for the class with the specified name could be found", e);
-		} catch (IOException e) {
-			LOGGER.error("An input-output operation is failed or interrupted", e);
+			LOGGER.error("The class could not be casted", e);
 		}
-		return message;
+		return null;
 	}
 
 	/**

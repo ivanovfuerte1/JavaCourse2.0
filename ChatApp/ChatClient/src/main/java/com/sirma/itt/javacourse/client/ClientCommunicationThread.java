@@ -1,5 +1,10 @@
 package com.sirma.itt.javacourse.client;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.sirma.itt.javacourse.common.Message;
 import com.sirma.itt.javacourse.common.ObjectTransfer;
 
@@ -8,6 +13,7 @@ import com.sirma.itt.javacourse.common.ObjectTransfer;
  * their sender and content.
  */
 public class ClientCommunicationThread extends Thread {
+	private static final Logger LOGGER = LogManager.getLogger(ClientCommunicationThread.class);
 	private ClientCommunicationFrame clientCommunicatorFrame;
 	private ObjectTransfer objectTransfer;
 	private String nickname;
@@ -31,28 +37,47 @@ public class ClientCommunicationThread extends Thread {
 
 	@Override
 	public void run() {
-		Message listOfClients = objectTransfer.readObject();
-		clientCommunicatorFrame.setListOfClientsContent(listOfClients.getMessageContents());
-		while (true) {
-			Message message = objectTransfer.readObject();
-			if (message == null || "Stop reading".equals(message.getMessageContents())) {
-				break;
+		try {
+			while (true) {
+				Message message = objectTransfer.readObject();
+				if ("Stop reading".equals(message.getMessageContents())) {
+					break;
+				}
+				if ("textMessage".equals(message.getType())) {
+					clientCommunicatorFrame.setOutputFieldContent(message.getNickname() + ": "
+							+ message.getMessageContents());
+				}
+				if ("newUser".equals(message.getType())) {
+					clientCommunicatorFrame.setOutputFieldContent("A new client with "
+							+ message.getNickname() + " connected.");
+					clientCommunicatorFrame.setListOfClientsContent(message.getMessageContents());
+				}
+				if ("userList".equals(message.getType())) {
+					clientCommunicatorFrame.setListOfClientsContent(message.getMessageContents());
+				}
+				if ("userDisconnected".equals(message.getType())) {
+					clientCommunicatorFrame.setOutputFieldContent("Client " + message.getNickname()
+							+ " left.");
+					clientCommunicatorFrame.setListOfClientsContent(message.getMessageContents());
+				}
 			}
-			clientCommunicatorFrame.setOutputFieldContent(message.getNickname() + ": "
-					+ message.getMessageContents());
-			Message list = objectTransfer.readObject();
-			clientCommunicatorFrame.setListOfClientsContent(list.getMessageContents());
+		} catch (IOException e) {
+			LOGGER.error("There is no active connection", e);
+			clientCommunicatorFrame.setListOfClientsContent("");
+			clientCommunicatorFrame.setOutputFieldContent("There is no active connection");
 		}
 	}
 
 	/**
 	 * Sets the content for the message of the current thread.
 	 * 
-	 * @param message
+	 * @param text
 	 *            the content to set
 	 */
-	public synchronized void sendMessage(String message) {
-		objectTransfer.writeObject(new Message(nickname, message));
+	public synchronized void sendMessage(String text) {
+		Message message = new Message(nickname, text);
+		message.setType("textMessage");
+		objectTransfer.writeObject(message);
 	}
 
 	/**

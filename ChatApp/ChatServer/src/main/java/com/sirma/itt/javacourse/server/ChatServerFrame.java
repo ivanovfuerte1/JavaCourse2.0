@@ -1,7 +1,5 @@
 package com.sirma.itt.javacourse.server;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +26,8 @@ public class ChatServerFrame extends JFrame {
 	private JButton stopServer;
 	private ChatServerThread serverThread;
 	private ResourceBundle messages = Language.getMessages();
+	private ServerListener serverListener = new ServerListener(this);
+	private JComboBox<?> languageSelector;
 
 	/**
 	 * Constructs an object of {@link ChatServerFrame}.
@@ -46,7 +46,6 @@ public class ChatServerFrame extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(ConstantsChat.WINDOW_X_POSITION, ConstantsChat.SERVER_WINDOW_Y_POSITION,
 				ConstantsChat.WINDOW_WIDTH, ConstantsChat.WINDOW_HEIGHT);
-		// INCREASE WIDTH
 		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -78,11 +77,6 @@ public class ChatServerFrame extends JFrame {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		String currentMessage = text;
 		currentMessage = "[" + dateFormat.format(date) + "] " + text;
-
-		// originatorChat.setState(currentMessage);
-		// careTakerChat.add(originatorChat.saveStateToMemento());
-		// counter++;
-
 		tempTextField.setText(currentMessage);
 	}
 
@@ -96,12 +90,7 @@ public class ChatServerFrame extends JFrame {
 				ConstantsChat.SECOND_ROW_COMPONENT, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(stopServer);
-		stopServer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				tempTextField.setText(messages.getString("serverStopped"));
-				serverThread.stopServer();
-			}
-		});
+		stopServer.addActionListener(serverListener);
 	}
 
 	/**
@@ -110,26 +99,35 @@ public class ChatServerFrame extends JFrame {
 	public void setLanguage() {
 
 		String[] languages = { "English", "Bulgarian" };
-		JComboBox<?> languageSelector = new JComboBox<String>(languages);
+		languageSelector = new JComboBox<String>(languages);
 		languageSelector.setBounds(ConstantsChat.FIRST_COLUMN_COMPONENT,
 				ConstantsChat.THIRD_ROW_COMPONENT, ConstantsChat.COMPONENT_WIDTH,
 				ConstantsChat.COMPONENT_HEIGHT);
 		add(languageSelector);
-		languageSelector.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JComboBox<?> languageSelector = (JComboBox<?>) e.getSource();
-				String languagName = (String) languageSelector.getSelectedItem();
-				if ("Bulgarian".equals(languagName)) {
-					Language.setLocale(new Locale("bg", "BG"));
-					messages = Language.getMessages();
-				} else {
-					Language.setLocale(new Locale("en", "US"));
-					messages = Language.getMessages();
-				}
-				stopServer.setText(messages.getString("stopServer"));
-			}
-		});
+		languageSelector.addActionListener(serverListener);
+	}
+
+	/**
+	 * 
+	 */
+	public void closeConnection() {
+		tempTextField.setText(messages.getString("serverStopped"));
+		serverThread.stopServer();
+	}
+
+	/**
+	 * 
+	 */
+	public void selectLanguage() {
+		String languagName = (String) languageSelector.getSelectedItem();
+		if ("Bulgarian".equals(languagName)) {
+			Language.setLocale(new Locale("bg", "BG"));
+			messages = Language.getMessages();
+		} else {
+			Language.setLocale(new Locale("en", "US"));
+			messages = Language.getMessages();
+		}
+		stopServer.setText(messages.getString("stopServer"));
 	}
 
 }
