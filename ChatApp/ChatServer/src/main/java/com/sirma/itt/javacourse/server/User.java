@@ -8,57 +8,56 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.sirma.itt.javacourse.common.ConstantsChat;
 import com.sirma.itt.javacourse.common.Language;
 import com.sirma.itt.javacourse.common.Message;
 import com.sirma.itt.javacourse.common.ObjectTransfer;
 
 /**
  * The class {@link User} contains a method for sending welcome message to a new client and
- * communicating all connected clients for the event.
+ * realizing communication with the other clients.
  */
 public class User implements Runnable {
 	private static final Logger LOGGER = LogManager.getLogger(User.class);
 	private ObjectTransfer objectTransfer;
 	private Map<String, ObjectTransfer> connectedClients;
-	private ResourceBundle messages = Language.getMessages();
-	private ChatServerThread chatServerThread;
+	private ChatServerModel chatServerModel;
 	private String nickname;
 
 	/**
 	 * Constructs a new object of the class {@link User} assigning values to its variables.
 	 * 
 	 * @param objectTransfer
-	 *            the socket of the current client
-	 * @param chatServerThread
+	 *            the object for manipulating the streams of the client
+	 * @param chatServerModel
 	 *            the frame of the server
-	 * @param clients
-	 *            a
+	 * @param connectedClients
+	 *            a map of the connected clients
 	 */
-	public User(ObjectTransfer objectTransfer, ChatServerThread chatServerThread,
-			Map<String, ObjectTransfer> clients) {
-		this.chatServerThread = chatServerThread;
+	public User(ObjectTransfer objectTransfer, ChatServerModel chatServerModel,
+			Map<String, ObjectTransfer> connectedClients) {
+		this.chatServerModel = chatServerModel;
 		this.objectTransfer = objectTransfer;
-		this.connectedClients = clients;
+		this.connectedClients = connectedClients;
 	}
 
 	@Override
 	public void run() {
 		boolean existentNickname = false;
-		Message welcomeMessage = new Message("", messages.getString("Welcome"));
+		ResourceBundle translation = Language.getTranslation();
+		Message welcomeMessage = new Message().attachContents(translation
+				.getString(ConstantsChat.WELCOME));
 		Message message;
 		Message connected = new Message();
+		welcomeMessage.setType(ConstantsChat.NEW_USER);
 		objectTransfer.writeObject(welcomeMessage);
-		welcomeMessage.setType("New client");
 		try {
 			while (true) {
 				message = objectTransfer.readObject();
 				nickname = message.getNickname();
 				for (String client : connectedClients.keySet()) {
 					if (client.equalsIgnoreCase(nickname)) {
-						// message.setMessageContents(nickname + " "
-						// + messages.getString("alreadyExists"));
-						// new IncorrectNicknameFrame().setVisible(true);
-						message.setType("Existent nickname");
+						message.setType(ConstantsChat.EXISTENT_NICKNAME);
 						objectTransfer.writeObject(message);
 						existentNickname = true;
 						break;
@@ -66,17 +65,14 @@ public class User implements Runnable {
 					existentNickname = false;
 				}
 				if (!existentNickname) {
-					// connected.setMessageContents("You are connected.");
-					chatServerThread.registerUser(objectTransfer, nickname);
+					chatServerModel.registerUser(objectTransfer, nickname);
 					break;
 				}
 			}
 			connectedClients.put(nickname, objectTransfer);
 			objectTransfer.writeObject(connected);
-			chatServerThread.getChatServerFrame().setTextFieldContent(
-					"Client " + nickname + " connected.");
 		} catch (IOException e) {
-			LOGGER.error("There is no active connection", e);
+			LOGGER.error(ConstantsChat.NO_ACTIVE_CONNECTION, e);
 		}
 		communicate();
 	}
@@ -84,48 +80,21 @@ public class User implements Runnable {
 	/**
 	 * Realizes the communication among clients as well as sending the list of clients.
 	 */
-	private void communicate() {
-
-		// Message listOfClients = makeListOfClients();
-		// listOfClients.setType("userList");
-		// objectTransfer.writeObject(listOfClients);
+	public void communicate() {
 		try {
 			while (true) {
 				Message message = objectTransfer.readObject();
-				// if (message == null || "Stop thread".equals(message.getMessageContents())) {
-				// chatServerThread.getChatServerFrame().setTextFieldContent(
-				// "Client " + nickname + " disconnected.");
-				// connectedClients.remove(objectTransfer);
-				// objectTransfer.writeObject(new Message("", "Stop reading"));
-				// break;
-				// }
 				for (Entry<String, ObjectTransfer> client : connectedClients.entrySet()) {
-					if ("textMessage".equals(message.getType())) {
+					if (ConstantsChat.TEXT_MESSAGE.equals(message.getType())) {
 						client.getValue().writeObject(message);
 					}
 				}
 			}
 		} catch (IOException e) {
-			LOGGER.error("There is no active connection", e);
-			chatServerThread.unregisterUser(objectTransfer, nickname);
+			LOGGER.error(ConstantsChat.NO_ACTIVE_CONNECTION, e);
+			chatServerModel.unregisterUser(objectTransfer, nickname);
 			connectedClients.remove(nickname);
 		}
 
 	}
-
-	// /**
-	// * Makes a list of clients and assigns it to the contents of a message.
-	// *
-	// * @return a message containing the actual list of clients
-	// */
-	// private Message makeListOfClients() {
-	// StringBuilder stringBuilder = new StringBuilder();
-	// for (String nickname : connectedClients.keySet()) {
-	// stringBuilder.append(nickname);
-	// stringBuilder.append(ConstantsChat.LINE_SEPARATOR);
-	// }
-	// Message listOfClients = new Message();
-	// listOfClients.setMessageContents(stringBuilder.toString());
-	// return listOfClients;
-	// }
 }

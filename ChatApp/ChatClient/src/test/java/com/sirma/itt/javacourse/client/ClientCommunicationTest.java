@@ -13,89 +13,103 @@ import com.sirma.itt.javacourse.common.Message;
 import com.sirma.itt.javacourse.common.ObjectTransfer;
 
 /**
+ * The class {@link ClientCommunicationTest} contains tests for the methods of the class
+ * {@link ClientCommunicationView}.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ClientCommunicationTest {
 	@Mock
-	private ClientCommunicationFrame clientCommunicatorFrame;
+	private ClientCommunicationView clientCommunicatorView;
 	@Mock
 	private ObjectTransfer objectTransfer;
 	private String nickname = "123";
-	private ClientCommunicationThread clientCommunicationThread;
+	private ClientCommunicationModel clientCommunicationModel;
 
 	/**
-	 * 
+	 * Sets a client communication model with mocked parameters and a sample nickname.
 	 */
 	@Before
 	public void setUp() {
-		clientCommunicationThread = new ClientCommunicationThread(clientCommunicatorFrame,
+		clientCommunicationModel = new ClientCommunicationModel(clientCommunicatorView,
 				objectTransfer, nickname);
 	}
 
 	/**
+	 * Verifies the call to the method setOutputMessageAreaContent of the class
+	 * {@link ClientCommunicationView} for a message of type "textMessage".
+	 * 
 	 * @throws IOException
-	 *             a
+	 *             if an input-output operation is failed or interrupted
 	 */
 	@Test
-	public void test() throws IOException {
-		Message message = new Message(nickname, "abc");
+	public void testTextMessage() throws IOException {
+		Message message = new Message().attachNickname(nickname).attachContents("abc");
 		message.setType("textMessage");
 		Mockito.when(objectTransfer.readObject()).thenReturn(message);
 		Mockito.when(objectTransfer.readObject()).thenThrow(new IOException());
-		clientCommunicationThread.run();
-		Mockito.verify(clientCommunicatorFrame, Mockito.atLeastOnce()).setOutputFieldContent(
+		clientCommunicationModel.run();
+		Mockito.verify(clientCommunicatorView, Mockito.atLeastOnce()).setOutputMessageAreaContent(
 				Mockito.anyString());
 
 	}
 
 	/**
+	 * Verifies the call to the methods setListOfClientsContent and setOutputMessageAreaContent for
+	 * a message of type "newUser".
+	 * 
 	 * @throws IOException
-	 *             a
+	 *             if an input-output operation is failed or interrupted
 	 */
 	@Test
-	public void test2() throws IOException {
-		Message message = new Message(nickname, "abc");
+	public void testNewUser() throws IOException {
+		Message message = new Message().attachNickname(nickname).attachContents("abc");
 		message.setType("newUser");
 		Mockito.when(objectTransfer.readObject()).thenReturn(message);
 		Mockito.when(objectTransfer.readObject()).thenThrow(new IOException());
-		clientCommunicationThread.run();
-		Mockito.verify(clientCommunicatorFrame, Mockito.atLeastOnce()).setListOfClientsContent(
+		clientCommunicationModel.run();
+		Mockito.verify(clientCommunicatorView, Mockito.atLeastOnce()).setListOfClientsContent(
 				Mockito.anyString());
-		Mockito.verify(clientCommunicatorFrame, Mockito.atLeastOnce()).setOutputFieldContent(
+		Mockito.verify(clientCommunicatorView, Mockito.atLeastOnce()).setOutputMessageAreaContent(
 				Mockito.anyString());
 
 	}
 
 	/**
+	 * Verifies the call to the method setOutputMessageAreaContent of the class
+	 * {@link ClientCommunicationView} for a message of type "userList".
+	 * 
 	 * @throws IOException
-	 *             a
+	 *             if an input-output operation is failed or interrupted
 	 */
 	@Test
-	public void test3() throws IOException {
-		Message message = new Message(nickname, "abc");
+	public void testUserList() throws IOException {
+		Message message = new Message().attachNickname(nickname).attachContents("abc");
 		message.setType("userList");
 		Mockito.when(objectTransfer.readObject()).thenReturn(message);
 		Mockito.when(objectTransfer.readObject()).thenThrow(new IOException());
-		clientCommunicationThread.run();
-		Mockito.verify(clientCommunicatorFrame, Mockito.atLeastOnce()).setOutputFieldContent(
+		clientCommunicationModel.run();
+		Mockito.verify(clientCommunicatorView, Mockito.atLeastOnce()).setOutputMessageAreaContent(
 				Mockito.anyString());
 
 	}
 
 	/**
+	 * Verifies the call to the method setOutputMessageAreaContent of the class
+	 * {@link ClientCommunicationView} for a message of type "userDisconnected".
+	 * 
 	 * @throws IOException
-	 *             a
+	 *             if an input-output operation is failed or interrupted
 	 */
 	@Test
-	public void test4() throws IOException {
-		Message message = new Message(nickname, "abc");
+	public void testUserDisconnected() throws IOException {
+		Message message = new Message().attachNickname(nickname).attachContents("abc");
 		message.setType("userDisconnected");
 		Mockito.when(objectTransfer.readObject()).thenReturn(message);
 		Mockito.when(objectTransfer.readObject()).thenThrow(new IOException());
-		clientCommunicationThread.run();
-		Mockito.verify(clientCommunicatorFrame, Mockito.atLeastOnce()).setOutputFieldContent(
+		clientCommunicationModel.run();
+		Mockito.verify(clientCommunicatorView, Mockito.atLeastOnce()).setOutputMessageAreaContent(
 				Mockito.anyString());
-		Mockito.verify(clientCommunicatorFrame, Mockito.atLeastOnce()).setOutputFieldContent(
+		Mockito.verify(clientCommunicatorView, Mockito.atLeastOnce()).setListOfClientsContent(
 				Mockito.anyString());
 
 	}

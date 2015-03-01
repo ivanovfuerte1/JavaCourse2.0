@@ -16,77 +16,84 @@ import com.sirma.itt.javacourse.common.Message;
 import com.sirma.itt.javacourse.common.ObjectTransfer;
 
 /**
- * The class {@link ChatServerThread} contains a method for connecting new clients and saving them
- * to its list.
+ * The class {@link ChatServerModel} contains a method for connecting new clients and saving them to
+ * its list.
  */
-public class ChatServerThread extends Thread {
-	private static final Logger LOGGER = LogManager.getLogger(ChatServerThread.class);
+public class ChatServerModel extends Thread {
+	private static final Logger LOGGER = LogManager.getLogger(ChatServerModel.class);
 	private ServerSocket serverSocket;
-	private ChatServerFrame chatServerFrame;
+	private ChatServerView chatServerView;
 	private Map<String, ObjectTransfer> clients = new LinkedHashMap<>();
 	private List<ObjectTransfer> unregisteredUsers = new ArrayList<>();
 
 	/**
-	 * Constructs an object of {@link ChatServerThread}.
+	 * Constructs an object of {@link ChatServerModel}.
 	 * 
-	 * @param chatServerFrame
+	 * @param chatServerView
 	 *            the frame of the server
 	 */
-	public ChatServerThread(ChatServerFrame chatServerFrame) {
-		this.chatServerFrame = chatServerFrame;
+	public ChatServerModel(ChatServerView chatServerView) {
+		this.chatServerView = chatServerView;
 	}
 
 	@Override
 	public void run() {
 		try {
-			this.serverSocket = new ServerSocket(ConstantsChat.TARGET_PORT);
+			serverSocket = new ServerSocket(ConstantsChat.TARGET_PORT);
 			while (true) {
 				ObjectTransfer objectTransfer = new ObjectTransfer(serverSocket.accept());
 				unregisteredUsers.add(objectTransfer);
 				new Thread(new User(objectTransfer, this, clients)).start();
 			}
 		} catch (IOException e) {
-			LOGGER.error("An I/O operation is failed or interrupted", e);
+			LOGGER.error(ConstantsChat.INPUT_OUTPUT_FAIL, e);
 		}
 	}
 
 	/**
+	 * Registers a new client into the map of clients.
+	 * 
 	 * @param objectTransfer
-	 *            a
+	 *            the object for manipulating the streams of the client
 	 * @param nickname
-	 *            a
+	 *            the nickname of the client
 	 */
 	public void registerUser(ObjectTransfer objectTransfer, String nickname) {
 		clients.put(nickname, objectTransfer);
 		Message connectionMessage = new Message();
-		connectionMessage.setType("You are connected.");
+		connectionMessage.setType(ConstantsChat.YOU_ARE_CONNECTED);
 		objectTransfer.writeObject(connectionMessage);
+
 		Message message = makeListOfClients();
-		message.setType("userList");
+		message.setType(ConstantsChat.USER_LIST);
 		for (Entry<String, ObjectTransfer> client : clients.entrySet()) {
 			client.getValue().writeObject(message);
 		}
-		chatServerFrame.setTextFieldContent("Client " + nickname + " connected.");
-		chatServerFrame.setTextFieldContent("A new thread for " + nickname + " started.");
+		chatServerView.setInformationAreaContent(ConstantsChat.CLIENT + nickname
+				+ ConstantsChat.CONNECTED);
+		chatServerView.setInformationAreaContent(ConstantsChat.NEW_THREAD + nickname
+				+ ConstantsChat.STARTED);
 		unregisteredUsers.remove(objectTransfer);
 	}
 
 	/**
+	 * Removes a client from the list of clients.
+	 * 
 	 * @param objectTransfer
-	 *            a
+	 *            the object for manipulating the streams of the client
 	 * @param nickname
-	 *            a
+	 *            the nickname of the client
 	 */
 	public void unregisterUser(ObjectTransfer objectTransfer, String nickname) {
 		clients.remove(nickname);
 		Message message = makeListOfClients();
 		message.setNickname(nickname);
-		message.setType("userDisconnected");
+		message.setType(ConstantsChat.USER_DISCONNECTED);
 		for (Entry<String, ObjectTransfer> client : clients.entrySet()) {
 			client.getValue().writeObject(message);
 		}
-		chatServerFrame.setTextFieldContent("Client " + nickname + " disconnected.");
-
+		chatServerView.setInformationAreaContent(ConstantsChat.CLIENT + nickname
+				+ ConstantsChat.DISCONNECTED);
 	}
 
 	/**
@@ -102,7 +109,7 @@ public class ChatServerThread extends Thread {
 				objectTransfer.closeStreams();
 			}
 		} catch (IOException e) {
-			LOGGER.error("An I/O operation is failed or interrupted", e);
+			LOGGER.error(ConstantsChat.INPUT_OUTPUT_FAIL, e);
 		}
 	}
 
@@ -120,14 +127,5 @@ public class ChatServerThread extends Thread {
 		Message listOfClients = new Message();
 		listOfClients.setMessageContents(stringBuilder.toString());
 		return listOfClients;
-	}
-
-	/**
-	 * Getter method for chatServerFrame.
-	 *
-	 * @return the chatServerFrame
-	 */
-	public ChatServerFrame getChatServerFrame() {
-		return chatServerFrame;
 	}
 }

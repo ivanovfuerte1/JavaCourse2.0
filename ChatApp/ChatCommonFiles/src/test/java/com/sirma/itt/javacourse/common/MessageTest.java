@@ -39,7 +39,7 @@ public class MessageTest {
 	@Test
 	public void testType() {
 		String expected = "Some type";
-		Message message = new Message("", "");
+		Message message = new Message();
 		message.setType("Some type");
 		String actual = message.getType();
 		assertEquals(expected, actual);

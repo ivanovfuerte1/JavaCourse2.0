@@ -13,6 +13,6 @@ public final class RunChatClient {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		new ClientConnectionFrame().setVisible(true);
+		new ClientController();
 	}
 }

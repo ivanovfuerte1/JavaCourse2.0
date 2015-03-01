@@ -3,8 +3,8 @@ package com.sirma.itt.javacourse.common;
 import java.io.Serializable;
 
 /**
- * The class {@link Message} contains methods for setting and getting the nickname of the sender and
- * contents of the message.
+ * The class {@link Message} contains methods for setting and getting the nickname of the sender,
+ * contents of the message and its type.
  */
 public class Message implements Serializable {
 	private static final long serialVersionUID = -8391118387173751652L;
@@ -19,16 +19,39 @@ public class Message implements Serializable {
 	}
 
 	/**
-	 * Constructs an object of {@link Message} assigning nickname and contents to its variables.
+	 * Attaches nickname to the message.
 	 * 
 	 * @param nickname
-	 *            the nickname of the sender
-	 * @param messageContents
-	 *            the content of the message
+	 *            the nickname
+	 * @return the message with the nickname attached.
 	 */
-	public Message(String nickname, String messageContents) {
-		this.nickname = nickname;
-		this.messageContents = messageContents;
+	public Message attachNickname(String nickname) {
+		setNickname(nickname);
+		return this;
+	}
+
+	/**
+	 * Attaches contents to the message.
+	 * 
+	 * @param contents
+	 *            the contents of the message
+	 * @return the message with the contents attached
+	 */
+	public Message attachContents(String contents) {
+		setMessageContents(contents);
+		return this;
+	}
+
+	/**
+	 * Attaches type to the message.
+	 * 
+	 * @param type
+	 *            the type of the message
+	 * @return the message with the type attached
+	 */
+	public Message attachType(String type) {
+		setType(type);
+		return this;
 	}
 
 	/**

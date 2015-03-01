@@ -13,6 +13,6 @@ public final class RunChatServer {
 	 *            default arguments
 	 */
 	public static void main(String[] args) {
-		new ChatServerFrame().setVisible(true);
+		new ServerController();
 	}
 }

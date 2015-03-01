@@ -31,8 +31,7 @@ public class ObjectTransfer {
 			objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 			objectInputStream = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
-			LOGGER.error("An input-output operation is failed or interrupted", e);
-			// VIEW SHOULD BE UPDATED SOMEHOW
+			LOGGER.error(ConstantsChat.INPUT_OUTPUT_FAIL, e);
 		}
 	}
 
@@ -45,7 +44,7 @@ public class ObjectTransfer {
 			objectOutputStream.close();
 			socket.close();
 		} catch (IOException e) {
-			LOGGER.error("An input-output operation is failed or interrupted", e);
+			LOGGER.error(ConstantsChat.INPUT_OUTPUT_FAIL, e);
 		}
 	}
 
@@ -54,13 +53,13 @@ public class ObjectTransfer {
 	 * 
 	 * @return the message read
 	 * @throws IOException
-	 *             a
+	 *             if an input-output operation is failed or interrupted
 	 */
 	public Message readObject() throws IOException {
 		try {
 			return (Message) objectInputStream.readObject();
 		} catch (ClassNotFoundException e) {
-			LOGGER.error("The class could not be casted", e);
+			LOGGER.error(ConstantsChat.CLASS_NOT_CASTED, e);
 		}
 		return null;
 	}
@@ -74,9 +73,8 @@ public class ObjectTransfer {
 	public void writeObject(Message message) {
 		try {
 			objectOutputStream.writeObject(message);
-			objectOutputStream.flush();
 		} catch (IOException e) {
-			LOGGER.error("An input-output operation is failed or interrupted", e);
+			LOGGER.error(ConstantsChat.INPUT_OUTPUT_FAIL, e);
 		}
 	}
 

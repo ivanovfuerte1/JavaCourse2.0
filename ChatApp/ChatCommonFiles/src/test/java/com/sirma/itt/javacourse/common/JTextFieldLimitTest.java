@@ -15,7 +15,7 @@ public class JTextFieldLimitTest {
 	private JTextFieldLimit jTextFieldLimit;
 
 	/**
-	 * 
+	 * Sets a limit of the text field content.
 	 */
 	@Before
 	public void setUp() {
@@ -26,7 +26,7 @@ public class JTextFieldLimitTest {
 	 * Tests the method getLimit with sample value.
 	 */
 	@Test
-	public void test() {
+	public void testGetLimit() {
 		int expected = 3;
 		jTextFieldLimit = new JTextFieldLimit(3);
 		int actual = jTextFieldLimit.getLimit();
@@ -34,10 +34,10 @@ public class JTextFieldLimitTest {
 	}
 
 	/**
-	 * Tests the method getLimit with sample value.
+	 * Tests the method getLength with sample value.
 	 */
 	@Test
-	public void test2() {
+	public void testGetLength() {
 		try {
 			jTextFieldLimit.insertString(0, "abc", null);
 		} catch (BadLocationException e) {
@@ -47,10 +47,10 @@ public class JTextFieldLimitTest {
 	}
 
 	/**
-	 * Tests the method getLimit with sample value.
+	 * Tests the method getLength with a null parameter.
 	 */
 	@Test
-	public void test3() {
+	public void testGetZeroLength() {
 		try {
 			jTextFieldLimit.insertString(0, null, null);
 		} catch (BadLocationException e) {

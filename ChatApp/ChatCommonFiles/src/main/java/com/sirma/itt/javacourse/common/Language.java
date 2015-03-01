@@ -8,8 +8,9 @@ import java.util.ResourceBundle;
  * the chosen locale.
  */
 public final class Language {
-	private static Locale currentLocale = new Locale("en", "US");
-	private static ResourceBundle messages = ResourceBundle.getBundle("ChatBundle", currentLocale);
+	private static Locale currentLocale = new Locale(ConstantsChat.EN, ConstantsChat.US);
+	private static ResourceBundle translation = ResourceBundle.getBundle(ConstantsChat.CHAT_BUNDLE,
+			currentLocale);
 
 	/**
 	 * Constructs instance of the class.
@@ -24,9 +25,9 @@ public final class Language {
 	 *            the locale chosen for the messages to return
 	 */
 	public static void setLocale(Locale chosenLocale) {
-		synchronized (messages) {
+		synchronized (translation) {
 			Language.currentLocale = chosenLocale;
-			messages = ResourceBundle.getBundle("ChatBundle", currentLocale);
+			translation = ResourceBundle.getBundle(ConstantsChat.CHAT_BUNDLE, currentLocale);
 		}
 	}
 
@@ -35,7 +36,7 @@ public final class Language {
 	 * 
 	 * @return the messages for the chosen locale
 	 */
-	public static ResourceBundle getMessages() {
-		return messages;
+	public static ResourceBundle getTranslation() {
+		return translation;
 	}
 }

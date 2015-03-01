@@ -12,9 +12,9 @@ import javax.swing.JTextField;
 public class MementoKeyListener implements KeyListener {
 
 	private CareTaker careTaker;
-	private int counter;
+	private int counter = 0;
 	private Originator originator;
-	private JTextField outputTextField;
+	private JTextField inputTextField;
 
 	/**
 	 * Construct an object of the class {@link MementoKeyListener} assigning values to its
@@ -22,20 +22,16 @@ public class MementoKeyListener implements KeyListener {
 	 * 
 	 * @param careTaker
 	 *            the object for adding and returning container classes to its list of classes
-	 * @param counter
-	 *            counts the number of states of memento
 	 * @param originator
 	 *            the object for saving its variable in container class and assigning the value of a
 	 *            container class
-	 * @param outputTextField
-	 *            the text in the output field
+	 * @param inputTextField
+	 *            the input field
 	 */
-	public MementoKeyListener(CareTaker careTaker, int counter, Originator originator,
-			JTextField outputTextField) {
+	public MementoKeyListener(CareTaker careTaker, Originator originator, JTextField inputTextField) {
 		this.careTaker = careTaker;
-		this.counter = counter;
 		this.originator = originator;
-		this.outputTextField = outputTextField;
+		this.inputTextField = inputTextField;
 	}
 
 	/**
@@ -50,17 +46,23 @@ public class MementoKeyListener implements KeyListener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_DOWN && counter < careTaker.getMementoList().size() - 1) {
-			originator.getStateFromMemento(careTaker.get(++counter));
-			String result = originator.getState();
-			outputTextField.setText(ConstantsChat.EMPTY_STRING);
-			outputTextField.setText(result);
-		} else if (e.getKeyCode() == KeyEvent.VK_UP && counter > 0) {
-			originator.getStateFromMemento(careTaker.get(--counter));
-			String result = originator.getState();
-			outputTextField.setText(ConstantsChat.EMPTY_STRING);
-			outputTextField.setText(result);
+		if (e.getKeyCode() == KeyEvent.VK_DOWN && counter < careTaker.getMementoList().size()) {
+			setNewValue();
+			counter++;
+		} else if (e.getKeyCode() == KeyEvent.VK_UP && counter >= 0) {
+			if (counter != 0) {
+				counter--;
+			}
+			setNewValue();
 		}
+	}
+
+	/**
+	 * Sets a new value to the text field depending on the key pressed.
+	 */
+	private void setNewValue() {
+		originator.getStateFromMemento(careTaker.get(counter));
+		inputTextField.setText(originator.getState());
 	}
 
 	/**

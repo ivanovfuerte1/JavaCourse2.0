@@ -16,7 +16,7 @@ public class JTextFieldLimit extends PlainDocument {
 	 * the text.
 	 * 
 	 * @param limit
-	 *            the length of the text permitted for the current text field
+	 *            the length of the text permitted
 	 */
 	public JTextFieldLimit(int limit) {
 		super();

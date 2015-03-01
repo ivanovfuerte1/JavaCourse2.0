@@ -12,18 +12,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.sirma.itt.javacourse.common.ConstantsChat;
+
 /**
- * The class {@link IncorrectNicknameFrame} contains a method for initializing the components of a
+ * The class {@link IncorrectNicknameView} contains a method for initializing the components of a
  * frame designed to appear whenever the client inserts an invalid nickname.
  */
-public class IncorrectNicknameFrame extends JFrame {
+public class IncorrectNicknameView extends JFrame {
 	private static final long serialVersionUID = -5462590876030356943L;
-	private JPanel cards;
 
 	/**
 	 * Constructs a frame for the case user inserts incorrect nickname.
 	 */
-	public IncorrectNicknameFrame() {
+	public IncorrectNicknameView() {
 		initComponents();
 	}
 
@@ -31,7 +32,7 @@ public class IncorrectNicknameFrame extends JFrame {
 	 * Initializes the components of the frame for incorrect nickname.
 	 */
 	private void initComponents() {
-		JButton acceptBtn = new JButton("Accept");
+		JButton acceptBtn = new JButton(ConstantsChat.ACCEPT);
 		acceptBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -39,26 +40,25 @@ public class IncorrectNicknameFrame extends JFrame {
 			}
 		});
 
-		// Create the panel that contains the "cards".
-		cards = new JPanel(new CardLayout());
 		JPanel card1 = new JPanel();
+		JPanel cards = new JPanel(new CardLayout());
 		cards.add(card1);
 		card1.add(acceptBtn);
 		add(cards, BorderLayout.CENTER);
 
 		JPanel messagePane = new JPanel();
-		// use FlowLayout
-		JLabel errorMessage = new JLabel(
-				"<html><center>The nickname you entered already exists.<br>Try again.</center></html>");
+		JLabel errorMessage = new JLabel(ConstantsChat.EXISTING_NICKNAME);
 		messagePane.add(errorMessage);
 		add(messagePane, BorderLayout.PAGE_START);
 
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
-		setTitle("Error");
+
+		Dimension dimention = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(dimention.width / 2 - getSize().width / 2, dimention.height / 2
+				- getSize().height / 2);
+		setTitle(ConstantsChat.ERROR);
 		setAlwaysOnTop(true);
 	}
 
