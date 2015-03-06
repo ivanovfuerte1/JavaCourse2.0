@@ -41,22 +41,15 @@ public class ClientCommunicationModel extends Thread {
 		try {
 			while (true) {
 				Message message = objectTransfer.readObject();
-				if (ConstantsChat.STOP_READING.equals(message.getMessageContents())) {
-					break;
-				}
 				if (ConstantsChat.TEXT_MESSAGE.equals(message.getType())) {
 					clientCommunicatorView.setOutputMessageAreaContent(message.getNickname()
 							+ ConstantsChat.COLON + message.getMessageContents());
-				}
-				if (ConstantsChat.NEW_USER.equals(message.getType())) {
+				} else if (ConstantsChat.NEW_USER.equals(message.getType())) {
 					clientCommunicatorView.setOutputMessageAreaContent(ConstantsChat.CLIENT
 							+ message.getNickname() + ConstantsChat.CONNECTED);
+				} else if (ConstantsChat.USER_LIST.equals(message.getType())) {
 					clientCommunicatorView.setListOfClientsContent(message.getMessageContents());
-				}
-				if (ConstantsChat.USER_LIST.equals(message.getType())) {
-					clientCommunicatorView.setListOfClientsContent(message.getMessageContents());
-				}
-				if (ConstantsChat.USER_DISCONNECTED.equals(message.getType())) {
+				} else if (ConstantsChat.USER_DISCONNECTED.equals(message.getType())) {
 					clientCommunicatorView.setOutputMessageAreaContent(ConstantsChat.CLIENT
 							+ message.getNickname() + ConstantsChat.LEFT);
 					clientCommunicatorView.setListOfClientsContent(message.getMessageContents());

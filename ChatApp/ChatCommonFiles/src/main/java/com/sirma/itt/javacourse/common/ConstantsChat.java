@@ -8,14 +8,14 @@ public enum ConstantsChat {
 	};
 	public static final String SUGGESTING_MESSAGE = "EnterNickname";
 	public static final String CONNECT = "connect";
-	public static final String PERMITTED_NICKNAME = "[\\w\\d!@#$%^&*()_+]{3,12}";
+	public static final String PERMITTED_NICKNAME = "[^\\[\\]]+";
 	public static final String EN = "en";
 	public static final String US = "US";
 	public static final String BG2 = "bg";
 	public static final String BG = "BG";
 	public static final String BULGARIAN = "Bulgarian";
 	public static final String ENGLISH = "English";
-	public static final String INVALID_NICKNAME_INFO = "Nickname can not contain [ or ] and must have 3 to 12 symbols.";
+	public static final String INVALID_NICKNAME_INFO = "Nickname can not contain [ or ].";
 	public static final String INPUT_OUTPUT_FAIL = "A transfer operation is failed or interrupted.";
 	public static final String NO_ACTIVE_CONNECTION = "There is no active connection.";
 	public static final String LOCAL_HOST = "localhost";
@@ -38,7 +38,6 @@ public enum ConstantsChat {
 	public static final String USER_LIST = "userList";
 	public static final String NEW_USER = "newUser";
 	public static final String TEXT_MESSAGE = "textMessage";
-	public static final String STOP_READING = "Stop reading";
 	public static final String LEFT = " left.";
 	public static final String CLIENT = "Client ";
 	public static final String CONNECTED = " connected.";

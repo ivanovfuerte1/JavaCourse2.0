@@ -78,8 +78,7 @@ public class ClientConnectionModel {
 			clientConnectionView.setInfo(message.getMessageContents());
 			clientConnectionView.dispose();
 			return true;
-		}
-		if (ConstantsChat.EXISTENT_NICKNAME.equals(message.getType())) {
+		} else if (ConstantsChat.EXISTENT_NICKNAME.equals(message.getType())) {
 			clientConnectionView.setInfo(nickname + ConstantsChat.ALREADY_EXISTS);
 			new IncorrectNicknameView().setVisible(true);
 		}

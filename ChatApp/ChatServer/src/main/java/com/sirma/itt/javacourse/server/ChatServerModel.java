@@ -64,10 +64,15 @@ public class ChatServerModel extends Thread {
 		connectionMessage.setType(ConstantsChat.YOU_ARE_CONNECTED);
 		objectTransfer.writeObject(connectionMessage);
 
-		Message message = makeListOfClients();
-		message.setType(ConstantsChat.USER_LIST);
+		Message listOfClients = makeListOfClients().attachType(ConstantsChat.USER_LIST);
+		Message newClientMessage = new Message().attachNickname(nickname)
+				.attachContents(ConstantsChat.CLIENT + nickname + ConstantsChat.CONNECTED)
+				.attachType(ConstantsChat.NEW_USER);
 		for (Entry<String, ObjectTransfer> client : clients.entrySet()) {
-			client.getValue().writeObject(message);
+			client.getValue().writeObject(listOfClients);
+			if (client.getKey() != nickname) {
+				client.getValue().writeObject(newClientMessage);
+			}
 		}
 		chatServerView.setInformationAreaContent(ConstantsChat.CLIENT + nickname
 				+ ConstantsChat.CONNECTED);
